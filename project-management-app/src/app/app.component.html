@@ -1,7 +1,10 @@
-<app-header></app-header>
+<div class="flex flex-col h-screen">
+  <app-header></app-header>
 
-<main class="container mx-auto h-auto">
- <router-outlet></router-outlet>
-</main>
+  <main class="container mx-auto flex-grow">
+   <router-outlet></router-outlet>
+  </main>
+  
+  <app-footer></app-footer>
+</div>
 
-<app-footer></app-footer>

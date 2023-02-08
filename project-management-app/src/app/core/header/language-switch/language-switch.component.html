@@ -4,14 +4,14 @@
     </button>
     <ul class="dropdown-menu min-w-max absolute bg-white py-2" aria-labelledby="dropdownMenuButton1" [ngClass]="dropdowned ? '' : 'hidden'">
         <li (click)="switchEn()">
-        <a class="dropdown-item py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-red-600 hover:text-white" href="#">
+        <div class="dropdown-item py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-red-600 hover:text-white">
           EN
-        </a>
+        </div>
       </li>
       <li (click)="switchRu()">
-        <a class="dropdown-item py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-red-600 hover:text-white" href="#">
+        <div class="dropdown-item py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-red-600 hover:text-white">
           RU
-        </a>
+        </div>
       </li>
     </ul>
   </div>

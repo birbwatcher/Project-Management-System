@@ -10,6 +10,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { MainPageComponent } from './core/main-page/main-page.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
+import { DashboardComponent } from './boards/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PageNotFoundComponent } from './core/page-not-found/page-not-found.comp
     SigninComponent,
     SignupComponent,
     MainPageComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

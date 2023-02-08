@@ -1,10 +1,17 @@
 <header class="bg-gray-200">
     <div class="flex justify-between pt-7 pb-7 container mx-auto">
-      <a routerLink="/"><h2 class="font-bold text-2xl">PM Logo</h2></a>
+      <a routerLink="/"><h2 class="font-bold text-2xl  text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-600">RS Kanban APP</h2></a>
       <nav>
         <ul class="flex space-x-2">
-          <li><a routerLink="/sign-in" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600">Login</a></li>
-          <li><a routerLink="/sign-up" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600">Sign up</a></li>
+          <ng-template [ngIf]="logged===false">
+            <li><a routerLink="/sign-in" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Login</a></li>
+            <li><a routerLink="/sign-up" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign up</a></li>
+          </ng-template>
+          <ng-template [ngIf]="logged===true">
+            <li><a routerLink="/dashboard" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">+ Create New Board</a></li>
+            <li><a routerLink="/profile" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Edit Profile</a></li>
+            <li><a routerLink="/" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign out</a></li>
+          </ng-template>
           <li>
             <app-language-switch></app-language-switch>
           </li>

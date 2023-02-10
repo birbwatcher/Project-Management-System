@@ -1,6 +1,6 @@
 <div class="column flex flex-col basis p-2 m-3 w-60 bg-yellow-100 rounded-lg shadow-lg">
     <div class="flex justify-end">
-        <span>&#10006;</span>
+        <span (click)="removeColumn()">&#10006;</span>
     </div>
     <h3>{{column.title}}</h3>
     <app-card *ngFor="let item of tasks" [task]="item"></app-card>

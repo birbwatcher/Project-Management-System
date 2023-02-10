@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IColumn } from '../dashboard.component';
+import { DashboardComponent } from '../dashboard.component';
 
 export interface ICard {
   title: string;
@@ -16,13 +17,16 @@ export interface ICard {
 export class ColumnComponent {
   tasks: ICard[] = [];
 
- @Input()
-  column!: IColumn;
+ @Input() column!: IColumn;
+ @Output() onRemove = new EventEmitter<number>()
 
  constructor() {}
  
  addCard() {
   this.tasks.push({title: 'Card'})
-  console.log(this.tasks)
+ }
+
+ removeColumn() {
+  this.onRemove.emit(this.column.id)
  }
 }

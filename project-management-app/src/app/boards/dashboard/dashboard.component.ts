@@ -11,15 +11,16 @@ export interface IColumn {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  i = 1;
 
   columns: IColumn[] = [
   ];
 
   addColumn() {
-    this.columns.push({title: 'Todo3'})
+    this.columns.push({title: 'Todo3', id: this.i++})
   }
 
-  removeColumn(event:Event) {
-    console.log(event.target)
+  removeColumn(id: number) {
+    this.columns = this.columns.filter(item => item.id != id)
   }
 }

@@ -11,6 +11,9 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { MainPageComponent } from './core/main-page/main-page.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import { DashboardComponent } from './boards/dashboard/dashboard.component';
+import { BoardsListComponent } from './boards/boards-list/boards-list.component';
+import { ColumnComponent } from './boards/dashboard/column/column.component';
+import { CardComponent } from './boards/dashboard/card/card.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { DashboardComponent } from './boards/dashboard/dashboard.component';
     SignupComponent,
     MainPageComponent,
     PageNotFoundComponent,
-    DashboardComponent
+    DashboardComponent,
+    BoardsListComponent,
+    ColumnComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,

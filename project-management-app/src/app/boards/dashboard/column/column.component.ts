@@ -1,11 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { IColumn } from '../dashboard.component';
-import { DashboardComponent } from '../dashboard.component';
-
-export interface ICard {
-  title: string;
-  id?: number;
-}
+import { IBoard, IColumn } from '../../kanban.service';
+import { ITask } from '../../kanban.service';
+import { KanbanService } from '../../kanban.service';
 
 @Component({
   selector: 'app-column',
@@ -15,18 +11,31 @@ export interface ICard {
 
 
 export class ColumnComponent {
-  tasks: ICard[] = [];
+  i = 0;
+  // tasks: ITask[] = [];
 
  @Input() column!: IColumn;
- @Output() onRemove = new EventEmitter<number>()
 
- constructor() {}
- 
+ constructor(public someService:KanbanService) {
+}
  addCard() {
-  this.tasks.push({title: 'Card'})
+  this.someService.addTask({
+    id: Math.random().toString(16),
+    title: 'string',
+    order: this.i,
+    description: 'string',
+    userId: 'string',
+  },this.column.id)
+  this.i++
+  // console.log(this.tasks)
+ }
+
+ getColumnIndex() {
+  return this.someService.getColumnIndex(this.column.id)
  }
 
  removeColumn() {
-  this.onRemove.emit(this.column.id)
+  // console.log(this.column.id)
+  this.someService.removeColumn(this.column.id)
  }
 }

@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-
-export interface IColumn {
-  title: string;
-  id?: number;
-}
+import { ColumnComponent } from './column/column.component';
+import { KanbanService } from '../kanban.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,16 +8,31 @@ export interface IColumn {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
-  i = 1;
+  i = 0;
+  columns: ColumnComponent[] = [];
 
-  columns: IColumn[] = [
-  ];
+  constructor(public someService: KanbanService) {};
 
   addColumn() {
-    this.columns.push({title: 'Todo3', id: this.i++})
+    // this.columns.push(new ColumnComponent())
+    this.someService.addColumn(
+      {
+        id: Math.random().toString(16),
+        title: 'string',
+        order: this.i,
+        tasks: [],
+      }
+    )
+    this.i++;
   }
 
-  removeColumn(id: number) {
-    this.columns = this.columns.filter(item => item.id != id)
+  removeColumn(id: string) {
+    console.log()
+    this.someService.removeColumn(id);
+    // this.columns = this.columns.filter(item => item.id != id)
+  }
+
+  checkColumn() {
+    // console.log(this.columns);
   }
 }

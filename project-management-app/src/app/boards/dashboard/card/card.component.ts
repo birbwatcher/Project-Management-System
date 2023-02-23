@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ICard } from '../column/column.component';
+import { ITask } from '../../kanban.service';
 
 @Component({
   selector: 'app-card',
@@ -7,7 +7,12 @@ import { ICard } from '../column/column.component';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
+  @Input() task!:ITask;
 
-  @Input() task!:ICard;
+  constructor() {}
+
+  getCardId() {
+    console.log('Task id: ' + this.task)
+  }
 
 }

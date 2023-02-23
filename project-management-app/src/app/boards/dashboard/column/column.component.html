@@ -2,7 +2,7 @@
     <div class="flex justify-end">
         <span (click)="removeColumn()">&#10006;</span>
     </div>
-    <h3>{{column.title}}</h3>
-    <app-card *ngFor="let item of tasks" [task]="item"></app-card>
+    <h3>column</h3>
+    <app-card *ngFor="let i = index;let item of someService.boards[0].columns[getColumnIndex()].tasks"></app-card>
     <div class="task flex rounded-lg shadow-lg m-1 p-1 border border-dashed border-gray-900 cursor-pointer hover:bg-white" (click)="addCard()">+ Add a card</div>
 </div>

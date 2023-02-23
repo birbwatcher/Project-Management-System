@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { IBoard } from '../kanban.service';
 
 @Component({
   selector: 'app-boards-list',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./boards-list.component.scss']
 })
 export class BoardsListComponent {
+  @Input() newBoard!: IBoard;
 
+  constructor() {}
+
+  getBoard() {
+    // console.log(this.newBoard.id);
+  }
 }

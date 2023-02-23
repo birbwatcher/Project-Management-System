@@ -8,7 +8,7 @@
             <li><a routerLink="/sign-up" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign up</a></li>
           </ng-template>
           <ng-template [ngIf]="logged===true">
-            <li><a routerLink="/dashboard" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">+ Create New Board</a></li>
+            <li><button class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="addBoard()">+ Create New Board</button></li>
             <li><a routerLink="/profile" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Edit Profile</a></li>
             <li><a routerLink="/" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign out</a></li>
           </ng-template>
@@ -18,4 +18,13 @@
         </ul>
       </nav>
     </div>
+    <ng-template [ngIf]="logged===true">
+      <section class="bg-gray-100 py-3">
+        <div class="container mx-auto">
+            <ul class="flex">
+              <app-boards-list *ngFor="let item of someService.boards" [newBoard]="item"></app-boards-list>
+            </ul>
+        </div>
+    </section>
+    </ng-template>
   </header>

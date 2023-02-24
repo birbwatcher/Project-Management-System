@@ -28,6 +28,10 @@ export class HeaderComponent implements OnInit {
   }
  
   ngOnInit(): void {
-    this.addBoard()
+    // this.addBoard()
+  }
+
+  getBoardId() {
+    // this.someService.getBoardId()
   }
 }

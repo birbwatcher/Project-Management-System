@@ -14,11 +14,10 @@ export class DashboardComponent {
   constructor(public someService: KanbanService) {};
 
   addColumn() {
-    // this.columns.push(new ColumnComponent())
     this.someService.addColumn(
       {
         id: Math.random().toString(16),
-        title: 'string',
+        title: 'Column ' + this.i,
         order: this.i,
         tasks: [],
       }
@@ -27,9 +26,7 @@ export class DashboardComponent {
   }
 
   removeColumn(id: string) {
-    console.log()
     this.someService.removeColumn(id);
-    // this.columns = this.columns.filter(item => item.id != id)
   }
 
   checkColumn() {

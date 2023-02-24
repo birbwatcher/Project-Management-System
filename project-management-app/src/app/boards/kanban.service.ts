@@ -27,30 +27,37 @@ export interface IBoard {
 })
 export class KanbanService {
   boards:IBoard[] = [];
+  currentBoard = this.boards[0];
 
-  constructor() { }
+  constructor() {}
 
   addBoard(board:IBoard) {
     this.boards.push(board);
     console.log(this.boards);
   }
 
+  getBoard(id: number) {
+    let boardIndex = this.boards.findIndex(item => item.id === id)
+    this.currentBoard = this.boards[boardIndex];
+    console.log(this.currentBoard, 'this current board')
+  }
+
   addColumn(column:IColumn) {
-    this.boards[0].columns.push(column)
+    this.currentBoard.columns.push(column)
     console.log(this.boards);
   }
 
   getColumnIndex(columnId: string):number {
-    return this.boards[0].columns.findIndex(item => item.id === columnId);
+    return this.currentBoard.columns.findIndex(item => item.id === columnId);
   }
 
   removeColumn(id: string) {
-    this.boards[0].columns = this.boards[0].columns.filter(item => item.id != id)
+    this.currentBoard.columns = this.currentBoard.columns.filter(item => item.id != id)
   }
 
   addTask(task:ITask, columnId: string) {
-    const columnIndex = this.boards[0].columns.findIndex(item => item.id === columnId)
-    this.boards[0].columns[columnIndex].tasks.push(task)
+    const columnIndex = this.currentBoard.columns.findIndex(item => item.id === columnId)
+    this.currentBoard.columns[columnIndex].tasks.push(task)
     console.log(this.boards);
   }
 }

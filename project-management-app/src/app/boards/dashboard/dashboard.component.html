@@ -1,6 +1,8 @@
 <div class='board flex grow overflow-x-auto min-h-full '>
     <div class="columns flex grow">
-        <app-column *ngFor="let item of someService.boards[0].columns" [column]="item"></app-column>
-        <div class="column flex flex-col basis p-6 m-3 w-60 bg-gray-50 rounded-lg shadow-lg justify-center items-center text-gray-400 text-7xl cursor-pointer" (click)="addColumn()">+</div>
+        <ng-template [ngIf]="someService.currentBoard">
+            <app-column *ngFor="let item of someService.currentBoard.columns" [column]="item"></app-column>
+            <div class="column flex flex-col basis p-6 m-3 w-60 bg-gray-50 rounded-lg shadow-lg justify-center items-center text-gray-400 text-7xl cursor-pointer" (click)="addColumn()">+</div>
+        </ng-template>
     </div>
 </div>

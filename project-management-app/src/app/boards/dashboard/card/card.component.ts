@@ -11,8 +11,4 @@ export class CardComponent {
 
   constructor() {}
 
-  getCardId() {
-    console.log('Task id: ' + this.task)
-  }
-
 }

@@ -21,7 +21,7 @@ export class ColumnComponent {
  addCard() {
   this.someService.addTask({
     id: Math.random().toString(16),
-    title: 'string',
+    title: 'Task ' + this.i,
     order: this.i,
     description: 'string',
     userId: 'string',

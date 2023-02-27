@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ColumnComponent } from './column/column.component';
-import { KanbanService } from '../kanban.service';
+import { IColumn, KanbanService } from '../kanban.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-dashboard',
@@ -31,5 +32,10 @@ export class DashboardComponent {
 
   checkColumn() {
     // console.log(this.columns);
+  }
+
+  columnDrop(event: CdkDragDrop<IColumn[]>) {
+    moveItemInArray(this.someService.currentBoard.columns, event.previousIndex, event.currentIndex )
+
   }
 }

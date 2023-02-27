@@ -51,6 +51,12 @@ export class KanbanService {
     return this.currentBoard.columns.findIndex(item => item.id === columnId);
   }
 
+  getColumnTasks(id: string){
+    let columnIndex = this.currentBoard.columns.findIndex(item => item.id === id);
+    // console.log(this.currentBoard.columns[columnIndex].tasks, 'this one')
+    return this.currentBoard.columns[columnIndex].tasks
+  }
+
   removeColumn(id: string) {
     this.currentBoard.columns = this.currentBoard.columns.filter(item => item.id != id)
   }

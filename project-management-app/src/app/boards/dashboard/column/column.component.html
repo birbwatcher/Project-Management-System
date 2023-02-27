@@ -1,8 +1,10 @@
-<div class="column flex flex-col basis p-2 m-3 w-60 bg-yellow-100 rounded-lg shadow-lg">
+<div class="column flex flex-col basis p-2 m-3 w-60 bg-yellow-100 rounded-lg shadow-lg" cdkDropList [cdkDropListData]="getColumnTasks()" (cdkDropListDropped)="taskDrop($event)">
     <div class="flex justify-end">
         <span (click)="removeColumn()">&#10006;</span>
     </div>
     <h3>{{column.title}}</h3>
-    <app-card *ngFor="let item of someService.currentBoard.columns[getColumnIndex()].tasks" [task]="item"></app-card>
+    <div >
+        <app-card *ngFor="let item of someService.currentBoard.columns[getColumnIndex()].tasks" [task]="item" cdkDrag></app-card>
+    </div>
     <div class="task flex rounded-lg shadow-lg m-1 p-1 border border-dashed border-gray-900 cursor-pointer hover:bg-white" (click)="addCard()">+ Add a card</div>
 </div>

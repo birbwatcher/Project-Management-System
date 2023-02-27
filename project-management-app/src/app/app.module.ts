@@ -14,6 +14,7 @@ import { DashboardComponent } from './boards/dashboard/dashboard.component';
 import { BoardsListComponent } from './boards/boards-list/boards-list.component';
 import { ColumnComponent } from './boards/dashboard/column/column.component';
 import { CardComponent } from './boards/dashboard/card/card.component';
+import { DragDropModule} from '@angular/cdk/drag-drop'
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CardComponent } from './boards/dashboard/card/card.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

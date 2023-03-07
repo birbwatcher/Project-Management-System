@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ColumnComponent } from './column/column.component';
 import { IColumn, KanbanService } from '../kanban.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,9 @@ export class DashboardComponent {
   i = 0;
   columns: ColumnComponent[] = [];
 
-  constructor(public someService: KanbanService) {};
+  constructor(public someService: KanbanService,
+              public columnModal: ModalServiceService
+    ) {};
 
   addColumn() {
     this.someService.addColumn(

@@ -3,6 +3,9 @@ import { IBoard, IColumn } from '../../kanban.service';
 import { ITask } from '../../kanban.service';
 import { KanbanService } from '../../kanban.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
+import { Dialog } from '@angular/cdk/dialog';
+import { ModalWindowComponent } from 'src/app/core/modal/modal-window/modal-window.component';
 
 @Component({
   selector: 'app-column',
@@ -17,18 +20,22 @@ export class ColumnComponent {
 
  @Input() column!: IColumn;
 
- constructor(public someService:KanbanService) {
+ constructor(
+  public someService:KanbanService,
+  private modalService:ModalServiceService
+  ) {
 }
  addCard() {
-  this.someService.addTask({
-    id: Math.random().toString(16),
-    title: 'Task ' + this.i,
-    order: this.i,
-    description: 'string',
-    userId: 'string',
-  },this.column.id)
+  // this.someService.addTask({
+  //   id: Math.random().toString(16),
+  //   title: 'Task ' + this.i,
+  //   order: this.i,
+  //   description: 'string',
+  //   userId: 'string',
+  // },this.column.id)
   this.i++
   // console.log(this.tasks)
+  this.modalService.addTaskModal(this.column.id);
  }
 
  getColumnIndex() {
@@ -41,7 +48,8 @@ export class ColumnComponent {
 
  removeColumn() {
   // console.log(this.column.id)
-  this.someService.removeColumn(this.column.id)
+  // this.someService.removeColumn(this.column.id)
+  this.modalService.getModal(this.column.id);
  }
 
  taskDrop(event: CdkDragDrop<ITask[]>) {

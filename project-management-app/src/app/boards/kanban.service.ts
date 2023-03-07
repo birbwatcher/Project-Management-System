@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ModalServiceService } from '../core/modal/modal-service.service';
 
 export interface ITask {
   id: string,

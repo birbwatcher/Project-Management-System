@@ -9,14 +9,14 @@ import { KanbanService } from 'src/app/boards/kanban.service';
 })
 export class AddTaskModalComponent {
 
-  constructor(private kanbanService: KanbanService) {}
+  constructor() {}
 
   form = new FormGroup({
     title: new FormControl<string>('')
   })
 
   submit() {
-    console.log(this.form.value)
+    // console.log(this.form.value)
   }
 
 }

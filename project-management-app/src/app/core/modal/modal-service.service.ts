@@ -13,7 +13,47 @@ export class ModalServiceService {
               private kanbanService: KanbanService
     ) { }
 
-  getModal(id: string) {
+  addBoardModal() {
+    const dialogRef = this.matDialog.open(AddTaskModalComponent);
+
+    dialogRef.afterClosed().subscribe(formRes => {
+      if (!formRes) {
+        return
+      }
+      if (formRes.title.length > 0) {
+        this.kanbanService.addBoard(
+          {
+            title: formRes.title,
+            description: 'description',
+            id: 4,
+            columns: []
+          }
+        ) 
+      }
+    } )
+  }
+
+  addColModal(){
+    const dialogRef = this.matDialog.open(AddTaskModalComponent);
+
+    dialogRef.afterClosed().subscribe(formRes => {
+      if (!formRes) {
+        return
+      }
+      if (formRes.title.length > 0) {
+        this.kanbanService.addColumn(
+          {
+            id: Math.random().toString(16),
+            title: formRes.title,
+            order: 3,
+            tasks: [],
+          }
+        ) 
+      }
+    } )
+  }
+
+  remColModal(id: string) {
     const dialogRef = this.matDialog.open(ModalWindowComponent);
 
     dialogRef.afterClosed().subscribe(result => {
@@ -24,17 +64,22 @@ export class ModalServiceService {
   }
 
   addTaskModal(id: string) {
-    const dialogRef = this.matDialog.open(AddTaskModalComponent, {id});
-    
+    const dialogRef = this.matDialog.open(AddTaskModalComponent);
+
     dialogRef.afterClosed().subscribe(formRes => {
-      this.kanbanService.addTask(
+      if (!formRes) {
+        return
+      }
+      if (formRes.title.length > 0) {
+        this.kanbanService.addTask(
           {
             id: Math.random().toString(16),
             title: formRes.title,
             order: 1,
             description: 'string',
             userId: 'string',
-          }, id)
+          }, id) 
+      }
     } )
   }
 

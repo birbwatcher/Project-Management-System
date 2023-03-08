@@ -18,14 +18,15 @@ export class DashboardComponent {
     ) {};
 
   addColumn() {
-    this.someService.addColumn(
-      {
-        id: Math.random().toString(16),
-        title: 'Column ' + this.i,
-        order: this.i,
-        tasks: [],
-      }
-    )
+    // this.someService.addColumn(
+    //   {
+    //     id: Math.random().toString(16),
+    //     title: 'Column ' + this.i,
+    //     order: this.i,
+    //     tasks: [],
+    //   }
+    // )
+    this.columnModal.addColModal();
     this.i++;
   }
 

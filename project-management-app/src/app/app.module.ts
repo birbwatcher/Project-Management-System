@@ -16,7 +16,6 @@ import { ColumnComponent } from './boards/dashboard/column/column.component';
 import { CardComponent } from './boards/dashboard/card/card.component';
 import { DragDropModule} from '@angular/cdk/drag-drop';
 import { ModalWindowComponent } from './core/modal/modal-window/modal-window.component';
-import { ConfirmationWindowComponent } from './core/modal/confirmation-window/confirmation-window.component'
 import { DEFAULT_DIALOG_CONFIG, Dialog, DialogRef } from '@angular/cdk/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -38,7 +37,6 @@ import { AddTaskModalComponent } from './core/modal/add-task-modal/add-task-moda
     ColumnComponent,
     CardComponent,
     ModalWindowComponent,
-    ConfirmationWindowComponent,
     AddTaskModalComponent
   ],
   imports: [

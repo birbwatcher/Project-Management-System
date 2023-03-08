@@ -49,7 +49,7 @@ export class ColumnComponent {
  removeColumn() {
   // console.log(this.column.id)
   // this.someService.removeColumn(this.column.id)
-  this.modalService.getModal(this.column.id);
+  this.modalService.remColModal(this.column.id);
  }
 
  taskDrop(event: CdkDragDrop<ITask[]>) {

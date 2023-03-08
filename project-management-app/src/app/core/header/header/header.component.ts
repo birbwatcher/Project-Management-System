@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KanbanService } from 'src/app/boards/kanban.service';
 import { IBoard } from 'src/app/boards/kanban.service';
+import { ModalServiceService } from '../../modal/modal-service.service';
 
 @Component({
   selector: 'app-header',
@@ -13,17 +14,12 @@ export class HeaderComponent implements OnInit {
 
  boards: IBoard[] = [];
 
- constructor (public someService:KanbanService) {};
+ constructor (public someService:KanbanService,
+              public modalService:ModalServiceService
+  ) {};
 
   addBoard() {
-    this.someService.addBoard(
-      {
-        title: 'Board' + this.i,
-        description: 'description',
-        id: this.i,
-        columns: []
-      }
-    )
+    this.modalService.addBoardModal()
     this.i++;
   }
  

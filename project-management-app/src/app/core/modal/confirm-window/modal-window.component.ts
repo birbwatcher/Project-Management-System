@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './modal-window.component.html',
   styleUrls: ['./modal-window.component.scss']
 })
-export class ModalWindowComponent {
+export class ConfirmWindowComponent {
 
   constructor() {}
 

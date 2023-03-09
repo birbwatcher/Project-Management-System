@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { KanbanService } from 'src/app/boards/kanban.service';
 
 @Component({
@@ -12,8 +12,15 @@ export class AddTaskModalComponent {
   constructor() {}
 
   form = new FormGroup({
-    title: new FormControl<string>('')
+    title: new FormControl<string>('', [
+      Validators.minLength(1),
+      Validators.required,
+    ])
   })
+
+  get title() {
+    return this.form.controls.title as FormControl
+  }
 
   submit() {
     // console.log(this.form.value)

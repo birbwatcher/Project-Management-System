@@ -5,7 +5,7 @@ import { KanbanService } from '../../kanban.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
 import { Dialog } from '@angular/cdk/dialog';
-import { ModalWindowComponent } from 'src/app/core/modal/modal-window/modal-window.component';
+import { ConfirmWindowComponent } from 'src/app/core/modal/confirm-window/modal-window.component';
 
 @Component({
   selector: 'app-column',
@@ -21,7 +21,7 @@ export class ColumnComponent {
  @Input() column!: IColumn;
 
  constructor(
-  public someService:KanbanService,
+  public kanbanService:KanbanService,
   private modalService:ModalServiceService
   ) {
 }
@@ -39,11 +39,11 @@ export class ColumnComponent {
  }
 
  getColumnIndex() {
-  return this.someService.getColumnIndex(this.column.id)
+  return this.kanbanService.getColumnIndex(this.column.id)
  }
 
  getColumnTasks(){
-  return this.someService.getColumnTasks(this.column.id);
+  return this.kanbanService.getColumnTasks(this.column.id);
  }
 
  removeColumn() {
@@ -54,7 +54,7 @@ export class ColumnComponent {
 
  taskDrop(event: CdkDragDrop<ITask[]>) {
   if (event.previousContainer === event.container) {
-    moveItemInArray(this.someService.currentBoard.columns[this.getColumnIndex()].tasks, event.previousIndex, event.currentIndex )
+    moveItemInArray(this.kanbanService.currentBoard.columns[this.getColumnIndex()].tasks, event.previousIndex, event.currentIndex )
   } 
   else {
     transferArrayItem(

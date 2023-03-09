@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ModalWindowComponent } from './modal-window/modal-window.component';
+import { ConfirmWindowComponent } from './confirm-window/modal-window.component';
 import { MatDialog } from '@angular/material/dialog';
 import { KanbanService } from 'src/app/boards/kanban.service';
 import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component';
@@ -13,12 +13,17 @@ export class ModalServiceService {
               private kanbanService: KanbanService
     ) { }
 
+
+
   addBoardModal() {
-    const dialogRef = this.matDialog.open(AddTaskModalComponent);
+    const dialogRef = this.matDialog.open(AddTaskModalComponent, {
+      width:'600px',   // Set width to 600px
+      height:'350px',  // Set height to 530px
+    });
 
     dialogRef.afterClosed().subscribe(formRes => {
       if (!formRes) {
-        return
+        return;
       }
       if (formRes.title.length > 0) {
         this.kanbanService.addBoard(
@@ -54,7 +59,7 @@ export class ModalServiceService {
   }
 
   remColModal(id: string) {
-    const dialogRef = this.matDialog.open(ModalWindowComponent);
+    const dialogRef = this.matDialog.open(ConfirmWindowComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -70,7 +75,7 @@ export class ModalServiceService {
       if (!formRes) {
         return
       }
-      if (formRes.title.length > 0) {
+      if (formRes.title) {
         this.kanbanService.addTask(
           {
             id: Math.random().toString(16),

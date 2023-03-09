@@ -17,8 +17,8 @@ export class ModalServiceService {
 
   addBoardModal() {
     const dialogRef = this.matDialog.open(AddTaskModalComponent, {
-      width:'600px',   // Set width to 600px
-      height:'350px',  // Set height to 530px
+      width:'600px', 
+      height:'350px', 
     });
 
     dialogRef.afterClosed().subscribe(formRes => {
@@ -39,7 +39,10 @@ export class ModalServiceService {
   }
 
   addColModal(){
-    const dialogRef = this.matDialog.open(AddTaskModalComponent);
+    const dialogRef = this.matDialog.open(AddTaskModalComponent, {
+      width:'600px', 
+      height:'350px', 
+    });
 
     dialogRef.afterClosed().subscribe(formRes => {
       if (!formRes) {
@@ -59,7 +62,10 @@ export class ModalServiceService {
   }
 
   remColModal(id: string) {
-    const dialogRef = this.matDialog.open(ConfirmWindowComponent);
+    const dialogRef = this.matDialog.open(ConfirmWindowComponent, {
+      width:'400px', 
+      height:'200px', 
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

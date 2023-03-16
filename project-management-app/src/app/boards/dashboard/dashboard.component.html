@@ -1,7 +1,7 @@
 <div class="board flex grow overflow-x-auto min-h-full" cdkDropListGroup cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="columnDrop($event)">
     <div class="columns flex grow">
         <ng-template [ngIf]="someService.currentBoard">
-            <app-column *ngFor="let item of someService.currentBoard.columns" [column]="item" cdkDrag></app-column>
+            <app-column *ngFor="let item of someService.currentBoard.columns" [column]="item"></app-column>
             <div class="column flex flex-col basis p-6 m-3 w-60 bg-gray-50 rounded-lg shadow-lg justify-center items-center text-gray-400 text-7xl cursor-pointer" (click)="addColumn()">+</div>
         </ng-template>
     </div>

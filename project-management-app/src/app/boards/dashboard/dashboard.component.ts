@@ -40,6 +40,5 @@ export class DashboardComponent {
 
   columnDrop(event: CdkDragDrop<IColumn[]>) {
     moveItemInArray(this.someService.currentBoard.columns, event.previousIndex, event.currentIndex )
-
   }
 }

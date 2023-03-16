@@ -8,7 +8,7 @@
             <li><a routerLink="/sign-up" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign up</a></li>
           </ng-template>
           <ng-template [ngIf]="logged===true">
-            <li><button class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="addBoard()">+ Create New Board</button></li>
+            <li><button class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="addBoard()" routerLink="/dashboard">+ Create New Board</button></li>
             <li><a routerLink="/profile" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Edit Profile</a></li>
             <li><a routerLink="/" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign out</a></li>
           </ng-template>

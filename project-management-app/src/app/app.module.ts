@@ -21,6 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddTaskModalComponent } from './core/modal/add-task-modal/add-task-modal.component';
+import { ProfileComponent } from './auth/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AddTaskModalComponent } from './core/modal/add-task-modal/add-task-moda
     ColumnComponent,
     CardComponent,
     ConfirmWindowComponent,
-    AddTaskModalComponent
+    AddTaskModalComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

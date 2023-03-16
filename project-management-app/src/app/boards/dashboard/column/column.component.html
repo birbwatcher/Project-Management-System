@@ -6,6 +6,6 @@
         <span class="cursor-pointer" (click)="removeColumn()">&#10006;</span>
     </div>
     <h3 class="[overflow-wrap:anywhere]">{{column.title}}</h3>
-    <app-card *ngFor="let item of kanbanService.currentBoard.columns[getColumnIndex()].tasks" [task]="item" cdkDrag></app-card>
+    <app-card *ngFor="let item of kanbanService.currentBoard.columns[getColumnIndex()].tasks" [task]="item"></app-card>
     <div class="task flex rounded-lg shadow-lg m-1 p-1 border border-dashed border-gray-900 cursor-pointer hover:bg-white" (click)="addCard()">+ Add a card</div>
 </div>

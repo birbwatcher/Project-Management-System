@@ -3,14 +3,14 @@
       <a routerLink="/"><h2 class="font-bold text-2xl  text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-600">RS Kanban APP</h2></a>
       <nav>
         <ul class="flex space-x-2">
-          <ng-template [ngIf]="logged===false">
+          <ng-template [ngIf]="!isLogged()">
             <li><a routerLink="/sign-in" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Login</a></li>
             <li><a routerLink="/sign-up" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign up</a></li>
           </ng-template>
-          <ng-template [ngIf]="logged===true">
+          <ng-template [ngIf]="isLogged()">
             <li><button class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="addBoard()" routerLink="/dashboard">+ Create New Board</button></li>
             <li><a routerLink="/profile" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Edit Profile</a></li>
-            <li><a routerLink="/" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign out</a></li>
+            <li><a routerLink="/" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="removeToken()">Sign out</a></li>
           </ng-template>
           <li>
             <app-language-switch></app-language-switch>
@@ -18,7 +18,7 @@
         </ul>
       </nav>
     </div>
-    <ng-template [ngIf]="logged===true">
+    <ng-template [ngIf]="isLogged()">
       <section class="bg-gray-100 py-3">
         <div class="container mx-auto">
             <ul class="flex">

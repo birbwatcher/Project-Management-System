@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signin',
@@ -7,6 +9,10 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./signin.component.scss']
 })
 export class SigninComponent {
+
+  constructor(private authService: AuthService,
+    private router: Router) {}
+
   passwordNotValid = false;
   userNameNotValid = false;
 
@@ -30,10 +36,20 @@ export class SigninComponent {
       this.passwordNotValid = true;
       return false;
     }
-    else
     console.log(this.form.value);
-    console.log(this.form.controls.username.valid)
-    console.log(this.form.controls.password.valid)
+
+    this.authService.login(this.form.value.username as string, this.form.value.password as string).subscribe({
+      next: (value) => {
+        console.log(value.token);
+        // this.authService.setToken(value.token);
+        this.router.navigate(['/dashboard'])
+      },
+      error(err) {
+        // console.log(err.error.message);
+      }
+    })
+    
+    
     this.passwordNotValid = false;
     this.userNameNotValid = false;
     return

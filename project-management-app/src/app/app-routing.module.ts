@@ -6,13 +6,22 @@ import { MainPageComponent } from './core/main-page/main-page.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import { DashboardComponent } from './boards/dashboard/dashboard.component';
 import { ProfileComponent } from './auth/profile/profile.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {path: '', component: MainPageComponent},
   {path: 'sign-in', component: SigninComponent},
   {path: 'sign-up', component: SignupComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'profile', component: ProfileComponent},
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile', 
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
 
   {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
 ];

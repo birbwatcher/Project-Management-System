@@ -31,12 +31,15 @@ export class AuthService {
   }
 
   getToken(): string {
-    this.tokenKey = localStorage.getItem('token') as string;
     return localStorage.getItem('token') as string;
   }
 
   removeToken() {
     localStorage.removeItem('token');
     this.tokenKey = null;
+  }
+  
+  authorize() {
+    this.tokenKey = localStorage.getItem('token') as string;
   }
 }

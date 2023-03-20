@@ -17,7 +17,7 @@ export interface IColumn {
 }
 
 export interface IBoard {
-  id: number,
+  id: string,
   title: string,
   description: string,
   columns: IColumn[]
@@ -37,7 +37,7 @@ export class KanbanService {
     console.log(this.boards);
   }
 
-  getBoard(id: number) {
+  getBoard(id: string) {
     let boardIndex = this.boards.findIndex(item => item.id === id)
     this.currentBoard = this.boards[boardIndex];
     console.log(this.currentBoard, 'this current board')

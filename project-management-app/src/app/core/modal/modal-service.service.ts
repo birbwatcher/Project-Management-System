@@ -30,7 +30,7 @@ export class ModalServiceService {
           {
             title: formRes.title,
             description: 'description',
-            id: 4,
+            id: Math.random().toString(16),
             columns: []
           }
         ) 

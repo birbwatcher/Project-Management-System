@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +13,8 @@ export class SignupComponent{
   userNameNotValid = false;
   nameNotValid = false;
 
-  constructor() {}
+  constructor( private authService: AuthService,
+               private router: Router) {}
 
   form = new FormGroup({
     username: new FormControl<string>('', [
@@ -41,10 +44,21 @@ export class SignupComponent{
       this.passwordNotValid = true;
       return false;
     } else 
+
+    this.authService.signup(this.form.value.name as string, this.form.value.username as string, this.form.value.password as string).subscribe({
+      next: (value) => {
+        // this.authService.setToken(value.token);
+        console.log(value)
+        this.router.navigate(['/sign-in'])
+      },
+      error(err) {
+        // console.log(err.error.message);
+      }
+    })
+
     this.passwordNotValid = false;
     this.userNameNotValid = false;
     this.nameNotValid = false;
-    console.log(this.form.value);
     return true;
   }
 }

@@ -34,18 +34,15 @@ export class KanbanService {
 
   addBoard(board:IBoard) {
     this.boards.push(board);
-    console.log(this.boards);
   }
 
   getBoard(id: string) {
     let boardIndex = this.boards.findIndex(item => item.id === id)
     this.currentBoard = this.boards[boardIndex];
-    console.log(this.currentBoard, 'this current board')
   }
 
   addColumn(column:IColumn) {
     this.currentBoard.columns.push(column)
-    console.log(this.boards);
   }
 
   getColumnIndex(columnId: string):number {
@@ -65,6 +62,5 @@ export class KanbanService {
   addTask(task:ITask, columnId: string) {
     const columnIndex = this.currentBoard.columns.findIndex(item => item.id === columnId)
     this.currentBoard.columns[columnIndex].tasks.push(task)
-    console.log(this.boards);
   }
 }

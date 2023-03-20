@@ -36,11 +36,9 @@ export class SigninComponent {
       this.passwordNotValid = true;
       return false;
     }
-    console.log(this.form.value);
 
     this.authService.login(this.form.value.username as string, this.form.value.password as string).subscribe({
       next: (value) => {
-        console.log(value.token);
         // this.authService.setToken(value.token);
         this.router.navigate(['/dashboard'])
       },

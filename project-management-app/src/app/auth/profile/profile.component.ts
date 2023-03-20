@@ -1,19 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, DoCheck } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmWindowComponent } from 'src/app/core/modal/confirm-window/modal-window.component';
+import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit{
   nameNotValid = false;
   oldPassNotValid = false;
   newPassNotValid = false;
 
-  constructor(private matDialog: MatDialog) {}
+  constructor(private matDialog: MatDialog,
+              private authservice: AuthService) {}
+
+  ngOnInit() {
+    this.getUserName()
+  }
+
 
   form = new FormGroup({
     name: new FormControl<string>('', [
@@ -45,7 +53,6 @@ export class ProfileComponent {
     this.oldPassNotValid = false;
     this.newPassNotValid = false;
     this.nameNotValid = false;
-    console.log(this.form.valid);
     return true;
   }
 
@@ -61,5 +68,18 @@ export class ProfileComponent {
         return;
       }
         console.log('user removed');})
+    }
+
+    getUserName() {
+      this.authservice.getUserName().subscribe(resolve => {
+      resolve.forEach(item => {
+        console.log(item.login, '1')
+        console.log(this.authservice.getCurrentUser(), '2')
+        if (item.login === this.authservice.getCurrentUser()) {
+          console.log(item.name)
+          return this.form.patchValue({name: item.name});
+        }
+      })
+    })
     }
   }

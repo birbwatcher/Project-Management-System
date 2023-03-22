@@ -3,11 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, map, tap } from 'rxjs';
 
 
-// interface User {
-//   name: string,
-//   username: string,
-//   password: string
-// }
+interface User {
+  name: string,
+  login: string,
+  password: string
+}
 
 interface UserResponse {
   _id: string,
@@ -22,7 +22,8 @@ export class AuthService{
 
   private baseUrl = 'http://127.0.0.1:3000';
   private tokenKey: null | string = null;
-  private username: null | string = null;
+  public username: null | string = null;
+  private userId: null | string = null;
 
   constructor(private http: HttpClient) {}
 
@@ -72,13 +73,11 @@ export class AuthService{
       'Authorization': `Bearer ${this.tokenKey}`
     })
     const requestOptions = { headers: headers };
-    return this.http.get<Array<UserResponse>>('http://127.0.0.1:3000/users', requestOptions).subscribe(resolve => {
-      resolve.forEach(item => {
-        if (item.login === this.username) {
-          console.log(item._id)
-          return item._id
+    return this.http.get<any[]>(`${this.baseUrl}/users`, requestOptions).subscribe(res => {
+      res.forEach(item => {
+        if(item.login === this.username) {
+          this.userId = item._id
         }
-        return;
       })
     })
   }
@@ -89,14 +88,25 @@ export class AuthService{
       'Authorization': `Bearer ${this.tokenKey}`
     })
     const requestOptions = { headers: headers };
-    return this.http.get<Array<UserResponse>>('http://127.0.0.1:3000/users', requestOptions)
+    return this.http.get<Array<UserResponse>>(`${this.baseUrl}/users`, requestOptions)
   }
 
   getCurrentUser() {
     return this.username;
   }
 
-  getUser() {
+  // getUser() {
 
+  // }
+
+  updateUser(user: User) {
+    console.log(this.tokenKey)
+    const headers = new HttpHeaders({
+      'accept' : 'application/json',
+      'Authorization': `Bearer ${this.tokenKey}`,
+      'Content-Type' : 'application/json',
+    })
+    const requestOptions = { headers: headers };
+    return this.http.put(`${this.baseUrl}/users/${this.userId}`, user ,requestOptions).subscribe()
   }
 }

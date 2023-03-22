@@ -15,11 +15,14 @@ export class ProfileComponent implements OnInit{
   oldPassNotValid = false;
   newPassNotValid = false;
 
+  userUsername: string = '';
+
   constructor(private matDialog: MatDialog,
               private authservice: AuthService) {}
 
   ngOnInit() {
     this.getUserName()
+    this.authservice.getUserId()
   }
 
 
@@ -53,15 +56,23 @@ export class ProfileComponent implements OnInit{
     this.oldPassNotValid = false;
     this.newPassNotValid = false;
     this.nameNotValid = false;
+    console.log(this.form.value, this.authservice.username)
+    this.authservice.updateUser({
+      name: this.form.value.name as string,
+      login: this.authservice.username as string,
+      password: this.form.value.newPassword as string
+    })
+
+
     return true;
   }
 
   removeUser(id: string) {
     const dialogRef = this.matDialog.open(ConfirmWindowComponent, {
-        width:'400px', 
-        height:'200px', 
+        width:'400px',
+        height:'200px',
     });
-    
+
 
     dialogRef.afterClosed().subscribe(formRes => {
       if (!formRes) {
@@ -73,10 +84,8 @@ export class ProfileComponent implements OnInit{
     getUserName() {
       this.authservice.getUserName().subscribe(resolve => {
       resolve.forEach(item => {
-        console.log(item.login, '1')
-        console.log(this.authservice.getCurrentUser(), '2')
         if (item.login === this.authservice.getCurrentUser()) {
-          console.log(item.name)
+          this.userUsername = item.name;
           return this.form.patchValue({name: item.name});
         }
       })

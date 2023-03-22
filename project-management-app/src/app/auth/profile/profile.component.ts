@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmWindowComponent } from 'src/app/core/modal/confirm-window/modal-window.component';
 import { AuthService } from '../auth.service';
 import { Observable } from 'rxjs';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -18,7 +19,8 @@ export class ProfileComponent implements OnInit{
   userUsername: string = '';
 
   constructor(private matDialog: MatDialog,
-              private authservice: AuthService) {}
+              private authservice: AuthService,
+              private router: Router) {}
 
   ngOnInit() {
     this.getUserName()
@@ -32,7 +34,8 @@ export class ProfileComponent implements OnInit{
       Validators.required,
     ]),
     newPassword: new FormControl<string>('', [
-      Validators.minLength(1)
+      Validators.minLength(1),
+      Validators.required,
     ]),
     oldPassword: new FormControl<string>('', [
       Validators.minLength(1),
@@ -56,13 +59,18 @@ export class ProfileComponent implements OnInit{
     this.oldPassNotValid = false;
     this.newPassNotValid = false;
     this.nameNotValid = false;
-    console.log(this.form.value, this.authservice.username)
-    this.authservice.updateUser({
-      name: this.form.value.name as string,
-      login: this.authservice.username as string,
-      password: this.form.value.newPassword as string
-    })
 
+    this.form.disable()
+    this.authservice.login(this.authservice.username as string, this.form.value.oldPassword as string).subscribe(res => {
+      localStorage.setItem('token', res.token);
+      this.authservice.updateUser({
+        name: this.form.value.name as string,
+        login: this.authservice.username as string,
+        password: this.form.value.newPassword as string
+       }
+      )
+      this.form.enable();
+    })
 
     return true;
   }
@@ -78,7 +86,9 @@ export class ProfileComponent implements OnInit{
       if (!formRes) {
         return;
       }
-        console.log('user removed');})
+        this.authservice.removeUser();
+        this.router.navigate(['/sign-in']);
+      })
     }
 
     getUserName() {

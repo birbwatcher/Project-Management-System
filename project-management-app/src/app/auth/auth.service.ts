@@ -100,7 +100,6 @@ export class AuthService{
   // }
 
   updateUser(user: User) {
-    console.log(this.tokenKey)
     const headers = new HttpHeaders({
       'accept' : 'application/json',
       'Authorization': `Bearer ${this.tokenKey}`,
@@ -108,5 +107,14 @@ export class AuthService{
     })
     const requestOptions = { headers: headers };
     return this.http.put(`${this.baseUrl}/users/${this.userId}`, user ,requestOptions).subscribe()
+  }
+
+  removeUser() {
+    const headers = new HttpHeaders({
+      'accept' : 'application/json',
+      'Authorization': `Bearer ${this.tokenKey}`,
+    })
+    const requestOptions = { headers: headers };
+    return this.http.delete(`${this.baseUrl}/users/${this.userId}`, requestOptions).subscribe(res => this.removeToken())
   }
 }

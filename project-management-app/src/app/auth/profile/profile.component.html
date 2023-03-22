@@ -14,6 +14,7 @@
                     class="w-full px-4 py-2 border border-gray-300 rounded focus:border-black focus:border-2 focus:outline-none transition ease-in-out duration-500" 
                     placeholder="New Password"
                     formControlName="newPassword">
+                    <p class="text-red-600 font-medium mb-2" *ngIf="this.newPassNotValid">Plese fill your new Password</p>
             </div>
             <div class="mb-6">
                 <input type="password" 

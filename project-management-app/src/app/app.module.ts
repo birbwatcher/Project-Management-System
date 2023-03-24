@@ -23,6 +23,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddTaskModalComponent } from './core/modal/add-task-modal/add-task-modal.component';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { HttpClientModule } from  '@angular/common/http';
+import { StoreModule } from '@ngrx/store'
+import { updateBoardReducer } from './boards/state/boards.reducer'
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { HttpClientModule } from  '@angular/common/http';
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({boards: updateBoardReducer})
   ],
   providers: [],
   bootstrap: [AppComponent]

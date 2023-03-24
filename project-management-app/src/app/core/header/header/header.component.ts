@@ -1,26 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { KanbanService } from 'src/app/boards/kanban.service';
+import { ChangeDetectorRef, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Board, KanbanService } from 'src/app/boards/kanban.service';
 import { IBoard } from 'src/app/boards/kanban.service';
 import { ModalServiceService } from '../../modal/modal-service.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { Store } from '@ngrx/store';
+import { BState, State } from 'src/app/boards/state/boards.state';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
  i = 1;
 
- boards: IBoard[] = [];
+ myBoards$: Observable<Board[]>;
+//  boards: Board[] = [];
 
- constructor (public someService:KanbanService,
+ constructor (public kanbanService:KanbanService,
               public modalService:ModalServiceService,
-              public authService: AuthService
-  ) {};
+              public authService: AuthService,
+              private store: Store<State>
+  ) {
+    this.myBoards$ = this.store.select(res => res.boards.boards);
+  };
+
+  ngOnInit(): void {
+    // this.kanbanService.removeAllBoards();
+    // this.updateBoards()
+    this.myBoards$.subscribe()
+    
+  }
+
+  updateBoards() {
+    this.kanbanService.getBoardList().subscribe(res => res)
+  }
 
   addBoard() {
-    this.modalService.addBoardModal()
+    this.modalService.addBoardModal();
     this.i++;
   }
  

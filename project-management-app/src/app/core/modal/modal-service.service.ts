@@ -3,6 +3,8 @@ import { ConfirmWindowComponent } from './confirm-window/modal-window.component'
 import { MatDialog } from '@angular/material/dialog';
 import { KanbanService } from 'src/app/boards/kanban.service';
 import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component';
+import { Store } from '@ngrx/store'
+import { updateBoardsAction } from 'src/app/boards/state/boards.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,8 @@ import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component
 export class ModalServiceService {
 
   constructor(private matDialog: MatDialog,
-              private kanbanService: KanbanService
+              private kanbanService: KanbanService,
+              private store: Store
     ) { }
 
 
@@ -26,14 +29,8 @@ export class ModalServiceService {
         return;
       }
       if (formRes.title.length > 0) {
-        this.kanbanService.addBoard(
-          {
-            title: formRes.title,
-            description: 'description',
-            id: Math.random().toString(16),
-            columns: []
-          }
-        ) 
+        this.kanbanService.addBoard(formRes.title).subscribe();
+        this.kanbanService.updateStore()
       }
     } )
   }
@@ -93,5 +90,4 @@ export class ModalServiceService {
       }
     } )
   }
-
 }

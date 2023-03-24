@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ColumnComponent } from './column/column.component';
 import { IColumn, KanbanService } from '../kanban.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';

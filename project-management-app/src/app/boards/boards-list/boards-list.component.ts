@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { IBoard } from '../kanban.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { Board, IBoard } from '../kanban.service';
 import { KanbanService } from '../kanban.service';
 
 @Component({
@@ -8,11 +8,12 @@ import { KanbanService } from '../kanban.service';
   styleUrls: ['./boards-list.component.scss']
 })
 export class BoardsListComponent {
-  @Input() newBoard!: IBoard;
+  @Input() newBoard!: Board;
 
   constructor(public kanbanService: KanbanService) {}
 
   getBoardId() {
-    this.kanbanService.getBoard(this.newBoard.id)
+    this.kanbanService.getBoard(this.newBoard._id);
+    console.log('this board id is', this.newBoard._id)
   }
 }

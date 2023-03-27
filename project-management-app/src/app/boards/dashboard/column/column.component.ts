@@ -54,7 +54,7 @@ export class ColumnComponent {
 
  taskDrop(event: CdkDragDrop<ITask[]>) {
   if (event.previousContainer === event.container) {
-    moveItemInArray(this.kanbanService.currentBoard.columns[this.getColumnIndex()].tasks, event.previousIndex, event.currentIndex )
+    // moveItemInArray(this.kanbanService.currentBoard.columns[this.getColumnIndex()].tasks, event.previousIndex, event.currentIndex )
   } 
   else {
     transferArrayItem(

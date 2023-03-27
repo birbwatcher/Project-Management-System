@@ -4,7 +4,7 @@ import { IBoard } from 'src/app/boards/kanban.service';
 import { ModalServiceService } from '../../modal/modal-service.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Store } from '@ngrx/store';
-import { BState, State } from 'src/app/boards/state/boards.state';
+import { State } from 'src/app/boards/state/boards.state';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -15,21 +15,18 @@ import { Observable } from 'rxjs';
 export class HeaderComponent implements OnInit {
  i = 1;
 
- myBoards$: Observable<Board[]>;
+//  myBoards$: Observable<Board[]>;
 //  boards: Board[] = [];
 
  constructor (public kanbanService:KanbanService,
               public modalService:ModalServiceService,
               public authService: AuthService,
               private store: Store<State>
-  ) {
-    this.myBoards$ = this.store.select(res => res.boards.boards);
-  };
+  ) {};
 
   ngOnInit(): void {
     // this.kanbanService.removeAllBoards();
     // this.updateBoards()
-    this.myBoards$.subscribe()
     
   }
 

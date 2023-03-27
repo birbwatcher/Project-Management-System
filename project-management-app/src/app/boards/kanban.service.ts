@@ -1,11 +1,9 @@
 import { Injectable, OnInit } from '@angular/core';
-import { ModalServiceService } from '../core/modal/modal-service.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../auth/auth.service';
 import { select, Store } from '@ngrx/store';
 import { updateBoardsAction } from './state/boards.actions';
 import { State } from '../boards/state/boards.state'
-import { state } from '@angular/animations';
+import { Observable } from 'rxjs';
+import { HttpService } from './http.service';
 
 export interface ITask {
   id: string,
@@ -36,20 +34,36 @@ export interface Board {
   users: string[]
 }
 
+export interface Column {
+    _id: string,
+    title: string,
+    order: number,
+    boardId: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class KanbanService {
-  private baseUrl = 'http://127.0.0.1:3000';
 
-  boards:IBoard[] = [];
-  currentBoard = this.boards[0];
+  // boards:IBoard[] = [];
+  // currentBoard = this.boards[0];
+
+  actualBoard: Board[] | null = null;
+  actualBoardId: string | null = null;
 
   boardList:Board[] = [];
 
-  constructor(private http:HttpClient,
-              private auth:AuthService,
-              private store: Store<State>) {}
+  myBoardsList$: Observable<Board[]>
+
+  constructor
+  (
+              private store: Store<State>,
+              private httpService: HttpService
+  )
+  {
+  this.myBoardsList$ = this.store.select(res => res.boards.boards);
+  }
 
   updateStore() {
     this.getBoardList().subscribe(res => {
@@ -58,72 +72,51 @@ export class KanbanService {
   }
 
   getBoardList() {
-    const headers = new HttpHeaders({
-      'accept' : 'application/json',
-      'Authorization': `Bearer ${this.auth.getToken()}`
-    })
-    const requestOptions = { headers: headers };
-    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, requestOptions)
+    return this.httpService.getBoardList();
   }
 
   addBoard(boardTitle: string) {
-    const headers = new HttpHeaders({
-      'accept' : 'application/json',
-      'Authorization': `Bearer ${this.auth.getToken()}`,
-      'Content-Type' : 'application/json'
-    })
-    const requestOptions = { headers: headers };
-    const board = {
-      "title": boardTitle,
-      "owner": "string",
-      "users": [
-        "string"
-      ]
-    }
-    return this.http.post<Array<Board>>(`${this.baseUrl}/boards`, board, requestOptions)
+    return this.httpService.addBoard(boardTitle)
   }
 
   removeAllBoards() {
-    const headers = new HttpHeaders({
-      'accept' : 'application/json',
-      'Authorization': `Bearer ${this.auth.getToken()}`
-    })
-    const requestOptions = { headers: headers };
-    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, requestOptions).subscribe(res => {
-      res.forEach(item => {
-        this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${item._id}`, requestOptions).subscribe()
-      })
-    })
-
+    return this.httpService.removeAllBoards()
   }
 
   getBoard(id: string) {
-    let boardIndex = this.boards.findIndex(item => item.id === id)
-    this.currentBoard = this.boards[boardIndex];
-    console.log(this.currentBoard, 'this current boards')
+    // let boardIndex = this.boards.findIndex(item => item.id === id)
+    // this.currentBoard = this.boards[boardIndex];
+    // console.log(this.currentBoard, 'this current boards')
+
+    this.httpService.getBoard(id).subscribe()
   }
 
-  addColumn(column:IColumn) {
-    this.currentBoard.columns.push(column)
+  getBoardColumns(id: string){
+    return this.httpService.getBoardColumns(id).subscribe(res => {console.log(id, res); this.actualBoard = res})
   }
 
-  getColumnIndex(columnId: string):number {
-    return this.currentBoard.columns.findIndex(item => item.id === columnId);
+  addColumn(title: string) {
+    // this.currentBoard.columns.push(column)
+    this.httpService.addColumn(title, this.actualBoardId as string).subscribe(res => console.log(res))
+  }
+
+  getColumnIndex(columnId: string) {
+    // return this.currentBoard.columns.findIndex(item => item.id === columnId);
   }
 
   getColumnTasks(id: string){
-    let columnIndex = this.currentBoard.columns.findIndex(item => item.id === id);
-    // console.log(this.currentBoard.columns[columnIndex].tasks, 'this one')
-    return this.currentBoard.columns[columnIndex].tasks
+    // let columnIndex = this.currentBoard.columns.findIndex(item => item.id === id);
+    // // console.log(this.currentBoard.columns[columnIndex].tasks, 'this one')
+    // return this.currentBoard.columns[columnIndex].tasks
   }
 
   removeColumn(id: string) {
-    this.currentBoard.columns = this.currentBoard.columns.filter(item => item.id != id)
+    // this.currentBoard.columns = this.currentBoard.columns.filter(item => item.id != id)
   }
 
   addTask(task:ITask, columnId: string) {
-    const columnIndex = this.currentBoard.columns.findIndex(item => item.id === columnId)
-    this.currentBoard.columns[columnIndex].tasks.push(task)
+    // const columnIndex = this.currentBoard.columns.findIndex(item => item.id === columnId)
+    // this.currentBoard.columns[columnIndex].tasks.push(task)
   }
 
   // superPuper() {

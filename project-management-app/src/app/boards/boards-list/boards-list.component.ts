@@ -14,6 +14,7 @@ export class BoardsListComponent {
 
   getBoardId() {
     this.kanbanService.getBoard(this.newBoard._id);
-    console.log('this board id is', this.newBoard._id)
+    this.kanbanService.getBoardColumns(this.newBoard._id);
+    this.kanbanService.actualBoardId = this.newBoard._id
   }
 }

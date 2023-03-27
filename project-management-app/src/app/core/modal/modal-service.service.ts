@@ -46,14 +46,8 @@ export class ModalServiceService {
         return
       }
       if (formRes.title.length > 0) {
-        this.kanbanService.addColumn(
-          {
-            id: Math.random().toString(16),
-            title: formRes.title,
-            order: 3,
-            tasks: [],
-          }
-        ) 
+        this.kanbanService.addColumn(formRes.title) 
+        this.kanbanService.updateStore()
       }
     } )
   }

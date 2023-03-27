@@ -5,6 +5,7 @@ export interface State {
 
 export interface BState {
     boards: Board[]
+    columns: Column[]
 }
 
 
@@ -13,8 +14,16 @@ export interface Board {
     title: string,
     owner: string,
     users: string[]
-  }
+}
+
+export interface Column {
+    _id: string,
+    title: string,
+    order: number,
+    boardId: string
+}
 
 export const initialBoardsState: BState = {
     boards: [],
+    columns: []
 }

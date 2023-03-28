@@ -4,6 +4,9 @@ import { Board, Column, IColumn, KanbanService } from '../kanban.service';
 import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
 import { HttpService } from '../http.service';
+import { Store } from '@ngrx/store';
+import { State } from '../state/boards.state';
+import { updateColumnsAction } from '../state/boards.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,14 +18,15 @@ export class DashboardComponent {
 
   // @Input() board!: any;
 
-  i = 0;
+  // i = 0;
   columns: ColumnComponent[] = [];
 
   newOrder: Column[] = []
 
   constructor(public kanbanService: KanbanService,
               public columnModal: ModalServiceService,
-              public http: HttpService
+              public http: HttpService,
+              private store: Store<State>
     ) {};
 
   addColumn() {
@@ -35,20 +39,16 @@ export class DashboardComponent {
     //   }
     // )
     this.columnModal.addColModal();
-    this.i++;
+    // this.i++;
   }
 
   removeColumn(id: string) {
-    this.kanbanService.removeColumn(id);
+    // this.kanbanService.removeColumn(id);
   }
 
   checkColumn() {
     // console.log(this.columns);
   }
-
-  // columnGet(event: CdkDragStart<Column[]>) {
-  //   this.kanbanService.myActualBoard$.subscribe(res => {this.newOrder = res; console.log(this.newOrder)})
-  // }
 
   columnDrop(event: CdkDragDrop<Column[]>, board: Column[]) {
       // this.isLoading = true;
@@ -57,10 +57,10 @@ export class DashboardComponent {
         newColOrder = JSON.parse(JSON.stringify(res))
       })
        
-      // moveItemInArray(this.kanbanService.myActualBoard$, event.previousIndex, event.currentIndex)
-
       moveItemInArray(newColOrder, event.previousIndex, event.currentIndex)
       newColOrder.forEach((item, index) => item.order = index);
+      this.store.dispatch(updateColumnsAction({columns: newColOrder.sort((a, b) => a.order > b.order ? 1 : -1)}))
+
       this.http.updateColumnSet(newColOrder).subscribe(res => {this.kanbanService.getBoardColumns(this.kanbanService.actualBoardId as string)});
     }
 

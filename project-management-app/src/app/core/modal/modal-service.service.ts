@@ -52,7 +52,7 @@ export class ModalServiceService {
     } )
   }
 
-  remColModal(id: string) {
+  remColModal(colId: string, boardId: string) {
     const dialogRef = this.matDialog.open(ConfirmWindowComponent, {
       width:'400px', 
       height:'200px', 
@@ -60,7 +60,7 @@ export class ModalServiceService {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.kanbanService.removeColumn(id)
+        this.kanbanService.removeColumn(colId, boardId)
       } else return;
     } )
   }

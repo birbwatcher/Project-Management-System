@@ -21,6 +21,7 @@ export class BoardsListComponent {
     // this.http.getBoardColumns(this.newBoard._id)
     // this.kanbanService.updateStore()
     // this.kanbanService.myActualBoard$
+    this.kanbanService.myActualBoard$.subscribe(res => console.log(res)).unsubscribe()
     this.kanbanService.getColLen()
   }
 }

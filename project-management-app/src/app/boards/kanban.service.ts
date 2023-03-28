@@ -82,7 +82,6 @@ export class KanbanService {
     this.httpService.getBoardList().subscribe(res => {
       return this.store.dispatch(updateBoardsAction({boards : res}))
     });
-    console.log(this.store.subscribe(res => console.log(res, 'boards list updated'),))
   }
 
   // getBoardList() {
@@ -133,7 +132,9 @@ export class KanbanService {
     // return this.currentBoard.columns[columnIndex].tasks
   }
 
-  removeColumn(id: string) {
+  removeColumn(colId: string, boardId: string) {
+    this.httpService.removeColumn(colId, boardId).subscribe()
+    this.getBoardColumns(this.actualBoardId as string);
     // this.currentBoard.columns = this.currentBoard.columns.filter(item => item.id != id)
   }
 

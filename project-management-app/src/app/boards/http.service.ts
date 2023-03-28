@@ -81,8 +81,12 @@ export class HttpService {
     })
     const requestOptions = { headers: headers };
     let newCol =  columns.map(({ _id, order }) => ({ _id, order }))
-    console.log(newCol, 'newCol')
     return this.http.patch<Array<{_id: string, order: number}[]>>(`${this.baseUrl}/columnsSet`, newCol, requestOptions)
+  }
+
+  removeColumn(colId: string, boardId: string) {
+    const requestOptions = { headers: this.headers };
+    return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}`, requestOptions)
   }
 
 }

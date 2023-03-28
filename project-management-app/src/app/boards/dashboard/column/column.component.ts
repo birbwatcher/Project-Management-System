@@ -48,11 +48,11 @@ export class ColumnComponent {
  }
 
  removeColumn() {
-  // console.log(this.column.id)
+  console.log(this.column._id, 'col', this.kanbanService.actualBoardId, 'board')
   // this.someService.removeColumn(this.column.id)
 
 
-  // this.modalService.remColModal(this.column.id);
+  this.modalService.remColModal(this.column._id, this.kanbanService.actualBoardId as string);
  }
 
  taskDrop(event: CdkDragDrop<ITask[]>) {

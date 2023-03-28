@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
  constructor (public kanbanService:KanbanService,
               public modalService:ModalServiceService,
               public authService: AuthService,
-              private store: Store<State>
+              // private store: Store<State>
   ) {};
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
   }
 
   updateBoards() {
-    this.kanbanService.getBoardList().subscribe(res => res)
+    this.kanbanService.updateStore()
   }
 
   addBoard() {

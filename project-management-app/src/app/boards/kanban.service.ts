@@ -1,8 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { updateBoardsAction } from './state/boards.actions';
+import { updateBoardsAction, updateColumnsAction } from './state/boards.actions';
 import { State } from '../boards/state/boards.state'
-import { Observable } from 'rxjs';
+import { Observable, count, map, tap, toArray } from 'rxjs';
 import { HttpService } from './http.service';
 
 export interface ITask {
@@ -41,6 +41,16 @@ export interface Column {
     boardId: string
 }
 
+export interface Task {
+    _id:	string,
+    title:	string,
+    order:	number,
+    boardId:	string,
+    columnId:	string,
+    description:	string,
+    userId:	number
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -55,6 +65,8 @@ export class KanbanService {
   boardList:Board[] = [];
 
   myBoardsList$: Observable<Board[]>
+  myActualBoard$: Observable<Column[]>;
+  myActualBoardLen: number = 0;
 
   constructor
   (
@@ -63,17 +75,19 @@ export class KanbanService {
   )
   {
   this.myBoardsList$ = this.store.select(res => res.boards.boards);
+  this.myActualBoard$ = this.store.select(res => res.boards.columns)
   }
 
   updateStore() {
-    this.getBoardList().subscribe(res => {
+    this.httpService.getBoardList().subscribe(res => {
       return this.store.dispatch(updateBoardsAction({boards : res}))
     });
+    console.log(this.store.subscribe(res => console.log(res, 'boards list updated'),))
   }
 
-  getBoardList() {
-    return this.httpService.getBoardList();
-  }
+  // getBoardList() {
+  //   return this.httpService.getBoardList();
+  // }
 
   addBoard(boardTitle: string) {
     return this.httpService.addBoard(boardTitle)
@@ -92,13 +106,22 @@ export class KanbanService {
   }
 
   getBoardColumns(id: string){
-    return this.httpService.getBoardColumns(id).subscribe(res => {console.log(id, res); this.actualBoard = res})
+    this.httpService.getBoardColumns(id).subscribe(res => {
+      return this.store.dispatch(updateColumnsAction({columns: res.sort((a, b) => a.order > b.order ? 1 : -1)}))
+    })
   }
 
   addColumn(title: string) {
     // this.currentBoard.columns.push(column)
-    this.httpService.addColumn(title, this.actualBoardId as string).subscribe(res => console.log(res))
+    this.getColLen()
+    this.httpService.addColumn(title, this.actualBoardId as string, this.myActualBoardLen).subscribe()
+    this.getBoardColumns(this.actualBoardId as string);
   }
+
+  getColLen() {
+    this.myActualBoard$.subscribe(res => {this.myActualBoardLen = res.length})
+  }
+
 
   getColumnIndex(columnId: string) {
     // return this.currentBoard.columns.findIndex(item => item.id === columnId);

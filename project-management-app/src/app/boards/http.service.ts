@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Board, Column } from './kanban.service';
+import { Board, Column, KanbanService } from './kanban.service';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -56,10 +56,10 @@ export class HttpService {
 
   getBoardColumns(id: string) {
     const requestOptions = { headers: this.headers };
-    return this.http.get<Array<Board>>(`${this.baseUrl}/boards/${id}/columns`, requestOptions)
+    return this.http.get<Array<Column>>(`${this.baseUrl}/boards/${id}/columns`, requestOptions)
   }
 
-  addColumn(title: string, boardId: string) {
+  addColumn(title: string, boardId: string, order: number) {
     const headers = new HttpHeaders({
       'accept' : 'application/json',
       'Authorization': `Bearer ${this.auth.getToken()}`,
@@ -68,9 +68,21 @@ export class HttpService {
     const requestOptions = { headers: headers };
     const column = {
       "title": title,
-      "order": 0,
+      "order": order,
     }
     return this.http.post<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns`, column, requestOptions)
+  }
+
+  updateColumnSet(columns: Column[]) {
+    const headers = new HttpHeaders({
+      'accept' : 'application/json',
+      'Authorization': `Bearer ${this.auth.getToken()}`,
+      'Content-Type' : 'application/json'
+    })
+    const requestOptions = { headers: headers };
+    let newCol =  columns.map(({ _id, order }) => ({ _id, order }))
+    console.log(newCol, 'newCol')
+    return this.http.patch<Array<{_id: string, order: number}[]>>(`${this.baseUrl}/columnsSet`, newCol, requestOptions)
   }
 
 }

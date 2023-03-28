@@ -1,3 +1,4 @@
+import { Observable } from "rxjs"
 
 export interface State {
     boards: BState
@@ -6,8 +7,8 @@ export interface State {
 export interface BState {
     boards: Board[]
     columns: Column[]
+    tasks: Task[]
 }
-
 
 export interface Board {
     _id: string,
@@ -23,7 +24,18 @@ export interface Column {
     boardId: string
 }
 
+export interface Task {
+    _id:	string,
+    title:	string,
+    order:	number,
+    boardId:	string,
+    columnId:	string,
+    description:	string,
+    userId:	number
+}
+
 export const initialBoardsState: BState = {
     boards: [],
-    columns: []
+    columns: [],
+    tasks: []
 }

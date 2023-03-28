@@ -29,7 +29,7 @@ export class ModalServiceService {
         return;
       }
       if (formRes.title.length > 0) {
-        this.kanbanService.addBoard(formRes.title).subscribe();
+        this.kanbanService.addBoard(formRes.title).subscribe()
         this.kanbanService.updateStore()
       }
     } )
@@ -46,7 +46,7 @@ export class ModalServiceService {
         return
       }
       if (formRes.title.length > 0) {
-        this.kanbanService.addColumn(formRes.title) 
+        this.kanbanService.addColumn(formRes.title)
         this.kanbanService.updateStore()
       }
     } )

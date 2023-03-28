@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ColumnComponent } from './column/column.component';
-import { IColumn, KanbanService } from '../kanban.service';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Board, Column, IColumn, KanbanService } from '../kanban.service';
+import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
+import { HttpService } from '../http.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,11 +11,18 @@ import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
+  // isLoading = false;
+
+  // @Input() board!: any;
+
   i = 0;
   columns: ColumnComponent[] = [];
 
-  constructor(public someService: KanbanService,
-              public columnModal: ModalServiceService
+  newOrder: Column[] = []
+
+  constructor(public kanbanService: KanbanService,
+              public columnModal: ModalServiceService,
+              public http: HttpService
     ) {};
 
   addColumn() {
@@ -31,14 +39,29 @@ export class DashboardComponent {
   }
 
   removeColumn(id: string) {
-    this.someService.removeColumn(id);
+    this.kanbanService.removeColumn(id);
   }
 
   checkColumn() {
     // console.log(this.columns);
   }
 
-  columnDrop(event: CdkDragDrop<IColumn[]>) {
-    // moveItemInArray(this.someService.currentBoard.columns, event.previousIndex, event.currentIndex )
-  }
+  // columnGet(event: CdkDragStart<Column[]>) {
+  //   this.kanbanService.myActualBoard$.subscribe(res => {this.newOrder = res; console.log(this.newOrder)})
+  // }
+
+  columnDrop(event: CdkDragDrop<Column[]>, board: Column[]) {
+      // this.isLoading = true;
+      let newColOrder: Column[] = [];
+      this.kanbanService.myActualBoard$.subscribe(res => {
+        newColOrder = JSON.parse(JSON.stringify(res))
+      })
+       
+      // moveItemInArray(this.kanbanService.myActualBoard$, event.previousIndex, event.currentIndex)
+
+      moveItemInArray(newColOrder, event.previousIndex, event.currentIndex)
+      newColOrder.forEach((item, index) => item.order = index);
+      this.http.updateColumnSet(newColOrder).subscribe(res => {this.kanbanService.getBoardColumns(this.kanbanService.actualBoardId as string)});
+    }
+
 }

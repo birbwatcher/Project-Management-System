@@ -47,7 +47,7 @@ export class ModalServiceService {
       }
       if (formRes.title.length > 0) {
         this.kanbanService.addColumn(formRes.title)
-        this.kanbanService.updateStore()
+        // this.kanbanService.updateStore()
       }
     } )
   }
@@ -65,7 +65,7 @@ export class ModalServiceService {
     } )
   }
 
-  addTaskModal(id: string) {
+  addTaskModal(colId: string, order: number) {
     const dialogRef = this.matDialog.open(AddTaskModalComponent);
 
     dialogRef.afterClosed().subscribe(formRes => {
@@ -73,14 +73,7 @@ export class ModalServiceService {
         return
       }
       if (formRes.title) {
-        this.kanbanService.addTask(
-          {
-            id: Math.random().toString(16),
-            title: formRes.title,
-            order: 1,
-            description: 'string',
-            userId: 'string',
-          }, id) 
+        this.kanbanService.addTask(formRes.title, colId, order)
       }
     } )
   }

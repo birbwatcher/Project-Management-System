@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ITask } from '../../kanban.service';
+import { ITask, Task } from '../../kanban.service';
 
 @Component({
   selector: 'app-card',
@@ -7,7 +7,7 @@ import { ITask } from '../../kanban.service';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent {
-  @Input() task!:ITask;
+  @Input() task!:Task;
 
   constructor() {}
 

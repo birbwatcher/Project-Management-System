@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Board, Column, KanbanService } from './kanban.service';
+import { Board, Column, KanbanService, Task } from './kanban.service';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -18,10 +18,10 @@ export class HttpService {
               private auth:AuthService
              ) { }
 
-  getBoard(id: string) {
-    const requestOptions = { headers: this.headers };
-    return this.http.get<Array<Board>>(`${this.baseUrl}/boards/${id}`, requestOptions)
-  }
+  // getBoard(id: string) {
+  //   const requestOptions = { headers: this.headers };
+  //   return this.http.get<Array<Board>>(`${this.baseUrl}/boards/${id}`, requestOptions)
+  // }
 
   getBoardList() {
     const requestOptions = { headers: this.headers };
@@ -89,4 +89,32 @@ export class HttpService {
     return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}`, requestOptions)
   }
 
+  addTask(title: string, boardId: string, colId: string, order: number) {
+    const headers = new HttpHeaders({
+      'accept' : 'application/json',
+      'Authorization': `Bearer ${this.auth.getToken()}`,
+      'Content-Type' : 'application/json'
+    })
+    const requestOptions = { headers: headers };
+    const task = {
+      "title": title,
+      "order": order,
+      "description": 'description',
+      "userId": 0,
+      "users": []
+    }
+    return this.http.post<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}/tasks`, task, requestOptions)
+  }
+
+  getTasksSet(boardId: string){
+    const requestOptions = { headers: this.headers };
+    return this.http.get<Array<Task>>(`${this.baseUrl}/tasksSet/${boardId}`, requestOptions)
+  }
+
+  updateTasksSet(set: Task[]){
+    const requestOptions = { headers: this.headers };
+    let updateTaskOrder =  set.map(({ _id, order }) => ({ _id, order }))
+    return this.http.patch<Array<Task>>(`${this.baseUrl}/tasksSet`, updateTaskOrder, requestOptions)
+  }
+  
 }

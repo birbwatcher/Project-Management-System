@@ -1,8 +1,8 @@
 import { Injectable, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { updateBoardsAction, updateColumnsAction } from './state/boards.actions';
+import { updateBoardsAction, updateColumnsAction, updateTasksAction } from './state/boards.actions';
 import { State } from '../boards/state/boards.state'
-import { Observable, count, map, tap, toArray } from 'rxjs';
+import { Observable, count, filter, map, tap, toArray } from 'rxjs';
 import { HttpService } from './http.service';
 
 export interface ITask {
@@ -35,20 +35,21 @@ export interface Board {
 }
 
 export interface Column {
-    _id: string,
-    title: string,
-    order: number,
-    boardId: string
+  _id: string,
+  title: string,
+  order: number,
+  boardId: string
 }
 
 export interface Task {
-    _id:	string,
-    title:	string,
-    order:	number,
-    boardId:	string,
-    columnId:	string,
-    description:	string,
-    userId:	number
+  _id: string,
+  title: string,
+  order: number,
+  boardId: string,
+  columnId: string,
+  description: string,
+  userId:	number,
+  users: string[]
 }
 
 @Injectable({
@@ -67,15 +68,17 @@ export class KanbanService {
   myBoardsList$: Observable<Board[]>
   myActualBoard$: Observable<Column[]>;
   myActualBoardLen: number = 0;
+  myActualBoardTasks$: Observable<Task[]>
 
   constructor
   (
-              private store: Store<State>,
-              private httpService: HttpService
+    private store: Store<State>,
+    private httpService: HttpService
   )
   {
   this.myBoardsList$ = this.store.select(res => res.boards.boards);
   this.myActualBoard$ = this.store.select(res => res.boards.columns)
+  this.myActualBoardTasks$ = this.store.select(res => res.boards.tasks)
   }
 
   updateStore() {
@@ -96,13 +99,13 @@ export class KanbanService {
     return this.httpService.removeAllBoards()
   }
 
-  getBoard(id: string) {
-    // let boardIndex = this.boards.findIndex(item => item.id === id)
-    // this.currentBoard = this.boards[boardIndex];
-    // console.log(this.currentBoard, 'this current boards')
+  // getBoard(id: string) {
+  //   // let boardIndex = this.boards.findIndex(item => item.id === id)
+  //   // this.currentBoard = this.boards[boardIndex];
+  //   // console.log(this.currentBoard, 'this current boards')
 
-    this.httpService.getBoard(id).subscribe()
-  }
+  //   this.httpService.getBoard(id).subscribe()
+  // }
 
   getBoardColumns(id: string){
     this.httpService.getBoardColumns(id).subscribe(res => {
@@ -138,12 +141,27 @@ export class KanbanService {
     // this.currentBoard.columns = this.currentBoard.columns.filter(item => item.id != id)
   }
 
-  addTask(task:ITask, columnId: string) {
+  addTask(title: string, colId: string, order: number) {
     // const columnIndex = this.currentBoard.columns.findIndex(item => item.id === columnId)
     // this.currentBoard.columns[columnIndex].tasks.push(task)
+    this.httpService.addTask(title, this.actualBoardId as string, colId, order).subscribe()
+    this.getTasksSet()
   }
 
   // superPuper() {
   //   this.store.pipe(select(res => this.boardList = res.boards.boards)).subscribe();
   // }
+
+  getTasksSet() {
+    this.httpService.getTasksSet(this.actualBoardId as string).subscribe(result => {
+      return this.store.dispatch(updateTasksAction({tasks: result}))
+    })
+  }
+
+  taskFilter(colId: string):Observable<Task[]> {
+    return this.myActualBoardTasks$.pipe(
+      filter(items => Array.isArray(items)),
+      map(items => items.filter(item => item.columnId === colId))
+    );
+  }
 }

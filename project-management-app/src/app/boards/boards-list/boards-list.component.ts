@@ -11,17 +11,21 @@ import { HttpService } from '../http.service';
 export class BoardsListComponent {
   @Input() newBoard!: Board;
 
-  constructor(public kanbanService: KanbanService, 
-              private http: HttpService) {}
+  constructor(public kanbanService: KanbanService) {}
 
   getBoardId() {
     // this.kanbanService.getBoard(this.newBoard._id);
     this.kanbanService.getBoardColumns(this.newBoard._id);
     this.kanbanService.actualBoardId = this.newBoard._id;
+
     // this.http.getBoardColumns(this.newBoard._id)
     // this.kanbanService.updateStore()
     // this.kanbanService.myActualBoard$
-    this.kanbanService.myActualBoard$.subscribe(res => console.log(res)).unsubscribe()
+    this.kanbanService.myActualBoard$.subscribe(res => console.log(res, "myActualBoard$")).unsubscribe()
     this.kanbanService.getColLen()
+
+    this.kanbanService.getTasksSet();
+    
+    this.kanbanService.myActualBoardTasks$.subscribe(res => {console.log(res, 'current tasks')}).unsubscribe()
   }
 }

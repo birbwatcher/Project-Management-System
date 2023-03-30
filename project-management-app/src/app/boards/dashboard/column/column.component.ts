@@ -80,32 +80,36 @@ export class ColumnComponent implements OnInit {
       //
       let newTaskOrder: Task[] = [];
       let resultOrder: Task[] = [];
+
       this.kanbanService.taskFilter(this.column._id).subscribe(res => {
         newTaskOrder = JSON.parse(JSON.stringify(res))
       })
 
+      
       this.store.select(res => res.boards.tasks).subscribe(res =>
         resultOrder = JSON.parse(JSON.stringify(res))
       )
 
       moveItemInArray(newTaskOrder, event.previousIndex, event.currentIndex)
 
-      console.log(newTaskOrder, 'before')
+      // console.log(newTaskOrder, 'before')
 
       newTaskOrder.forEach((item, index) => item.order = index);
 
       console.log(newTaskOrder, 'after')
 
-      newTaskOrder.forEach(item => {
-        resultOrder.forEach(task => {
-          if (item._id = task._id) {
-            item.order = task.order;
-          }
-        })
-      })
+      resultOrder.forEach(item => {
+        const updateItem = newTaskOrder.find(update => update._id === item._id);
+        if (updateItem) {
+          item.order = updateItem.order;
+        }
+      });
 
-      this.store.dispatch(updateTasksAction({tasks: resultOrder.sort((a, b) => a.order > b.order ? 1 : -1)}))
-      this.http.updateTasksSet(newTaskOrder);
+      console.log(resultOrder, 'newTaskOrder')
+      resultOrder.sort((a, b) => a.order > b.order ? 1 : -1)
+
+      this.store.dispatch(updateTasksAction({tasks: resultOrder}))
+      this.http.updateTasksSet(resultOrder).subscribe()
       //
 
       // this.http.updateColumnSet(newTaskOrder).subscribe(res => {this.kanbanService.getBoardColumns(this.kanbanService.actualBoardId as string)});

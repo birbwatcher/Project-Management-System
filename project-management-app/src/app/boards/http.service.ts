@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Board, Column, KanbanService, Task } from './kanban.service';
 import { AuthService } from '../auth/auth.service';
+import { catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,12 @@ export class HttpService {
   getBoardList() {
     const requestOptions = { headers: this.headers };
     return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, requestOptions)
+    .pipe(
+      catchError((error: HttpErrorResponse) => {
+      console.log('Your session is expired')  
+      this.auth.removeToken();
+      return throwError(() => error);})
+    )
   }
 
   addBoard(boardTitle: string) {
@@ -113,7 +120,7 @@ export class HttpService {
 
   updateTasksSet(set: Task[]){
     const requestOptions = { headers: this.headers };
-    let updateTaskOrder =  set.map(({ _id, order }) => ({ _id, order }))
+    let updateTaskOrder =  set.map(({ _id, order, columnId }) => ({ _id, order, columnId }))
     return this.http.patch<Array<Task>>(`${this.baseUrl}/tasksSet`, updateTaskOrder, requestOptions)
   }
   

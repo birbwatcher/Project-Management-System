@@ -53,12 +53,15 @@ export class DashboardComponent {
   columnDrop(event: CdkDragDrop<Column[]>, board: Column[]) {
       // this.isLoading = true;
       let newColOrder: Column[] = [];
+      
       this.kanbanService.myActualBoard$.subscribe(res => {
         newColOrder = JSON.parse(JSON.stringify(res))
       })
        
       moveItemInArray(newColOrder, event.previousIndex, event.currentIndex)
+      
       newColOrder.forEach((item, index) => item.order = index);
+
       this.store.dispatch(updateColumnsAction({columns: newColOrder.sort((a, b) => a.order > b.order ? 1 : -1)}))
 
       this.http.updateColumnSet(newColOrder).subscribe(res => {this.kanbanService.getBoardColumns(this.kanbanService.actualBoardId as string)});

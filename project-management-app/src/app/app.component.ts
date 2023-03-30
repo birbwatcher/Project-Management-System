@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.authService.authorize()
-    this.kanbanService.updateStore()
+    this.kanbanService.updateStore();
     // this.kanbanService.superPuper()
   }
 }

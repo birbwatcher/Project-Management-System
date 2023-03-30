@@ -4,6 +4,7 @@ import { updateBoardsAction, updateColumnsAction, updateTasksAction } from './st
 import { State } from '../boards/state/boards.state'
 import { Observable, count, filter, map, tap, toArray } from 'rxjs';
 import { HttpService } from './http.service';
+import { AuthService } from '../auth/auth.service';
 
 export interface ITask {
   id: string,
@@ -73,7 +74,8 @@ export class KanbanService {
   constructor
   (
     private store: Store<State>,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private auth: AuthService
   )
   {
   this.myBoardsList$ = this.store.select(res => res.boards.boards);
@@ -82,9 +84,11 @@ export class KanbanService {
   }
 
   updateStore() {
-    this.httpService.getBoardList().subscribe(res => {
-      return this.store.dispatch(updateBoardsAction({boards : res}))
-    });
+    if (this.auth.isLogged()) {
+      this.httpService.getBoardList().subscribe(res => {
+        return this.store.dispatch(updateBoardsAction({boards : res}))
+      });
+    }
   }
 
   // getBoardList() {
@@ -154,7 +158,7 @@ export class KanbanService {
 
   getTasksSet() {
     this.httpService.getTasksSet(this.actualBoardId as string).subscribe(result => {
-      return this.store.dispatch(updateTasksAction({tasks: result}))
+      return this.store.dispatch(updateTasksAction({tasks: result.sort((a, b) => a.order > b.order ? 1 : -1)}))
     })
   }
 

@@ -70,74 +70,61 @@ export class ColumnComponent implements OnInit {
  }
 
 
-    taskDrop(event: CdkDragDrop<Task[]>, tasks: Task[]) {
-      // console.log(event, tasks);
-      console.log(event.previousContainer.data, 'event.previousContainer.data')
-      console.log(event.container.data, 'event.container.data')
+taskDrop(event: CdkDragDrop<Task[]>, tasks: Task[]) {
+  let newTaskOrder: Task[] = [];
+  let resultOrder: Task[] = [];
 
-      // console.log(this.column._id, this.getColumnTasks(this.column._id))
+  this.store.select(res => res.boards.tasks).subscribe(res =>
+    resultOrder = JSON.parse(JSON.stringify(res))
+  )
 
-      //
-      let newTaskOrder: Task[] = [];
-      let resultOrder: Task[] = [];
+  if (event.previousContainer === event.container) {
+    this.kanbanService.taskFilter(this.column._id).subscribe(res => {
+      newTaskOrder = JSON.parse(JSON.stringify(res))
+    })
 
-      this.kanbanService.taskFilter(this.column._id).subscribe(res => {
-        newTaskOrder = JSON.parse(JSON.stringify(res))
-      })
+    moveItemInArray(newTaskOrder, event.previousIndex, event.currentIndex)
 
-      
-      this.store.select(res => res.boards.tasks).subscribe(res =>
-        resultOrder = JSON.parse(JSON.stringify(res))
-      )
+    newTaskOrder.forEach((item, index) => item.order = index);
 
-      moveItemInArray(newTaskOrder, event.previousIndex, event.currentIndex)
+    resultOrder.forEach(item => {
+      const updateItem = newTaskOrder.find(update => update._id === item._id);
+      if (updateItem) {
+        item.order = updateItem.order;
+      }
+    });
 
-      // console.log(newTaskOrder, 'before')
+  } else {
+    let prevCol: Task[] = [];
+    let curCol: Task[] = [];
 
-      newTaskOrder.forEach((item, index) => item.order = index);
+    transferArrayItem
+    (
+      event.previousContainer.data,
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex,
+    );
+    prevCol = event.previousContainer.data;
+    curCol = event.container.data
 
-      console.log(newTaskOrder, 'after')
+    curCol.forEach((item, index) => {item.columnId = this.column._id; item.order = index})
+    prevCol.forEach((item, index) => item.order = index)
 
-      resultOrder.forEach(item => {
-        const updateItem = newTaskOrder.find(update => update._id === item._id);
-        if (updateItem) {
-          item.order = updateItem.order;
-        }
-      });
+    let preResultOrder = [...prevCol, ...curCol]
 
-      console.log(resultOrder, 'newTaskOrder')
-      resultOrder.sort((a, b) => a.order > b.order ? 1 : -1)
+    resultOrder.forEach(item => {
+      const updateItem = preResultOrder.find(update => update._id === item._id);
+      if (updateItem) {
+        item.order = updateItem.order;
+        item.columnId = updateItem.columnId;
+      }
+    });
+  }
+  resultOrder.sort((a, b) => a.order > b.order ? 1 : -1)
+  this.store.dispatch(updateTasksAction({tasks: resultOrder}))
+  this.http.updateTasksSet(resultOrder).subscribe()
+}
 
-      this.store.dispatch(updateTasksAction({tasks: resultOrder}))
-      this.http.updateTasksSet(resultOrder).subscribe()
-      //
 
-      // this.http.updateColumnSet(newTaskOrder).subscribe(res => {this.kanbanService.getBoardColumns(this.kanbanService.actualBoardId as string)});
-
-      // if (event.previousContainer === event.container) {
-      //       moveItemInArray(this.getColumnTasks(this.column._id), event.previousIndex, event.currentIndex )
-      //     }
-      //     else {
-      //       transferArrayItem(
-      //         event.previousContainer.data,
-      //         event.container.data,
-      //         event.previousIndex,
-      //         event.currentIndex,
-      //       );
-      //     }
-    }
-
-//  taskDrop(event: CdkDragDrop<ITask[]>) {
-//   if (event.previousContainer === event.container) {
-//     // moveItemInArray(this.kanbanService.currentBoard.columns[this.getColumnIndex()].tasks, event.previousIndex, event.currentIndex )
-//   }
-//   else {
-//     transferArrayItem(
-//       event.previousContainer.data,
-//       event.container.data,
-//       event.previousIndex,
-//       event.currentIndex,
-//     );
-//   }
-//  }
 }

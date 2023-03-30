@@ -14,19 +14,17 @@ export class HttpService {
     'accept' : 'application/json',
     'Authorization': `Bearer ${this.auth.getToken()}`
   })
+  requestOptions = { headers: this.headers };
 
-  constructor(private http:HttpClient,
-              private auth:AuthService
-             ) { }
+  constructor
+    (
+      private http:HttpClient,
+      private auth:AuthService
+    ){}
 
-  // getBoard(id: string) {
-  //   const requestOptions = { headers: this.headers };
-  //   return this.http.get<Array<Board>>(`${this.baseUrl}/boards/${id}`, requestOptions)
-  // }
 
   getBoardList() {
-    const requestOptions = { headers: this.headers };
-    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, requestOptions)
+    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, this.requestOptions)
     .pipe(
       catchError((error: HttpErrorResponse) => {
       console.log('Your session is expired')  
@@ -41,7 +39,7 @@ export class HttpService {
       'Authorization': `Bearer ${this.auth.getToken()}`,
       'Content-Type' : 'application/json'
     })
-    const requestOptions = { headers: headers };
+
     const board = {
       "title": boardTitle,
       "owner": "string",
@@ -49,21 +47,19 @@ export class HttpService {
         "string"
       ]
     }
-    return this.http.post<Array<Board>>(`${this.baseUrl}/boards`, board, requestOptions)
+    return this.http.post<Array<Board>>(`${this.baseUrl}/boards`, board, this.requestOptions)
   }
 
   removeAllBoards() {
-    const requestOptions = { headers: this.headers };
-    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, requestOptions).subscribe(res => {
+    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, this.requestOptions).subscribe(res => {
       res.forEach(item => {
-        this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${item._id}`, requestOptions).subscribe()
+        this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${item._id}`, this.requestOptions).subscribe()
       })
     })
   }
 
   getBoardColumns(id: string) {
-    const requestOptions = { headers: this.headers };
-    return this.http.get<Array<Column>>(`${this.baseUrl}/boards/${id}/columns`, requestOptions)
+    return this.http.get<Array<Column>>(`${this.baseUrl}/boards/${id}/columns`, this.requestOptions)
   }
 
   addColumn(title: string, boardId: string, order: number) {
@@ -72,12 +68,12 @@ export class HttpService {
       'Authorization': `Bearer ${this.auth.getToken()}`,
       'Content-Type' : 'application/json'
     })
-    const requestOptions = { headers: headers };
+
     const column = {
       "title": title,
       "order": order,
     }
-    return this.http.post<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns`, column, requestOptions)
+    return this.http.post<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns`, column, this.requestOptions)
   }
 
   updateColumnSet(columns: Column[]) {
@@ -86,14 +82,12 @@ export class HttpService {
       'Authorization': `Bearer ${this.auth.getToken()}`,
       'Content-Type' : 'application/json'
     })
-    const requestOptions = { headers: headers };
     let newCol =  columns.map(({ _id, order }) => ({ _id, order }))
-    return this.http.patch<Array<{_id: string, order: number}[]>>(`${this.baseUrl}/columnsSet`, newCol, requestOptions)
+    return this.http.patch<Array<{_id: string, order: number}[]>>(`${this.baseUrl}/columnsSet`, newCol, this.requestOptions)
   }
 
   removeColumn(colId: string, boardId: string) {
-    const requestOptions = { headers: this.headers };
-    return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}`, requestOptions)
+    return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}`, this.requestOptions)
   }
 
   addTask(title: string, boardId: string, colId: string, order: number) {
@@ -102,7 +96,6 @@ export class HttpService {
       'Authorization': `Bearer ${this.auth.getToken()}`,
       'Content-Type' : 'application/json'
     })
-    const requestOptions = { headers: headers };
     const task = {
       "title": title,
       "order": order,
@@ -110,18 +103,21 @@ export class HttpService {
       "userId": 0,
       "users": []
     }
-    return this.http.post<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}/tasks`, task, requestOptions)
+    return this.http.post<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}/tasks`, task, this.requestOptions)
   }
 
   getTasksSet(boardId: string){
-    const requestOptions = { headers: this.headers };
-    return this.http.get<Array<Task>>(`${this.baseUrl}/tasksSet/${boardId}`, requestOptions)
+    return this.http.get<Array<Task>>(`${this.baseUrl}/tasksSet/${boardId}`, this.requestOptions)
   }
 
   updateTasksSet(set: Task[]){
-    const requestOptions = { headers: this.headers };
     let updateTaskOrder =  set.map(({ _id, order, columnId }) => ({ _id, order, columnId }))
-    return this.http.patch<Array<Task>>(`${this.baseUrl}/tasksSet`, updateTaskOrder, requestOptions)
+    return this.http.patch<Array<Task>>(`${this.baseUrl}/tasksSet`, updateTaskOrder, this.requestOptions)
+  }
+
+  getColumnTasks(columnId: string, boardId: string) {
+    console.log(boardId, 'boardId', columnId, 'columnId')
+    return this.http.get<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${columnId}/tasks`, this.requestOptions)
   }
   
 }

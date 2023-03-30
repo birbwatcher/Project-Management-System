@@ -32,18 +32,9 @@ export class ColumnComponent implements OnInit {
   private store: Store<State>,
   private http: HttpService
   ) {}
- addCard() {
-  // this.someService.addTask({
-  //   id: Math.random().toString(16),
-  //   title: 'Task ' + this.i,
-  //   order: this.i,
-  //   description: 'string',
-  //   userId: 'string',
-  // },this.column.id)
-  this.i++
-  // console.log(this.tasks)
 
-  this.modalService.addTaskModal(this.column._id, this.columnLen);
+ addCard() {
+  this.modalService.addTaskModal(this.column._id);
  }
 
  ngOnInit(): void {

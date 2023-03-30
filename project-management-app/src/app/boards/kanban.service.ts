@@ -119,15 +119,18 @@ export class KanbanService {
 
   addColumn(title: string) {
     // this.currentBoard.columns.push(column)
-    this.getColLen()
+    this.getBoardLen()
     this.httpService.addColumn(title, this.actualBoardId as string, this.myActualBoardLen).subscribe()
     this.getBoardColumns(this.actualBoardId as string);
   }
 
-  getColLen() {
+  getBoardLen() {
     this.myActualBoard$.subscribe(res => {this.myActualBoardLen = res.length})
   }
 
+  getColumnLen(columnId: string){
+    return this.httpService.getColumnTasks(columnId, this.actualBoardId as string)
+  }
 
   getColumnIndex(columnId: string) {
     // return this.currentBoard.columns.findIndex(item => item.id === columnId);

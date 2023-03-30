@@ -22,7 +22,7 @@ export class BoardsListComponent {
     // this.kanbanService.updateStore()
     // this.kanbanService.myActualBoard$
     this.kanbanService.myActualBoard$.subscribe(res => console.log(res, "myActualBoard$")).unsubscribe()
-    this.kanbanService.getColLen()
+    this.kanbanService.getBoardLen()
 
     this.kanbanService.getTasksSet();
     

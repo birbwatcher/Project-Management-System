@@ -65,8 +65,11 @@ export class ModalServiceService {
     } )
   }
 
-  addTaskModal(colId: string, order: number) {
+  addTaskModal(colId: string) {
     const dialogRef = this.matDialog.open(AddTaskModalComponent);
+
+    let order = 0
+    this.kanbanService.getColumnLen(colId).subscribe(res => order = res.length)
 
     dialogRef.afterClosed().subscribe(formRes => {
       if (!formRes) {

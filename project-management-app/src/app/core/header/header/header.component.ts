@@ -1,11 +1,7 @@
-import { ChangeDetectorRef, Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Board, KanbanService } from 'src/app/boards/kanban.service';
-import { IBoard } from 'src/app/boards/kanban.service';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { KanbanService } from 'src/app/boards/kanban.service';
 import { ModalServiceService } from '../../modal/modal-service.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Store } from '@ngrx/store';
-import { State } from 'src/app/boards/state/boards.state';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -37,10 +33,6 @@ export class HeaderComponent implements OnInit {
   addBoard() {
     this.modalService.addBoardModal();
     this.i++;
-  }
- 
-  getBoardId() {
-    // this.someService.getBoardId()
   }
 
   removeToken() {

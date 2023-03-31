@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ITask, Task } from '../../kanban.service';
+import { Task } from 'src/app/models/app.models';
 
 @Component({
   selector: 'app-card',

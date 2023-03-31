@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { KanbanService } from 'src/app/boards/kanban.service';
 import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component';
 import { Store } from '@ngrx/store'
-import { updateBoardsAction } from 'src/app/boards/state/boards.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -47,7 +46,6 @@ export class ModalServiceService {
       }
       if (formRes.title.length > 0) {
         this.kanbanService.addColumn(formRes.title)
-        // this.kanbanService.updateStore()
       }
     } )
   }

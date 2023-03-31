@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Board, IBoard } from '../kanban.service';
 import { KanbanService } from '../kanban.service';
-import { HttpService } from '../http.service';
+import { Board } from 'src/app/models/app.models';
 
 @Component({
   selector: 'app-boards-list',
@@ -14,18 +13,11 @@ export class BoardsListComponent {
   constructor(public kanbanService: KanbanService) {}
 
   getBoardId() {
-    // this.kanbanService.getBoard(this.newBoard._id);
     this.kanbanService.getBoardColumns(this.newBoard._id);
     this.kanbanService.actualBoardId = this.newBoard._id;
-
-    // this.http.getBoardColumns(this.newBoard._id)
-    // this.kanbanService.updateStore()
-    // this.kanbanService.myActualBoard$
     this.kanbanService.myActualBoard$.subscribe(res => console.log(res, "myActualBoard$")).unsubscribe()
     this.kanbanService.getBoardLen()
-
     this.kanbanService.getTasksSet();
-    
     this.kanbanService.myActualBoardTasks$.subscribe(res => {console.log(res, 'current tasks')}).unsubscribe()
   }
 }

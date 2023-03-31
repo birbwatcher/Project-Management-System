@@ -1,15 +1,12 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Column, IBoard, IColumn, Task } from '../../kanban.service';
-import { ITask } from '../../kanban.service';
 import { KanbanService } from '../../kanban.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
-import { Dialog } from '@angular/cdk/dialog';
-import { ConfirmWindowComponent } from 'src/app/core/modal/confirm-window/modal-window.component';
 import { Store } from '@ngrx/store';
-import { State } from '../../state/boards.state';
+import { State } from 'src/app/models/app.models';
 import { updateTasksAction } from '../../state/boards.actions';
 import { HttpService } from '../../http.service';
+import { Column, Task } from 'src/app/models/app.models';
 
 @Component({
   selector: 'app-column',
@@ -19,9 +16,6 @@ import { HttpService } from '../../http.service';
 
 
 export class ColumnComponent implements OnInit {
-  i = 0;
-  // tasks: ITask[] = [];
-
   columnLen: number = 0;
 
  @Input() column!: Column;
@@ -41,22 +35,13 @@ export class ColumnComponent implements OnInit {
    this.http.getTasksSet(this.column._id).subscribe(res => this.columnLen = res.length)
  }
 
- getColumnIndex() {
-  // return this.kanbanService.getColumnIndex(this.column.id)
- }
-
  getColumnTasks(id: string){
   let newTaskOrder: Task[] = [];
   this.kanbanService.taskFilter(id).subscribe(res => newTaskOrder = JSON.parse(JSON.stringify(res))).unsubscribe()
   return newTaskOrder
-  // return this.kanbanService.getColumnTasks(this.column.id);
  }
 
  removeColumn() {
-  console.log(this.column._id, 'col', this.kanbanService.actualBoardId, 'board')
-  // this.someService.removeColumn(this.column.id)
-
-
   this.modalService.remColModal(this.column._id, this.kanbanService.actualBoardId as string);
  }
 

@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Board, Column, KanbanService, Task } from './kanban.service';
 import { AuthService } from '../auth/auth.service';
 import { catchError, throwError } from 'rxjs';
+import { Board, Column, Task } from '../models/app.models';
 
 @Injectable({
   providedIn: 'root'

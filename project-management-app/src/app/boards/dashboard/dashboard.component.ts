@@ -1,12 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ColumnComponent } from './column/column.component';
-import { Board, Column, IColumn, KanbanService } from '../kanban.service';
-import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
+import { KanbanService } from '../kanban.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
 import { HttpService } from '../http.service';
 import { Store } from '@ngrx/store';
-import { State } from '../state/boards.state';
+import { State } from 'src/app/models/app.models';
 import { updateColumnsAction } from '../state/boards.actions';
+import { Column } from 'src/app/models/app.models';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,13 +17,8 @@ import { updateColumnsAction } from '../state/boards.actions';
 export class DashboardComponent {
   // isLoading = false;
 
-  // @Input() board!: any;
-
-  // i = 0;
   columns: ColumnComponent[] = [];
-
   newOrder: Column[] = []
-
   constructor(public kanbanService: KanbanService,
               public columnModal: ModalServiceService,
               public http: HttpService,
@@ -30,30 +26,13 @@ export class DashboardComponent {
     ) {};
 
   addColumn() {
-    // this.someService.addColumn(
-    //   {
-    //     id: Math.random().toString(16),
-    //     title: 'Column ' + this.i,
-    //     order: this.i,
-    //     tasks: [],
-    //   }
-    // )
     this.columnModal.addColModal();
-    // this.i++;
-  }
-
-  removeColumn(id: string) {
-    // this.kanbanService.removeColumn(id);
-  }
-
-  checkColumn() {
-    // console.log(this.columns);
   }
 
   columnDrop(event: CdkDragDrop<Column[]>, board: Column[]) {
       // this.isLoading = true;
       let newColOrder: Column[] = [];
-      
+
       this.kanbanService.myActualBoard$.subscribe(res => {
         newColOrder = JSON.parse(JSON.stringify(res))
       })

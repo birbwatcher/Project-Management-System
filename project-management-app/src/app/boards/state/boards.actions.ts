@@ -1,7 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Board, Column } from "./boards.state";
-import { Task } from "../kanban.service";
-
+import { Board, Column, Task } from "src/app/models/app.models";
 
 export const updateBoardsAction = createAction('update boards',  props<{ boards: Board[] }>())
 export const updateColumnsAction = createAction('update columns',  props<{ columns: Column[] }>())

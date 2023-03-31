@@ -97,4 +97,9 @@ export class KanbanService {
       map(items => items.filter(item => item.columnId === colId))
     );
   }
+
+  deleteTask(task: Task){
+    this.httpService.removeTask(task).subscribe()
+    this.getTasksSet()
+  }
 }

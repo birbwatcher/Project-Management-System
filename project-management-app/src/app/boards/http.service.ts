@@ -132,4 +132,8 @@ export class HttpService {
     }
     return this.http.put<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, result , this.requestOptions)
   }
+
+  removeTask(task: Task) {
+    return this.http.delete<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, this.requestOptions)
+  }
 }

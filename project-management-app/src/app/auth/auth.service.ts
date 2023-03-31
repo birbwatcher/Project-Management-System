@@ -84,10 +84,6 @@ export class AuthService{
     return this.username;
   }
 
-  // getUser() {
-
-  // }
-
   updateUser(user: User) {
     const headers = new HttpHeaders({
       'accept' : 'application/json',

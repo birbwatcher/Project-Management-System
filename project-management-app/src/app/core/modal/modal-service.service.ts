@@ -4,6 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { KanbanService } from 'src/app/boards/kanban.service';
 import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component';
 import { Store } from '@ngrx/store'
+import { AddBoardModalComponent } from './add-board-modal/add-board-modal.component';
+import { AddColumnModalComponent } from './add-column-modal/add-column-modal.component';
+import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.component';
+import { Task } from 'src/app/models/app.models';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +22,9 @@ export class ModalServiceService {
 
 
   addBoardModal() {
-    const dialogRef = this.matDialog.open(AddTaskModalComponent, {
-      width:'600px', 
-      height:'350px', 
+    const dialogRef = this.matDialog.open(AddBoardModalComponent, {
+      // width:'600px', 
+      // height:'350px', 
     });
 
     dialogRef.afterClosed().subscribe(formRes => {
@@ -35,9 +39,9 @@ export class ModalServiceService {
   }
 
   addColModal(){
-    const dialogRef = this.matDialog.open(AddTaskModalComponent, {
-      width:'600px', 
-      height:'350px', 
+    const dialogRef = this.matDialog.open(AddColumnModalComponent, {
+      // width:'600px', 
+      // height:'350px', 
     });
 
     dialogRef.afterClosed().subscribe(formRes => {
@@ -74,8 +78,23 @@ export class ModalServiceService {
         return
       }
       if (formRes.title) {
-        this.kanbanService.addTask(formRes.title, colId, order)
+        this.kanbanService.addTask(formRes.title, formRes.taskDescription, colId, order)
       }
     } )
+  }
+
+  editTaskModal(task: Task) {
+    const dialogRef = this.matDialog.open(EditTaskModalComponent, {
+      data: task
+    });
+
+    dialogRef.afterClosed().subscribe(formRes => {
+      if (!formRes) {
+        return
+      }
+      if (formRes.title) {
+        this.kanbanService.editTask(formRes.title, formRes.taskDescription, task)
+      }
+    })
   }
 }

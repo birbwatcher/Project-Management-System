@@ -24,7 +24,10 @@ import { AddTaskModalComponent } from './core/modal/add-task-modal/add-task-moda
 import { ProfileComponent } from './auth/profile/profile.component';
 import { HttpClientModule } from  '@angular/common/http';
 import { StoreModule } from '@ngrx/store'
-import { updateBoardReducer } from './boards/state/boards.reducer'
+import { updateBoardReducer } from './boards/state/boards.reducer';
+import { AddBoardModalComponent } from './core/modal/add-board-modal/add-board-modal.component';
+import { AddColumnModalComponent } from './core/modal/add-column-modal/add-column-modal.component';
+import { EditTaskModalComponent } from './core/modal/edit-task-modal/edit-task-modal.component'
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import { updateBoardReducer } from './boards/state/boards.reducer'
     CardComponent,
     ConfirmWindowComponent,
     AddTaskModalComponent,
-    ProfileComponent
+    ProfileComponent,
+    AddBoardModalComponent,
+    AddColumnModalComponent,
+    EditTaskModalComponent
   ],
   imports: [
     BrowserModule,

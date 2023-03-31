@@ -90,7 +90,7 @@ export class HttpService {
     return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}`, this.requestOptions)
   }
 
-  addTask(title: string, boardId: string, colId: string, order: number) {
+  addTask(title: string, description: string, boardId: string, colId: string, order: number) {
     const headers = new HttpHeaders({
       'accept' : 'application/json',
       'Authorization': `Bearer ${this.auth.getToken()}`,
@@ -99,7 +99,7 @@ export class HttpService {
     const task = {
       "title": title,
       "order": order,
-      "description": 'description',
+      "description": description,
       "userId": 0,
       "users": []
     }
@@ -120,4 +120,16 @@ export class HttpService {
     return this.http.get<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${columnId}/tasks`, this.requestOptions)
   }
   
+  updateTask(title: string, description: string, task: Task){
+    console.log(task.boardId, 'task.boardId')
+    let result = {
+      "title": title,
+      "order": task.order,
+      "description": description,
+      "columnId": task.columnId,
+      "userId": task.userId,
+      "users": task.users
+    }
+    return this.http.put<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, result , this.requestOptions)
+  }
 }

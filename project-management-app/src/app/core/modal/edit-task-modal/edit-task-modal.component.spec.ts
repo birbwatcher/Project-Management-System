@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfirmWindowComponent } from './modal-window.component';
+import { EditTaskModalComponent } from './edit-task-modal.component';
 
-describe('ModalWindowComponent', () => {
-  let component: ConfirmWindowComponent;
-  let fixture: ComponentFixture<ConfirmWindowComponent>;
+describe('EditTaskModalComponent', () => {
+  let component: EditTaskModalComponent;
+  let fixture: ComponentFixture<EditTaskModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConfirmWindowComponent ]
+      declarations: [ EditTaskModalComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ConfirmWindowComponent);
+    fixture = TestBed.createComponent(EditTaskModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -32,3 +32,15 @@ export interface Board {
     userId:	number,
     users: string[]
   }
+
+  export interface User {
+    name: string,
+    login: string,
+    password: string
+  }
+  
+  export interface UserResponse {
+    _id: string,
+    name: string,
+    login: string
+  }

@@ -1,19 +1,8 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { User, UserResponse } from '../models/app.models';
 
-
-interface User {
-  name: string,
-  login: string,
-  password: string
-}
-
-interface UserResponse {
-  _id: string,
-  name: string,
-  login: string
-}
 
 @Injectable({
   providedIn: 'root'

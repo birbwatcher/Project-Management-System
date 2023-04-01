@@ -12,7 +12,7 @@ export class AuthService{
   private baseUrl = 'http://127.0.0.1:3000';
   private tokenKey: null | string = null;
   public username: null | string = null;
-  private userId: null | string = null;
+  public userId: null | string = null;
 
   constructor(private http: HttpClient) {}
 

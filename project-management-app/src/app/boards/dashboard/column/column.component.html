@@ -7,7 +7,10 @@
                 </div>
                 <span class="cursor-pointer" (click)="removeColumn()">&#10006;</span>
             </div>
-            <h3 class="[overflow-wrap:anywhere]">{{column.title}}</h3>
+            <h3 *ngIf="!isEditing" (click)="editingCheck()" class="[overflow-wrap:anywhere]">{{column.title}}</h3>
+            <div *ngIf="isEditing">
+                <input  #titleInput type="text" value="{{column.title}}" (blur)="isEditing = false;checkNewValue()"><button>✔️</button>
+            </div>
             <!-- <app-card *ngFor="let item of kanbanService.currentBoard.columns[getColumnIndex()].tasks" [task]="item"></app-card> -->
             <app-card *ngFor="let item of tasks" [task]="item"></app-card>
         </div>

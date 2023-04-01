@@ -16,7 +16,10 @@ export class AddTaskModalComponent {
       Validators.minLength(1),
       Validators.required,
     ]),
-    taskDescription: new FormControl<string>('')
+    taskDescription: new FormControl<string>('', [
+      Validators.minLength(1),
+      Validators.required,
+    ])
   })
 
   get title() {

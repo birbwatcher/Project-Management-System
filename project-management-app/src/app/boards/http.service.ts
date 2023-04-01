@@ -100,7 +100,7 @@ export class HttpService {
       "title": title,
       "order": order,
       "description": description,
-      "userId": 0,
+      "userId": this.auth.userId as string,
       "users": []
     }
     return this.http.post<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}/tasks`, task, this.requestOptions)
@@ -135,5 +135,13 @@ export class HttpService {
 
   removeTask(task: Task) {
     return this.http.delete<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, this.requestOptions)
+  }
+
+  updateColumn(title: string, column: Column) {
+    let result = {
+      "title": title,
+      "order": column.order,
+    }
+    return this.http.put<Column>(`${this.baseUrl}/boards/${column.boardId}/columns/${column._id}`, result , this.requestOptions)
   }
 }

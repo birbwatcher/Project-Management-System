@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { KanbanService } from '../../kanban.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
@@ -7,6 +7,7 @@ import { State } from 'src/app/models/app.models';
 import { updateTasksAction } from '../../state/boards.actions';
 import { HttpService } from '../../http.service';
 import { Column, Task } from 'src/app/models/app.models';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-column',
@@ -16,9 +17,15 @@ import { Column, Task } from 'src/app/models/app.models';
 
 
 export class ColumnComponent implements OnInit {
+  isEditing = false;
   columnLen: number = 0;
 
+  newTitle = new FormControl();
+
+  value = ''
+
  @Input() column!: Column;
+ @ViewChild('titleInput') input!: ElementRef;
 
  constructor(
   public kanbanService:KanbanService,
@@ -26,7 +33,20 @@ export class ColumnComponent implements OnInit {
   private store: Store<State>,
   private http: HttpService
   ) {}
+ 
+ editingCheck() {
+  this.isEditing = true;
+  setTimeout(() => {
+    this.input.nativeElement.focus()
+  });
+ }
 
+ checkNewValue(){
+  if (this.input.nativeElement.value != this.column.title) {
+    this.kanbanService.editColumn(this.input.nativeElement.value, this.column)
+  }
+ }
+  
  addCard() {
   this.modalService.addTaskModal(this.column._id);
  }

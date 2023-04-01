@@ -56,8 +56,8 @@ export class ModalServiceService {
 
   remColModal(colId: string, boardId: string) {
     const dialogRef = this.matDialog.open(ConfirmWindowComponent, {
-      width:'400px', 
-      height:'200px', 
+      width:'300px', 
+      height:'150px', 
     });
 
     dialogRef.afterClosed().subscribe(result => {

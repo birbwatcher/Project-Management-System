@@ -1,11 +1,14 @@
 <!-- <div class="flex w-2/5 h-96 shadow-md rounded-md bg-white"> -->
 <div class="flex h-full flex-col justify-around items-center">
-    <div>
+    <div class="flex w-full pr-1 justify-end">
+        <button class="cursor-pointer" type="button" [mat-dialog-close]="false">&#10006;</button>
+    </div>
+    <div class="h-full flex flex-col justify-center">
         <h2>Are you sure?</h2>
     </div>
-    <div>
-        <button mat-button type="button" [mat-dialog-close]="true" class="py-2 px-4 bg-blue-600 text-white">Yes</button>
-        <button mat-button type="button" [mat-dialog-close]="false" class="py-2 px-4 bg-red-600 text-white">No</button>
+    <div class="flex w-full justify-between">
+        <button mat-button type="button" [mat-dialog-close]="true" class="py-2 px-4 w-1/2 bg-blue-600 text-white">Yes</button>
+        <button mat-button type="button" [mat-dialog-close]="false" class="py-2 px-4 w-1/2 bg-red-600 text-white">No</button>
     </div>
 </div>
 

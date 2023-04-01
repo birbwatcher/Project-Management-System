@@ -76,6 +76,7 @@ export class KanbanService {
   }
 
   addTask(title: string, description: string, colId: string, order: number) {
+    this.auth.getUserId()
     this.httpService.addTask(title, description, this.actualBoardId as string, colId, order).subscribe()
     this.getTasksSet()
   }
@@ -83,6 +84,11 @@ export class KanbanService {
   editTask(title: string, description: string, task:Task) {
     this.httpService.updateTask(title, description, task).subscribe()
     this.getTasksSet()
+  }
+
+  editColumn(title: string, column: Column) {
+    this.httpService.updateColumn(title, column).subscribe()
+    this.getBoardColumns(this.actualBoardId as string);
   }
 
   getTasksSet() {

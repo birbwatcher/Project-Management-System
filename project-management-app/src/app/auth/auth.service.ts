@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { User, UserResponse } from '../models/app.models';
+import { Route, Router } from '@angular/router';
+import { ModalServiceService } from '../core/modal/modal-service.service';
 
 
 @Injectable({
@@ -14,7 +16,7 @@ export class AuthService{
   public username: null | string = null;
   public userId: null | string = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   signup(name: string, login: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/auth/signup`, {"name": name, "login": login, "password": password})
@@ -37,7 +39,12 @@ export class AuthService{
   }
 
   isLogged(): boolean {
-    return !!this.tokenKey
+    if (localStorage.getItem('token')) {
+      let token = localStorage.getItem('token') as string;
+      const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+      return (Date.now() / 1000) < expiry;
+    } 
+    return false;
   }
 
   getToken(): string {

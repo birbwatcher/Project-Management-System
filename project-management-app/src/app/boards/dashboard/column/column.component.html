@@ -9,9 +9,8 @@
             </div>
             <h3 *ngIf="!isEditing" (click)="editingCheck()" class="[overflow-wrap:anywhere]">{{column.title}}</h3>
             <div *ngIf="isEditing">
-                <input  #titleInput type="text" value="{{column.title}}" (blur)="isEditing = false;checkNewValue()"><button>✔️</button>
+                <input  #titleInput type="text" value="{{column.title}}" (blur)="isEditing = false;checkNewValue()" (keydown.enter)="isEditing = false;checkNewValue()"><button>✔️</button>
             </div>
-            <!-- <app-card *ngFor="let item of kanbanService.currentBoard.columns[getColumnIndex()].tasks" [task]="item"></app-card> -->
             <app-card *ngFor="let item of tasks" [task]="item"></app-card>
         </div>
     </div>

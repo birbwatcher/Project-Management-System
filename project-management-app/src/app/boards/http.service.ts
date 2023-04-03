@@ -25,12 +25,6 @@ export class HttpService {
 
   getBoardList() {
     return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, this.requestOptions)
-    .pipe(
-      catchError((error: HttpErrorResponse) => {
-      console.log('Your session is expired')  
-      this.auth.removeToken();
-      return throwError(() => error);})
-    )
   }
 
   addBoard(boardTitle: string) {

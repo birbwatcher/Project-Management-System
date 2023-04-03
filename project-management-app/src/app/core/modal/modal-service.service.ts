@@ -8,6 +8,7 @@ import { AddBoardModalComponent } from './add-board-modal/add-board-modal.compon
 import { AddColumnModalComponent } from './add-column-modal/add-column-modal.component';
 import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.component';
 import { Task } from 'src/app/models/app.models';
+import { InfoModalComponent } from './info-modal/info-modal.component';
 
 @Injectable({
   providedIn: 'root'
@@ -96,5 +97,11 @@ export class ModalServiceService {
         this.kanbanService.editTask(formRes.title, formRes.taskDescription, task)
       }
     })
+  }
+
+  sessionExp() {
+    const dialogRef = this.matDialog.open(InfoModalComponent);
+
+    dialogRef.afterClosed().subscribe()
   }
 }

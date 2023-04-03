@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     // this.kanbanService.removeAllBoards();
-    // this.updateBoards()
+    this.updateBoards()
     
   }
 
@@ -31,8 +31,9 @@ export class HeaderComponent implements OnInit {
   }
 
   addBoard() {
-    this.modalService.addBoardModal();
-    this.i++;
+    if (this.authService.isLogged()) {
+      this.modalService.addBoardModal();
+    }
   }
 
   removeToken() {

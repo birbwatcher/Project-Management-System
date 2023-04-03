@@ -22,12 +22,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddTaskModalComponent } from './core/modal/add-task-modal/add-task-modal.component';
 import { ProfileComponent } from './auth/profile/profile.component';
-import { HttpClientModule } from  '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from  '@angular/common/http';
 import { StoreModule } from '@ngrx/store'
 import { updateBoardReducer } from './boards/state/boards.reducer';
 import { AddBoardModalComponent } from './core/modal/add-board-modal/add-board-modal.component';
 import { AddColumnModalComponent } from './core/modal/add-column-modal/add-column-modal.component';
 import { EditTaskModalComponent } from './core/modal/edit-task-modal/edit-task-modal.component'
+import { TokenInterceptor } from './auth/token.interceptor';
+import { InfoModalComponent } from './core/modal/info-modal/info-modal.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { EditTaskModalComponent } from './core/modal/edit-task-modal/edit-task-m
     ProfileComponent,
     AddBoardModalComponent,
     AddColumnModalComponent,
-    EditTaskModalComponent
+    EditTaskModalComponent,
+    InfoModalComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,9 @@ import { EditTaskModalComponent } from './core/modal/edit-task-modal/edit-task-m
     HttpClientModule,
     StoreModule.forRoot({boards: updateBoardReducer})
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

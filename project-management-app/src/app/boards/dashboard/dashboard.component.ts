@@ -8,6 +8,8 @@ import { Store } from '@ngrx/store';
 import { State } from 'src/app/models/app.models';
 import { updateColumnsAction } from '../state/boards.actions';
 import { Column } from 'src/app/models/app.models';
+import { AuthService } from 'src/app/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,13 +22,15 @@ export class DashboardComponent {
   columns: ColumnComponent[] = [];
   newOrder: Column[] = []
   constructor(public kanbanService: KanbanService,
-              public columnModal: ModalServiceService,
+              public modal: ModalServiceService,
               public http: HttpService,
-              private store: Store<State>
+              private store: Store<State>,
+              private auth: AuthService,
+              private router: Router,
     ) {};
 
   addColumn() {
-    this.columnModal.addColModal();
+    this.modal.addColModal();
   }
 
   columnDrop(event: CdkDragDrop<Column[]>, board: Column[]) {
@@ -46,6 +50,14 @@ export class DashboardComponent {
       this.http.updateColumnSet(newColOrder).subscribe(res => {this.kanbanService.getBoardColumns(this.kanbanService.actualBoardId as string)});
     
 
+    }
+
+    isLogged(): boolean {
+      if (!this.auth.isLogged()) {
+        this.router.navigate(['/sign-in']);
+        return false;
+      } return true;
+      
     }
 
 }

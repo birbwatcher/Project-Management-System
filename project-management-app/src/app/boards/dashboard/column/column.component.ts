@@ -8,6 +8,7 @@ import { updateTasksAction } from '../../state/boards.actions';
 import { HttpService } from '../../http.service';
 import { Column, Task } from 'src/app/models/app.models';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-column',
@@ -31,24 +32,31 @@ export class ColumnComponent implements OnInit {
   public kanbanService:KanbanService,
   private modalService:ModalServiceService,
   private store: Store<State>,
-  private http: HttpService
+  private http: HttpService, 
+  private auth: AuthService
   ) {}
  
  editingCheck() {
-  this.isEditing = true;
-  setTimeout(() => {
-    this.input.nativeElement.focus()
-  });
- }
+  if (this.auth.isLogged()) {
+    this.isEditing = true;
+    setTimeout(() => {
+      this.input.nativeElement.focus()
+    });
+    }
+  }
 
  checkNewValue(){
-  if (this.input.nativeElement.value != this.column.title) {
-    this.kanbanService.editColumn(this.input.nativeElement.value, this.column)
+  if (this.auth.isLogged()) {
+    if (this.input.nativeElement.value != this.column.title) {
+      this.kanbanService.editColumn(this.input.nativeElement.value, this.column)
+    }
   }
  }
   
  addCard() {
-  this.modalService.addTaskModal(this.column._id);
+  if (this.auth.isLogged()) {
+    this.modalService.addTaskModal(this.column._id);
+  }
  }
 
  ngOnInit(): void {
@@ -62,7 +70,9 @@ export class ColumnComponent implements OnInit {
  }
 
  removeColumn() {
-  this.modalService.remColModal(this.column._id, this.kanbanService.actualBoardId as string);
+  if (this.auth.isLogged()) {
+    this.modalService.remColModal(this.column._id, this.kanbanService.actualBoardId as string);
+  }
  }
 
 

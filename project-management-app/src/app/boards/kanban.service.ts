@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { updateBoardsAction, updateColumnsAction, updateTasksAction } from './state/boards.actions';
-import { State } from '../models/app.models';
+import { State, UserResponse } from '../models/app.models';
 import { Observable, filter, map, tap, toArray } from 'rxjs';
 import { HttpService } from './http.service';
 import { AuthService } from '../auth/auth.service';
@@ -21,6 +21,7 @@ export class KanbanService {
   myActualBoard$: Observable<Column[]>;
   myActualBoardLen: number = 0;
   myActualBoardTasks$: Observable<Task[]>
+  allUsers: UserResponse[] = [];
 
   constructor
   (
@@ -51,6 +52,7 @@ export class KanbanService {
   }
 
   getBoardColumns(id: string){
+    this.getAllUsers();
     this.httpService.getBoardColumns(id).subscribe(res => {
       return this.store.dispatch(updateColumnsAction({columns: res.sort((a, b) => a.order > b.order ? 1 : -1)}))
     })
@@ -107,5 +109,9 @@ export class KanbanService {
   deleteTask(task: Task){
     this.httpService.removeTask(task).subscribe()
     this.getTasksSet()
+  }
+
+  getAllUsers() {
+    this.httpService.getAllUsers().subscribe(res => this.allUsers = res)
   }
 }

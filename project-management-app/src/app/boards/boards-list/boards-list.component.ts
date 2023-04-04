@@ -15,9 +15,8 @@ export class BoardsListComponent {
   getBoardId() {
     this.kanbanService.getBoardColumns(this.newBoard._id);
     this.kanbanService.actualBoardId = this.newBoard._id;
-    this.kanbanService.myActualBoard$.subscribe(res => console.log(res, "myActualBoard$")).unsubscribe()
+    this.kanbanService.myActualBoard$.subscribe().unsubscribe()
     this.kanbanService.getBoardLen()
     this.kanbanService.getTasksSet();
-    this.kanbanService.myActualBoardTasks$.subscribe(res => {console.log(res, 'current tasks')}).unsubscribe()
   }
 }

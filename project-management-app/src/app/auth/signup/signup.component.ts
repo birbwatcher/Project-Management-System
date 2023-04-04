@@ -47,12 +47,10 @@ export class SignupComponent{
 
     this.authService.signup(this.form.value.name as string, this.form.value.username as string, this.form.value.password as string).subscribe({
       next: (value) => {
-        // this.authService.setToken(value.token);
-        console.log(value)
         this.router.navigate(['/sign-in'])
       },
       error(err) {
-        // console.log(err.error.message);
+
       }
     })
 

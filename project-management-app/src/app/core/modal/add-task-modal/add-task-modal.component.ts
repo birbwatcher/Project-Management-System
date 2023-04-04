@@ -31,7 +31,6 @@ export class AddTaskModalComponent {
   }
 
   submit() {
-    // console.log(this.form.value)
   }
 
 }

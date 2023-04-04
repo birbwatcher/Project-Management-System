@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { catchError, throwError } from 'rxjs';
-import { Board, Column, Task } from '../models/app.models';
+import { Board, Column, Task, User, UserResponse } from '../models/app.models';
 
 @Injectable({
   providedIn: 'root'
@@ -110,12 +110,10 @@ export class HttpService {
   }
 
   getColumnTasks(columnId: string, boardId: string) {
-    console.log(boardId, 'boardId', columnId, 'columnId')
     return this.http.get<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${columnId}/tasks`, this.requestOptions)
   }
   
   updateTask(title: string, description: string, task: Task){
-    console.log(task.boardId, 'task.boardId')
     let result = {
       "title": title,
       "order": task.order,
@@ -137,5 +135,9 @@ export class HttpService {
       "order": column.order,
     }
     return this.http.put<Column>(`${this.baseUrl}/boards/${column.boardId}/columns/${column._id}`, result , this.requestOptions)
+  }
+
+  getAllUsers(){
+    return this.http.get<Array<UserResponse>>(`${this.baseUrl}/users`, this.requestOptions)
   }
 }

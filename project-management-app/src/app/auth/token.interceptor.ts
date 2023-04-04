@@ -15,19 +15,15 @@ import { ModalServiceService } from "../core/modal/modal-service.service";
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>  {
         if (!this.auth.isLogged()) {
-                // console.log('token is expired!!!')
                 this.auth.removeToken();
                 this.router.navigate(['/sign-in']);
-                // console.log('hola')
         }
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
                 if (error.status === 403) {
-                  console.log('problem with the token')
-                //   this.auth.removeToken();
-                  return throwError(() => 'ggg')
+                  return throwError(() => {})
                 }
-                return throwError(() => 'oo');
+                return throwError(() => {});
               })
         )
     }

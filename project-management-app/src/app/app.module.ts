@@ -30,6 +30,12 @@ import { AddColumnModalComponent } from './core/modal/add-column-modal/add-colum
 import { EditTaskModalComponent } from './core/modal/edit-task-modal/edit-task-modal.component'
 import { TokenInterceptor } from './auth/token.interceptor';
 import { InfoModalComponent } from './core/modal/info-modal/info-modal.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatChipGrid, MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { UserSearchComponent } from './core/modal/user-search/user-search.component';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -51,7 +57,8 @@ import { InfoModalComponent } from './core/modal/info-modal/info-modal.component
     AddBoardModalComponent,
     AddColumnModalComponent,
     EditTaskModalComponent,
-    InfoModalComponent
+    InfoModalComponent,
+    UserSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +69,13 @@ import { InfoModalComponent } from './core/modal/info-modal/info-modal.component
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    StoreModule.forRoot({boards: updateBoardReducer})
+    StoreModule.forRoot({boards: updateBoardReducer}),
+    MatFormFieldModule,
+    MatChipsModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }

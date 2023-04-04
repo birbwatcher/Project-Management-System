@@ -47,8 +47,6 @@ export class EditTaskModalComponent {
     return this.form.controls.taskDescription as FormControl
   }
 
-  submit() {
-    // console.log(this.form.value)
-  }
+  submit() {}
 
 }

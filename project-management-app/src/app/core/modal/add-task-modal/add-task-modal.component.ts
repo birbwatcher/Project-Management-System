@@ -37,7 +37,9 @@ export class AddTaskModalComponent implements OnInit {
       Validators.minLength(1),
       Validators.required,
     ]),
-    users: new FormControl<UserResponse[]>(this.selectedUsers)
+    users: new FormControl<UserResponse[]>(this.selectedUsers, [
+      Validators.required,
+    ])
   })
 
   get title() {
@@ -48,12 +50,11 @@ export class AddTaskModalComponent implements OnInit {
     return this.form.controls.taskDescription as FormControl
   }
 
-  get users() {
-    return this.form.controls.users as FormControl;
-  }
+  // get users() {
+  //   return this.form.controls.users as FormControl;
+  // }
 
-  submit() {
-  }
+  submit() {console.log(this.form.controls)}
 
   private _filter(name: string): UserResponse[] {
     const filterValue = name.toLowerCase();

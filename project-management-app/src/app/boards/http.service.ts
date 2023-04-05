@@ -116,14 +116,16 @@ export class HttpService {
     return this.http.get<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${columnId}/tasks`, this.requestOptions)
   }
   
-  updateTask(title: string, description: string, task: Task){
+  updateTask(title: string, description: string, task: Task, users: UserResponse[]){
+    let usersResult = users.map((item) => item._id)
+
     let result = {
       "title": title,
       "order": task.order,
       "description": description,
       "columnId": task.columnId,
       "userId": task.userId,
-      "users": task.users
+      "users": usersResult
     }
     return this.http.put<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, result , this.requestOptions)
   }

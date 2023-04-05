@@ -83,8 +83,8 @@ export class KanbanService {
     this.getTasksSet()
   }
 
-  editTask(title: string, description: string, task:Task) {
-    this.httpService.updateTask(title, description, task).subscribe()
+  editTask(title: string, description: string, task:Task, users: UserResponse[]) {
+    this.httpService.updateTask(title, description, task, users).subscribe()
     this.getTasksSet()
   }
 

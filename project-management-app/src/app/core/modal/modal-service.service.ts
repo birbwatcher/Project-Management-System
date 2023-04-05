@@ -89,13 +89,15 @@ export class ModalServiceService {
     const dialogRef = this.matDialog.open(EditTaskModalComponent, {
       data: task
     });
+    this.kanbanService.getAllUsers();
 
     dialogRef.afterClosed().subscribe(formRes => {
       if (!formRes) {
         return
       }
       if (formRes.title) {
-        this.kanbanService.editTask(formRes.title, formRes.taskDescription, task)
+        console.log(formRes.users, 'lets check')
+        this.kanbanService.editTask(formRes.title, formRes.taskDescription, task, formRes.users)
       }
     })
   }

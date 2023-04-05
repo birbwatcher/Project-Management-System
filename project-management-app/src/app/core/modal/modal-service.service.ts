@@ -73,14 +73,14 @@ export class ModalServiceService {
 
     let order = 0
     this.kanbanService.getColumnLen(colId).subscribe(res => order = res.length);
-    // this.kanbanService.getAllUsers();
+    this.kanbanService.getAllUsers();
 
     dialogRef.afterClosed().subscribe(formRes => {
       if (!formRes) {
         return
       }
       if (formRes.title) {
-        this.kanbanService.addTask(formRes.title, formRes.taskDescription, colId, order)
+        this.kanbanService.addTask(formRes.title, formRes.taskDescription, colId, order, formRes.users)
       }
     } )
   }

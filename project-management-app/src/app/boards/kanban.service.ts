@@ -77,9 +77,9 @@ export class KanbanService {
     this.getBoardColumns(this.actualBoardId as string);
   }
 
-  addTask(title: string, description: string, colId: string, order: number) {
+  addTask(title: string, description: string, colId: string, order: number, users: UserResponse[]) {
     this.auth.getUserId()
-    this.httpService.addTask(title, description, this.actualBoardId as string, colId, order).subscribe()
+    this.httpService.addTask(title, description, this.actualBoardId as string, colId, order, users).subscribe()
     this.getTasksSet()
   }
 

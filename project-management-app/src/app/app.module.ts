@@ -34,7 +34,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipGrid, MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { UserSearchComponent } from './core/modal/user-search/user-search.component';
 import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
@@ -58,7 +57,6 @@ import { MatInputModule } from '@angular/material/input';
     AddColumnModalComponent,
     EditTaskModalComponent,
     InfoModalComponent,
-    UserSearchComponent
   ],
   imports: [
     BrowserModule,

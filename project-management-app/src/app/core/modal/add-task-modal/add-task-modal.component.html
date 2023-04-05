@@ -3,7 +3,22 @@
     <!-- <input type="text" class="border w-full py-2 px-4 mb-2" placeholder="Responsible users"> -->
     <textarea type="text" class="border w-full py-2 px-4 mb-2 h-28" placeholder="Task description" formControlName="taskDescription"></textarea>
     <div>
-        <app-user-search></app-user-search>
+        <form>
+            <mat-form-field class="example-chip-list">
+                <input type="text" placeholder="Choose responsible users" matInput [matChipInputFor]="chipGrid" [formControl]="formControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+                  <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+                    {{user.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-chip-grid #chipGrid>
+                <mat-chip *ngFor="let user of selectedUsers" removable (removed)="removeUser(user)">
+                  {{user.name}}
+                  <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+              </mat-chip-grid>
+          </form>
     </div>
     <div class="flex w-full">
         <button type="button" disabled [class.cursor-not-allowed]="title.errors?.minlength||taskDescription.errors?.minlength" [disabled]="title.errors?.minlength||title.errors?.required||taskDescription.errors?.minlength||taskDescription.errors?.required" [mat-dialog-close]="form.value" type="submit" class="w-1/2 py-2 px-4 bg-blue-600 text-white cursor-not-allowed disabled:bg-blue-300">Add task</button>

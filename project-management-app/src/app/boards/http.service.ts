@@ -84,18 +84,21 @@ export class HttpService {
     return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}`, this.requestOptions)
   }
 
-  addTask(title: string, description: string, boardId: string, colId: string, order: number) {
+  addTask(title: string, description: string, boardId: string, colId: string, order: number, users: UserResponse[]) {
     const headers = new HttpHeaders({
       'accept' : 'application/json',
       'Authorization': `Bearer ${this.auth.getToken()}`,
       'Content-Type' : 'application/json'
     })
+
+    let usersResult = users.map((item) => item._id)
+
     const task = {
       "title": title,
       "order": order,
       "description": description,
       "userId": this.auth.userId as string,
-      "users": []
+      "users": usersResult
     }
     return this.http.post<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}/tasks`, task, this.requestOptions)
   }

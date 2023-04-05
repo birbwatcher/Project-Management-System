@@ -96,7 +96,6 @@ export class ModalServiceService {
         return
       }
       if (formRes.title) {
-        console.log(formRes.users, 'lets check')
         this.kanbanService.editTask(formRes.title, formRes.taskDescription, task, formRes.users)
       }
     })

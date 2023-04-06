@@ -38,6 +38,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DashboardComponent } from './boards/dashboard/dashboard.component';
 import { SearchbarComponent } from './core/header/searchbar/searchbar.component';
+import { SearchResultsComponent } from './core/search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { SearchbarComponent } from './core/header/searchbar/searchbar.component'
     InfoModalComponent,
     DashboardComponent,
     SearchbarComponent,
+    SearchResultsComponent,
   ],
   imports: [
     BrowserModule,

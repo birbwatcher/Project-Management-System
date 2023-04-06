@@ -54,7 +54,7 @@ export class AddTaskModalComponent implements OnInit {
   //   return this.form.controls.users as FormControl;
   // }
 
-  submit() {console.log(this.form.controls)}
+  submit() {}
 
   private _filter(name: string): UserResponse[] {
     const filterValue = name.toLowerCase();

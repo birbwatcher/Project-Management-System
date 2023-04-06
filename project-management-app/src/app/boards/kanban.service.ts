@@ -23,6 +23,7 @@ export class KanbanService {
   myActualBoardTasks$: Observable<Task[]>
   allUsers: UserResponse[] = [];
   currentUserBoards$: Observable<Board[]>
+  searchResults$: Observable<Task[]>;
 
   constructor
   (

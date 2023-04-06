@@ -151,7 +151,10 @@ export class HttpService {
   }
 
   getUserName(id: string) {
-    console.log(id)
     return this.http.get<UserResponse>(`${this.baseUrl}/users/${id}`, this.requestOptions)
+  }
+
+  getSearchResults(request: string) {
+    return this.http.get<Task[]>(`${this.baseUrl}/tasksSet?search=${request}`, this.requestOptions)
   }
 }

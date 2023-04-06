@@ -33,7 +33,6 @@ export class BoardsListComponent implements OnInit {
   }
 
   removeBoard(){
-    console.log(this.newBoard._id)
     this.modalService.remBoardModal(this.newBoard._id)
   }
 }

@@ -1,0 +1,15 @@
+<div class="board flex grow overflow-x-auto min-h-full"  >
+    <div class="flex flex-wrap" *ngIf="kanbanService.searchResults$ | async as board">
+        <div class="task bg-white rounded-lg shadow-lg m-1 p-3 w-52 relative flex flex-col justify-between" 
+        *ngFor="let item of board">
+            <div>
+                <h4 class="[overflow-wrap:anywhere] pb-2">{{item.title}}</h4>
+                <p>{{item.description}}</p>
+            </div>
+            <div class="flex justify-center">
+                <button (click)="goToBoard(item.boardId)" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Go to Task</button>
+            </div>
+        </div>
+    </div>
+<!-- </ng-template> -->
+</div>

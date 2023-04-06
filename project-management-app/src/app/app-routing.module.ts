@@ -8,6 +8,7 @@ import { BoardComponent } from './boards/board/board.component';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { AuthGuard } from './auth/auth.guard';
 import { DashboardComponent } from './boards/dashboard/dashboard.component';
+import { SearchResultsComponent } from './core/search-results/search-results.component';
 
 const routes: Routes = [
   {path: '', component: MainPageComponent},
@@ -26,6 +27,11 @@ const routes: Routes = [
   {
     path: 'profile', 
     component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'search', 
+    component: SearchResultsComponent,
     canActivate: [AuthGuard]
   },
 

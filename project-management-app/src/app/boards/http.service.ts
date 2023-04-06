@@ -27,19 +27,19 @@ export class HttpService {
     return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, this.requestOptions)
   }
 
-  addBoard(boardTitle: string) {
+  addBoard(boardTitle: string, users: UserResponse[]) {
     const headers = new HttpHeaders({
       'accept' : 'application/json',
       'Authorization': `Bearer ${this.auth.getToken()}`,
       'Content-Type' : 'application/json'
     })
 
+    let usersResult = users.map((item) => item._id)
+
     const board = {
       "title": boardTitle,
       "owner": this.auth.userId as string,
-      "users": [
-        "string"
-      ]
+      "users": usersResult
     }
     return this.http.post<Array<Board>>(`${this.baseUrl}/boards`, board, this.requestOptions)
   }

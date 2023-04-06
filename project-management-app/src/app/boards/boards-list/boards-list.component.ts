@@ -3,7 +3,7 @@ import { KanbanService } from '../kanban.service';
 import { Board, User, UserResponse } from 'src/app/models/app.models';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
 import { HttpService } from '../http.service';
-import { Observable, map } from 'rxjs';
+import { Observable, combineLatest, filter, forkJoin, map, merge, of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 export class BoardsListComponent implements OnInit {
   @Input() newBoard!: Board;
   boardOwner$: Observable<UserResponse>
+  boardUsers$: Observable<UserResponse[]>
 
   constructor(public kanbanService: KanbanService,
               private modalService:ModalServiceService, 
@@ -21,7 +22,8 @@ export class BoardsListComponent implements OnInit {
               public auth:AuthService) {}
 
   ngOnInit(): void {
-    this.boardOwner$ = this.http.getUserName(this.newBoard.owner)
+    this.boardOwner$ = this.http.getUserName(this.newBoard.owner);
+    this.boardUsers$ = this.http.getAllUsers();
   }
 
   getBoardId() {
@@ -34,5 +36,9 @@ export class BoardsListComponent implements OnInit {
 
   removeBoard(){
     this.modalService.remBoardModal(this.newBoard._id)
+  }
+
+  getUserName(id: string): Observable<string> {
+    return this.http.getUserName(id).pipe(map(item => item.name));
   }
 }

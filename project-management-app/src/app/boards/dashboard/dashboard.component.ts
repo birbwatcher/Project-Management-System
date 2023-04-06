@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { KanbanService } from '../kanban.service';
 
 @Component({
@@ -6,8 +6,12 @@ import { KanbanService } from '../kanban.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
   constructor (public kanbanService:KanbanService){}
+
+  ngOnInit(): void {
+    this.kanbanService.getAllUsers();
+  }
 
 }

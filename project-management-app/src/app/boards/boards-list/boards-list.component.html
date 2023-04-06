@@ -3,8 +3,15 @@
     <div *ngIf="boardOwner$ | async as Owner">
         <p>Owner: {{Owner.name}}</p>
     </div>
-    <p>Board id: {{newBoard._id}}</p>
-    <p>Members: {{newBoard.users}}</p>
+    <!-- <p>Board id: {{newBoard._id}}</p> -->
+    <p>Users:</p>
+    <div *ngFor="let item of newBoard.users">
+        <ul *ngFor="let it of boardUsers$ | async">
+            <li *ngIf="it._id === item">{{it.name}}</li>
+        </ul>
+    </div>
+
+
     <div class="flex justify-evenly">
       <button class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="getBoardId()" routerLink="/board">Go to Board</button>
       <button *ngIf="newBoard.owner === this.auth.getCurrentUserId()" class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="removeBoard()">Remove</button>

@@ -46,9 +46,9 @@ export class KanbanService {
     }
   }
 
-  addBoard(boardTitle: string) {
+  addBoard(boardTitle: string, users: UserResponse[]) {
     this.auth.getUserId()
-    return this.httpService.addBoard(boardTitle)
+    return this.httpService.addBoard(boardTitle, users)
   }
 
   removeAllBoards() {

@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss']
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit {
   // isLoading = false;
 
   columns: ColumnComponent[] = [];
@@ -28,6 +28,12 @@ export class BoardComponent {
               private auth: AuthService,
               private router: Router,
     ) {};
+
+  ngOnInit(): void {
+      if (this.kanbanService.actualBoardId === null) {
+        this.router.navigate(['/dashboard'])
+      }
+  }
 
   addColumn() {
     this.modal.addColModal();
@@ -42,11 +48,8 @@ export class BoardComponent {
       })
        
       moveItemInArray(newColOrder, event.previousIndex, event.currentIndex)
-      
       newColOrder.forEach((item, index) => item.order = index);
-
       this.store.dispatch(updateColumnsAction({columns: newColOrder.sort((a, b) => a.order > b.order ? 1 : -1)}))
-
       this.http.updateColumnSet(newColOrder).subscribe(res => {this.kanbanService.getBoardColumns(this.kanbanService.actualBoardId as string)});
     
 

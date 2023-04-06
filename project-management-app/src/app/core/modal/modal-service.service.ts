@@ -33,7 +33,7 @@ export class ModalServiceService {
         return;
       }
       if (formRes.title.length > 0) {
-        this.kanbanService.addBoard(formRes.title).subscribe()
+        this.kanbanService.addBoard(formRes.title, formRes.users).subscribe()
         this.kanbanService.updateStore()
       }
     } )

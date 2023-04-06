@@ -52,6 +52,10 @@ export class HttpService {
     })
   }
 
+  removeBoard(id: string) {
+    return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${id}`, this.requestOptions).subscribe()
+  }
+
   getBoardColumns(id: string) {
     return this.http.get<Array<Column>>(`${this.baseUrl}/boards/${id}/columns`, this.requestOptions)
   }

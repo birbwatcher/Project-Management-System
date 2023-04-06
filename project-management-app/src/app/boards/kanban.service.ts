@@ -51,6 +51,13 @@ export class KanbanService {
     return this.httpService.removeAllBoards()
   }
 
+  removeBoard(id: string) {
+    this.httpService.removeBoard(id)
+    this.httpService.getBoardList().subscribe(res => {
+      return this.store.dispatch(updateBoardsAction({boards : res}))
+    });
+  }
+
   getBoardColumns(id: string){
     this.getAllUsers();
     this.httpService.getBoardColumns(id).subscribe(res => {

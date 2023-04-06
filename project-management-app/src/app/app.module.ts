@@ -10,10 +10,10 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { MainPageComponent } from './core/main-page/main-page.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
-import { DashboardComponent } from './boards/dashboard/dashboard.component';
+import { BoardComponent } from './boards/board/board.component';
 import { BoardsListComponent } from './boards/boards-list/boards-list.component';
-import { ColumnComponent } from './boards/dashboard/column/column.component';
-import { CardComponent } from './boards/dashboard/card/card.component';
+import { ColumnComponent } from './boards/board/column/column.component';
+import { CardComponent } from './boards/board/card/card.component';
 import { DragDropModule} from '@angular/cdk/drag-drop';
 import { ConfirmWindowComponent } from './core/modal/confirm-window/modal-window.component';
 import { DEFAULT_DIALOG_CONFIG, Dialog, DialogRef } from '@angular/cdk/dialog';
@@ -36,6 +36,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { DashboardComponent } from './boards/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     SignupComponent,
     MainPageComponent,
     PageNotFoundComponent,
-    DashboardComponent,
+    BoardComponent,
     BoardsListComponent,
     ColumnComponent,
     CardComponent,
@@ -58,6 +59,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     AddColumnModalComponent,
     EditTaskModalComponent,
     InfoModalComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@
                 </div>
                 <span class="cursor-pointer" (click)="removeColumn()">&#10006;</span>
             </div>
-            <h3 *ngIf="!isEditing" (click)="editingCheck()" class="[overflow-wrap:anywhere]">{{column.title}}</h3>
+            <h3 *ngIf="!isEditing" (click)="editingCheck()" class="[overflow-wrap:anywhere] text-xl font-medium">{{column.title}}</h3>
             <div *ngIf="isEditing">
                 <input  #titleInput type="text" value="{{column.title}}" (blur)="isEditing = false;checkNewValue()" (keydown.enter)="isEditing = false;checkNewValue()"><button>✔️</button>
             </div>

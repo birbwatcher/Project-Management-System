@@ -68,6 +68,19 @@ export class ModalServiceService {
     } )
   }
 
+  remBoardModal(id: string) {
+    const dialogRef = this.matDialog.open(ConfirmWindowComponent, {
+      width:'300px', 
+      height:'150px', 
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.kanbanService.removeBoard(id)
+      } else return;
+    } )
+  }
+
   addTaskModal(colId: string) {
     const dialogRef = this.matDialog.open(AddTaskModalComponent);
 

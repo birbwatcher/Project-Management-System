@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { KanbanService } from '../kanban.service';
 import { Board } from 'src/app/models/app.models';
+import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
 
 @Component({
   selector: 'app-boards-list',
@@ -10,7 +11,7 @@ import { Board } from 'src/app/models/app.models';
 export class BoardsListComponent {
   @Input() newBoard!: Board;
 
-  constructor(public kanbanService: KanbanService) {}
+  constructor(public kanbanService: KanbanService, private modalService:ModalServiceService) {}
 
   getBoardId() {
     this.kanbanService.getBoardColumns(this.newBoard._id);
@@ -18,5 +19,10 @@ export class BoardsListComponent {
     this.kanbanService.myActualBoard$.subscribe().unsubscribe()
     this.kanbanService.getBoardLen()
     this.kanbanService.getTasksSet();
+  }
+
+  removeBoard(){
+    console.log(this.newBoard._id)
+    this.modalService.remBoardModal(this.newBoard._id)
   }
 }

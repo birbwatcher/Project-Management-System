@@ -4,9 +4,10 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { MainPageComponent } from './core/main-page/main-page.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
-import { DashboardComponent } from './boards/dashboard/dashboard.component';
+import { BoardComponent } from './boards/board/board.component';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { AuthGuard } from './auth/auth.guard';
+import { DashboardComponent } from './boards/dashboard/dashboard.component';
 
 const routes: Routes = [
   {path: '', component: MainPageComponent},
@@ -15,6 +16,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'board',
+    component: BoardComponent,
     canActivate: [AuthGuard]
   },
   {

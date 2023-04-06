@@ -22,6 +22,7 @@ export class KanbanService {
   myActualBoardLen: number = 0;
   myActualBoardTasks$: Observable<Task[]>
   allUsers: UserResponse[] = [];
+  currentUserBoards$: Observable<Board[]>
 
   constructor
   (
@@ -33,6 +34,7 @@ export class KanbanService {
   this.myBoardsList$ = this.store.select(res => res.boards.boards);
   this.myActualBoard$ = this.store.select(res => res.boards.columns)
   this.myActualBoardTasks$ = this.store.select(res => res.boards.tasks)
+  this.currentUserBoards$ = this.store.select(res => res.boards.boards.filter(item => item.owner === this.auth.getCurrentUserId()));
   }
 
   updateStore() {
@@ -44,6 +46,7 @@ export class KanbanService {
   }
 
   addBoard(boardTitle: string) {
+    this.auth.getUserId()
     return this.httpService.addBoard(boardTitle)
   }
 

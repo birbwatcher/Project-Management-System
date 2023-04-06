@@ -91,6 +91,12 @@ export class AuthService{
     return this.username;
   }
 
+  getCurrentUserId() {
+    let token = localStorage.getItem('token') as string;
+    const id = (JSON.parse(atob(token.split('.')[1]))).id;
+    return id;
+  }
+
   updateUser(user: User) {
     const headers = new HttpHeaders({
       'accept' : 'application/json',

@@ -1,7 +1,7 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { catchError, throwError } from 'rxjs';
+import { catchError, map, throwError } from 'rxjs';
 import { Board, Column, Task, User, UserResponse } from '../models/app.models';
 
 @Injectable({
@@ -36,7 +36,7 @@ export class HttpService {
 
     const board = {
       "title": boardTitle,
-      "owner": "string",
+      "owner": this.auth.userId as string,
       "users": [
         "string"
       ]
@@ -148,5 +148,10 @@ export class HttpService {
 
   getAllUsers(){
     return this.http.get<Array<UserResponse>>(`${this.baseUrl}/users`, this.requestOptions)
+  }
+
+  getUserName(id: string) {
+    console.log(id)
+    return this.http.get<UserResponse>(`${this.baseUrl}/users/${id}`, this.requestOptions)
   }
 }

@@ -1,17 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { KanbanService } from '../kanban.service';
-import { Board } from 'src/app/models/app.models';
+import { Board, User, UserResponse } from 'src/app/models/app.models';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
+import { HttpService } from '../http.service';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-boards-list',
   templateUrl: './boards-list.component.html',
   styleUrls: ['./boards-list.component.scss']
 })
-export class BoardsListComponent {
+export class BoardsListComponent implements OnInit {
   @Input() newBoard!: Board;
+  boardOwner$: Observable<UserResponse>
 
-  constructor(public kanbanService: KanbanService, private modalService:ModalServiceService) {}
+  constructor(public kanbanService: KanbanService, private modalService:ModalServiceService, public http:HttpService) {}
+
+  ngOnInit(): void {
+    this.boardOwner$ = this.http.getUserName(this.newBoard.owner)
+  }
 
   getBoardId() {
     this.kanbanService.getBoardColumns(this.newBoard._id);

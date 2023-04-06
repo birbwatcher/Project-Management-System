@@ -4,6 +4,7 @@ import { Board, User, UserResponse } from 'src/app/models/app.models';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
 import { HttpService } from '../http.service';
 import { Observable, map } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-boards-list',
@@ -14,7 +15,10 @@ export class BoardsListComponent implements OnInit {
   @Input() newBoard!: Board;
   boardOwner$: Observable<UserResponse>
 
-  constructor(public kanbanService: KanbanService, private modalService:ModalServiceService, public http:HttpService) {}
+  constructor(public kanbanService: KanbanService,
+              private modalService:ModalServiceService, 
+              public http:HttpService,
+              public auth:AuthService) {}
 
   ngOnInit(): void {
     this.boardOwner$ = this.http.getUserName(this.newBoard.owner)

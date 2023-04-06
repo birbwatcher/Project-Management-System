@@ -37,6 +37,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DashboardComponent } from './boards/dashboard/dashboard.component';
+import { SearchbarComponent } from './core/header/searchbar/searchbar.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { DashboardComponent } from './boards/dashboard/dashboard.component';
     EditTaskModalComponent,
     InfoModalComponent,
     DashboardComponent,
+    SearchbarComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,7 +7,7 @@
     <p>Members: {{newBoard.users}}</p>
     <div class="flex justify-evenly">
       <button class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="getBoardId()" routerLink="/board">Go to Board</button>
-      <button class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="removeBoard()">Remove</button>
+      <button *ngIf="newBoard.owner === this.auth.getCurrentUserId()" class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="removeBoard()">Remove</button>
     </div>
 <div>
 

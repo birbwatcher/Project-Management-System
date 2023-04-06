@@ -40,9 +40,7 @@
     <ng-template [ngIf]="isLogged()">
       <section class="bg-gray-100 py-3">
         <div class="container mx-auto">
-            <!-- <ul class="flex">
-              <app-boards-list *ngFor="let item of this.kanbanService.myBoardsList$ | async" [newBoard]="item"></app-boards-list>
-            </ul> -->
+          <app-searchbar></app-searchbar>
         </div>
     </section>
     </ng-template>

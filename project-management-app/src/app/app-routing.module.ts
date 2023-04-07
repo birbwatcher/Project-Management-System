@@ -6,7 +6,7 @@ import { MainPageComponent } from './core/main-page/main-page.component';
 import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import { BoardComponent } from './boards/board/board.component';
 import { ProfileComponent } from './auth/profile/profile.component';
-import { AuthGuard } from './auth/auth.guard';
+import { AuthGuard } from './services/auth.guard';
 import { DashboardComponent } from './boards/dashboard/dashboard.component';
 import { SearchResultsComponent } from './core/search-results/search-results.component';
 

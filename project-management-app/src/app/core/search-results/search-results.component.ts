@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { KanbanService } from 'src/app/boards/kanban.service';
+import { KanbanService } from 'src/app/services/kanban.service';
 
 @Component({
   selector: 'app-search-results',
@@ -12,7 +12,6 @@ export class SearchResultsComponent {
   constructor(public kanbanService: KanbanService, private router:Router) {}
 
   goToBoard(id: string) {
-    console.log(id)
     this.kanbanService.getBoardColumns(id);
     this.kanbanService.actualBoardId = id;
     this.kanbanService.myActualBoard$.subscribe().unsubscribe()

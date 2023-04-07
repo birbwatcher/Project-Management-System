@@ -1,10 +1,10 @@
 <div class="p-2 m-3 w-60 bg-yellow-100 rounded-lg shadow-lg">
     <h2 class="text-xl font-medium">{{newBoard.title}}</h2>
     <div *ngIf="boardOwner$ | async as Owner">
-        <p>Owner: {{Owner.name}}</p>
+        <p class="font-medium">Owner: {{Owner.name}}</p>
     </div>
     <!-- <p>Board id: {{newBoard._id}}</p> -->
-    <p>Users:</p>
+    <p class="font-medium">Users:</p>
     <div *ngFor="let item of newBoard.users">
         <ul *ngFor="let it of boardUsers$ | async">
             <li *ngIf="it._id === item">{{it.name}}</li>

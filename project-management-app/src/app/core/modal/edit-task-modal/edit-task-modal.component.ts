@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { KanbanService } from 'src/app/boards/kanban.service';
+import { KanbanService } from 'src/app/services/kanban.service';
 import { Task, UserResponse } from 'src/app/models/app.models';
 import { ConfirmWindowComponent } from '../confirm-window/modal-window.component';
 import { Observable, map, of, startWith } from 'rxjs';

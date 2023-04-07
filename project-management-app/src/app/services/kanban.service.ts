@@ -1,10 +1,10 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { updateBoardsAction, updateColumnsAction, updateTasksAction } from './state/boards.actions';
+import { updateBoardsAction, updateColumnsAction, updateTasksAction } from '../boards/state/boards.actions';
 import { State, UserResponse } from '../models/app.models';
 import { Observable, filter, map, tap, toArray } from 'rxjs';
 import { HttpService } from './http.service';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from './auth.service';
 import { Board, Column, Task } from '../models/app.models';
 
 @Injectable({
@@ -23,6 +23,7 @@ export class KanbanService {
   myActualBoardTasks$: Observable<Task[]>
   allUsers: UserResponse[] = [];
   currentUserBoards$: Observable<Board[]>
+  currentUserAssignedBoards$: Observable<Board[]>
   searchResults$: Observable<Task[]>;
 
   constructor
@@ -36,6 +37,7 @@ export class KanbanService {
   this.myActualBoard$ = this.store.select(res => res.boards.columns)
   this.myActualBoardTasks$ = this.store.select(res => res.boards.tasks)
   this.currentUserBoards$ = this.store.select(res => res.boards.boards.filter(item => item.owner === this.auth.getCurrentUserId()));
+  this.currentUserAssignedBoards$ = this.store.select(res => res.boards.boards.filter(item => item.users.includes(this.auth.getCurrentUserId())));
   }
 
   updateStore() {

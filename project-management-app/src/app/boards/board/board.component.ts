@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ColumnComponent } from './column/column.component';
-import { KanbanService } from '../kanban.service';
+import { KanbanService } from '../../services/kanban.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
-import { HttpService } from '../http.service';
+import { HttpService } from '../../services/http.service';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/models/app.models';
 import { updateColumnsAction } from '../state/boards.actions';
 import { Column } from 'src/app/models/app.models';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({

@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { KanbanService } from '../kanban.service';
+import { KanbanService } from '../../services/kanban.service';
 import { Board, User, UserResponse } from 'src/app/models/app.models';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
-import { HttpService } from '../http.service';
+import { HttpService } from '../../services/http.service';
 import { Observable, combineLatest, filter, forkJoin, map, merge, of, switchMap } from 'rxjs';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-boards-list',

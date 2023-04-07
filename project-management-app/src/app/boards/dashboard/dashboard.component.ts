@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KanbanService } from '../kanban.service';
+import { KanbanService } from '../../services/kanban.service';
 
 @Component({
   selector: 'app-dashboard',

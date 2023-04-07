@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ConfirmWindowComponent } from './confirm-window/modal-window.component';
 import { MatDialog } from '@angular/material/dialog';
-import { KanbanService } from 'src/app/boards/kanban.service';
+import { KanbanService } from 'src/app/services/kanban.service';
 import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component';
 import { Store } from '@ngrx/store'
 import { AddBoardModalComponent } from './add-board-modal/add-board-modal.component';

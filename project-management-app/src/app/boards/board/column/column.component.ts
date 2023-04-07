@@ -1,14 +1,14 @@
 import { Component, Input, Output, EventEmitter, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { KanbanService } from '../../kanban.service';
+import { KanbanService } from '../../../services/kanban.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/models/app.models';
 import { updateTasksAction } from '../../state/boards.actions';
-import { HttpService } from '../../http.service';
+import { HttpService } from '../../../services/http.service';
 import { Column, Task } from 'src/app/models/app.models';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-column',

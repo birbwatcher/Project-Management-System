@@ -1,7 +1,7 @@
 import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { KanbanService } from 'src/app/boards/kanban.service';
+import { KanbanService } from 'src/app/services/kanban.service';
 import { ModalServiceService } from '../../modal/modal-service.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,7 +28,7 @@ import { updateBoardReducer } from './boards/state/boards.reducer';
 import { AddBoardModalComponent } from './core/modal/add-board-modal/add-board-modal.component';
 import { AddColumnModalComponent } from './core/modal/add-column-modal/add-column-modal.component';
 import { EditTaskModalComponent } from './core/modal/edit-task-modal/edit-task-modal.component'
-import { TokenInterceptor } from './auth/token.interceptor';
+import { TokenInterceptor } from './services/token.interceptor';
 import { InfoModalComponent } from './core/modal/info-modal/info-modal.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipGrid, MatChipsModule } from '@angular/material/chips';
@@ -39,6 +39,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DashboardComponent } from './boards/dashboard/dashboard.component';
 import { SearchbarComponent } from './core/header/searchbar/searchbar.component';
 import { SearchResultsComponent } from './core/search-results/search-results.component';
+import { GlobalErrorHandlerService } from './services/global-error-handler.service';
 
 @NgModule({
   declarations: [
@@ -84,6 +85,7 @@ import { SearchResultsComponent } from './core/search-results/search-results.com
     MatTooltipModule
   ],
   providers: [
+    { provide: ErrorHandler, useClass: GlobalErrorHandlerService},
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

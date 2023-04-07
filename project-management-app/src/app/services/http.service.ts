@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from './auth.service';
 import { catchError, map, throwError } from 'rxjs';
 import { Board, Column, Task, User, UserResponse } from '../models/app.models';
 
@@ -12,7 +12,7 @@ export class HttpService {
 
   headers = new HttpHeaders({
     'accept' : 'application/json',
-    'Authorization': `Bearer ${this.auth.getToken()}`
+    'Authorization': `Bearer ${this.auth.getToken()}`,
   })
   requestOptions = { headers: this.headers };
 

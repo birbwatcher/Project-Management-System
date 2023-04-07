@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Observable, map, of, startWith } from 'rxjs';
-import { HttpService } from 'src/app/boards/http.service';
-import { KanbanService } from 'src/app/boards/kanban.service';
+import { HttpService } from 'src/app/services/http.service';
+import { KanbanService } from 'src/app/services/kanban.service';
 import { UserResponse } from 'src/app/models/app.models';
 
 @Component({

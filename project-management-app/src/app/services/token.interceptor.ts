@@ -18,14 +18,15 @@ import { ModalServiceService } from "../core/modal/modal-service.service";
                 this.auth.removeToken();
                 this.router.navigate(['/sign-in']);
         }
-        return next.handle(request).pipe(
-            catchError((error: HttpErrorResponse) => {
-                if (error.status === 403) {
-                  return throwError(() => {})
-                }
-                return throwError(() => {});
-              })
-        )
+        return next.handle(request)
+        // .pipe(
+        //     catchError((error: HttpErrorResponse) => {
+        //         if (error.status === 403) {
+        //           return throwError((err: Error) => err)
+        //         }
+        //         return throwError((err: Error) => err);
+        //       })
+        // )
     }
 
 

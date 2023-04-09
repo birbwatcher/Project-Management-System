@@ -3,7 +3,7 @@ import { AuthService } from "./auth.service";
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
 import { Observable, catchError, throwError } from "rxjs";
 import { Router } from "@angular/router";
-import { ModalServiceService } from "../core/modal/modal-service.service";
+import { ModalServiceService } from "./modal-service.service";
 
 @Injectable({
     providedIn: 'root'

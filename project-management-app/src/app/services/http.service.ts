@@ -10,12 +10,14 @@ import { Board, Column, Task, User, UserResponse } from '../models/app.models';
 export class HttpService {
   private baseUrl = 'http://127.0.0.1:3000';
 
-  headers = new HttpHeaders({
-    'accept' : 'application/json',
-    'Authorization': `Bearer ${this.auth.getToken()}`,
-  })
-  requestOptions = { headers: this.headers };
-
+  getHeaders() {
+    let requestOptions
+    let headers = new HttpHeaders({
+      'accept' : 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    })
+    return requestOptions = { 'headers': headers };
+  }
   constructor
     (
       private http:HttpClient,
@@ -24,7 +26,7 @@ export class HttpService {
 
 
   getBoardList() {
-    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, this.requestOptions)
+    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, this.getHeaders())
   }
 
   addBoard(boardTitle: string, users: UserResponse[]) {
@@ -41,23 +43,23 @@ export class HttpService {
       "owner": this.auth.userId as string,
       "users": usersResult
     }
-    return this.http.post<Array<Board>>(`${this.baseUrl}/boards`, board, this.requestOptions)
+    return this.http.post<Array<Board>>(`${this.baseUrl}/boards`, board, this.getHeaders())
   }
 
   removeAllBoards() {
-    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, this.requestOptions).subscribe(res => {
+    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, this.getHeaders()).subscribe(res => {
       res.forEach(item => {
-        this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${item._id}`, this.requestOptions).subscribe()
+        this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${item._id}`, this.getHeaders()).subscribe()
       })
     })
   }
 
   removeBoard(id: string) {
-    return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${id}`, this.requestOptions).subscribe()
+    return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${id}`, this.getHeaders()).subscribe()
   }
 
   getBoardColumns(id: string) {
-    return this.http.get<Array<Column>>(`${this.baseUrl}/boards/${id}/columns`, this.requestOptions)
+    return this.http.get<Array<Column>>(`${this.baseUrl}/boards/${id}/columns`, this.getHeaders())
   }
 
   addColumn(title: string, boardId: string, order: number) {
@@ -71,7 +73,7 @@ export class HttpService {
       "title": title,
       "order": order,
     }
-    return this.http.post<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns`, column, this.requestOptions)
+    return this.http.post<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns`, column, this.getHeaders())
   }
 
   updateColumnSet(columns: Column[]) {
@@ -81,11 +83,11 @@ export class HttpService {
       'Content-Type' : 'application/json'
     })
     let newCol =  columns.map(({ _id, order }) => ({ _id, order }))
-    return this.http.patch<Array<{_id: string, order: number}[]>>(`${this.baseUrl}/columnsSet`, newCol, this.requestOptions)
+    return this.http.patch<Array<{_id: string, order: number}[]>>(`${this.baseUrl}/columnsSet`, newCol, this.getHeaders())
   }
 
   removeColumn(colId: string, boardId: string) {
-    return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}`, this.requestOptions)
+    return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}`, this.getHeaders())
   }
 
   addTask(title: string, description: string, boardId: string, colId: string, order: number, users: UserResponse[]) {
@@ -104,20 +106,20 @@ export class HttpService {
       "userId": this.auth.userId as string,
       "users": usersResult
     }
-    return this.http.post<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}/tasks`, task, this.requestOptions)
+    return this.http.post<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}/tasks`, task, this.getHeaders())
   }
 
   getTasksSet(boardId: string){
-    return this.http.get<Array<Task>>(`${this.baseUrl}/tasksSet/${boardId}`, this.requestOptions)
+    return this.http.get<Array<Task>>(`${this.baseUrl}/tasksSet/${boardId}`, this.getHeaders())
   }
 
   updateTasksSet(set: Task[]){
     let updateTaskOrder =  set.map(({ _id, order, columnId }) => ({ _id, order, columnId }))
-    return this.http.patch<Array<Task>>(`${this.baseUrl}/tasksSet`, updateTaskOrder, this.requestOptions)
+    return this.http.patch<Array<Task>>(`${this.baseUrl}/tasksSet`, updateTaskOrder, this.getHeaders())
   }
 
   getColumnTasks(columnId: string, boardId: string) {
-    return this.http.get<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${columnId}/tasks`, this.requestOptions)
+    return this.http.get<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${columnId}/tasks`, this.getHeaders())
   }
   
   updateTask(title: string, description: string, task: Task, users: UserResponse[]){
@@ -131,11 +133,11 @@ export class HttpService {
       "userId": task.userId,
       "users": usersResult
     }
-    return this.http.put<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, result , this.requestOptions)
+    return this.http.put<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, result , this.getHeaders())
   }
 
   removeTask(task: Task) {
-    return this.http.delete<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, this.requestOptions)
+    return this.http.delete<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, this.getHeaders())
   }
 
   updateColumn(title: string, column: Column) {
@@ -143,18 +145,18 @@ export class HttpService {
       "title": title,
       "order": column.order,
     }
-    return this.http.put<Column>(`${this.baseUrl}/boards/${column.boardId}/columns/${column._id}`, result , this.requestOptions)
+    return this.http.put<Column>(`${this.baseUrl}/boards/${column.boardId}/columns/${column._id}`, result , this.getHeaders())
   }
 
   getAllUsers(){
-    return this.http.get<Array<UserResponse>>(`${this.baseUrl}/users`, this.requestOptions)
+    return this.http.get<Array<UserResponse>>(`${this.baseUrl}/users`, this.getHeaders())
   }
 
   getUserName(id: string) {
-    return this.http.get<UserResponse>(`${this.baseUrl}/users/${id}`, this.requestOptions)
+    return this.http.get<UserResponse>(`${this.baseUrl}/users/${id}`, this.getHeaders())
   }
 
   getSearchResults(request: string) {
-    return this.http.get<Task[]>(`${this.baseUrl}/tasksSet?search=${request}`, this.requestOptions)
+    return this.http.get<Task[]>(`${this.baseUrl}/tasksSet?search=${request}`, this.getHeaders())
   }
 }

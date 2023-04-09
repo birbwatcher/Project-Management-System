@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ConfirmWindowComponent } from './confirm-window/modal-window.component';
+import { ConfirmWindowComponent } from '../core/modal/confirm-window/modal-window.component';
 import { MatDialog } from '@angular/material/dialog';
 import { KanbanService } from 'src/app/services/kanban.service';
-import { AddTaskModalComponent } from './add-task-modal/add-task-modal.component';
+import { AddTaskModalComponent } from '../core/modal/add-task-modal/add-task-modal.component';
 import { Store } from '@ngrx/store'
-import { AddBoardModalComponent } from './add-board-modal/add-board-modal.component';
-import { AddColumnModalComponent } from './add-column-modal/add-column-modal.component';
-import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.component';
+import { AddBoardModalComponent } from '../core/modal/add-board-modal/add-board-modal.component';
+import { AddColumnModalComponent } from '../core/modal/add-column-modal/add-column-modal.component';
+import { EditTaskModalComponent } from '../core/modal/edit-task-modal/edit-task-modal.component';
 import { Task } from 'src/app/models/app.models';
-import { InfoModalComponent } from './info-modal/info-modal.component';
+import { InfoModalComponent } from '../core/modal/info-modal/info-modal.component';
 
 @Injectable({
   providedIn: 'root'

@@ -50,6 +50,7 @@ export class KanbanService {
 
   addBoard(boardTitle: string, users: UserResponse[]) {
     this.auth.getUserId()
+    this.updateStore()
     return this.httpService.addBoard(boardTitle, users)
   }
 
@@ -59,6 +60,7 @@ export class KanbanService {
 
   removeBoard(id: string) {
     this.httpService.removeBoard(id)
+    this.updateStore()
     this.httpService.getBoardList().subscribe(res => {
       return this.store.dispatch(updateBoardsAction({boards : res}))
     });

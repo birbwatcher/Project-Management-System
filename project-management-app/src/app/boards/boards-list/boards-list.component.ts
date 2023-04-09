@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { KanbanService } from '../../services/kanban.service';
 import { Board, User, UserResponse } from 'src/app/models/app.models';
-import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
+import { ModalServiceService } from 'src/app/services/modal-service.service';
 import { HttpService } from '../../services/http.service';
 import { Observable, combineLatest, filter, forkJoin, map, merge, of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';

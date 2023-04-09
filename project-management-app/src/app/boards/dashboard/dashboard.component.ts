@@ -11,7 +11,8 @@ export class DashboardComponent implements OnInit {
   constructor (public kanbanService:KanbanService){}
 
   ngOnInit(): void {
-    this.kanbanService.getAllUsers();
+    // this.kanbanService.getAllUsers();
+    this.kanbanService.updateStore()
   }
 
 }

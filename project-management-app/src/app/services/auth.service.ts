@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { User, UserResponse } from '../models/app.models';
 import { Route, Router } from '@angular/router';
-import { ModalServiceService } from '../core/modal/modal-service.service';
+import { ModalServiceService } from './modal-service.service';
 
 
 @Injectable({
@@ -33,6 +33,7 @@ export class AuthService{
           this.username = username;
           localStorage.setItem('token', token);
           localStorage.setItem('username', username);
+          this.router.navigate(['/dashboard'])
         }
       )
     )

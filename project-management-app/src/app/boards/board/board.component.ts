@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ColumnComponent } from './column/column.component';
 import { KanbanService } from '../../services/kanban.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
+import { ModalServiceService } from 'src/app/services/modal-service.service';
 import { HttpService } from '../../services/http.service';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/models/app.models';
@@ -30,6 +30,7 @@ export class BoardComponent implements OnInit {
     ) {};
 
   ngOnInit(): void {
+      this.auth.getUserId();
       if (this.kanbanService.actualBoardId === null) {
         this.router.navigate(['/dashboard'])
       }

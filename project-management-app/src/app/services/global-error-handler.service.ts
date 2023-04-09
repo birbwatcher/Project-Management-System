@@ -1,5 +1,5 @@
 import { ErrorHandler, Injectable, NgZone } from '@angular/core';
-import { ModalServiceService } from '../core/modal/modal-service.service';
+import { ModalServiceService } from './modal-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Injectable({

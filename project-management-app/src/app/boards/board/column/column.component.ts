@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { KanbanService } from '../../../services/kanban.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { ModalServiceService } from 'src/app/core/modal/modal-service.service';
+import { ModalServiceService } from 'src/app/services/modal-service.service';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/models/app.models';
 import { updateTasksAction } from '../../state/boards.actions';

@@ -1,6 +1,6 @@
 import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { KanbanService } from 'src/app/services/kanban.service';
-import { ModalServiceService } from '../../modal/modal-service.service';
+import { ModalServiceService } from '../../../services/modal-service.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({

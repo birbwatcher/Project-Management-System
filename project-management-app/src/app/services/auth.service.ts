@@ -1,19 +1,10 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { User, UserResponse } from '../models/app.models';
+import { Route, Router } from '@angular/router';
+import { ModalServiceService } from './modal-service.service';
 
-
-interface User {
-  name: string,
-  login: string,
-  password: string
-}
-
-interface UserResponse {
-  _id: string,
-  name: string,
-  login: string
-}
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +14,9 @@ export class AuthService{
   private baseUrl = 'http://127.0.0.1:3000';
   private tokenKey: null | string = null;
   public username: null | string = null;
-  private userId: null | string = null;
+  public userId: null | string = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   signup(name: string, login: string, password: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/auth/signup`, {"name": name, "login": login, "password": password})
@@ -42,13 +33,20 @@ export class AuthService{
           this.username = username;
           localStorage.setItem('token', token);
           localStorage.setItem('username', username);
+          this.getUserId();
+          this.router.navigate(['/dashboard'])
         }
       )
     )
   }
 
   isLogged(): boolean {
-    return !!this.tokenKey
+    if (localStorage.getItem('token')) {
+      let token = localStorage.getItem('token') as string;
+      const expiry = (JSON.parse(atob(token.split('.')[1]))).exp;
+      return (Date.now() / 1000) < expiry;
+    } 
+    return false;
   }
 
   getToken(): string {
@@ -95,9 +93,11 @@ export class AuthService{
     return this.username;
   }
 
-  // getUser() {
-
-  // }
+  getCurrentUserId() {
+    let token = localStorage.getItem('token') as string;
+    const id = (JSON.parse(atob(token.split('.')[1]))).id;
+    return id;
+  }
 
   updateUser(user: User) {
     const headers = new HttpHeaders({

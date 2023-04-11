@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModalWindowComponent } from './modal-window.component';
+import { ConfirmWindowComponent } from './modal-window.component';
 
 describe('ModalWindowComponent', () => {
-  let component: ModalWindowComponent;
-  let fixture: ComponentFixture<ModalWindowComponent>;
+  let component: ConfirmWindowComponent;
+  let fixture: ComponentFixture<ConfirmWindowComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModalWindowComponent ]
+      declarations: [ ConfirmWindowComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ModalWindowComponent);
+    fixture = TestBed.createComponent(ConfirmWindowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -47,12 +47,10 @@ export class SignupComponent{
 
     this.authService.signup(this.form.value.name as string, this.form.value.username as string, this.form.value.password as string).subscribe({
       next: (value) => {
-        // this.authService.setToken(value.token);
-        console.log(value)
         this.router.navigate(['/sign-in'])
       },
       error(err) {
-        // console.log(err.error.message);
+
       }
     })
 

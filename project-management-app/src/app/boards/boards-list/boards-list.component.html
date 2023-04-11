@@ -1,2 +1,20 @@
-<li><a class="py-2 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="getBoardId()" routerLink="/dashboard">{{newBoard.title}}</a></li>
+<div class="p-2 m-3 w-60 bg-yellow-100 rounded-lg shadow-lg">
+    <h2 class="text-xl font-medium">{{newBoard.title}}</h2>
+    <div *ngIf="boardOwner$ | async as Owner">
+        <p class="font-medium">Owner: {{Owner.name}}</p>
+    </div>
+    <!-- <p>Board id: {{newBoard._id}}</p> -->
+    <p class="font-medium">Users:</p>
+    <div *ngFor="let item of newBoard.users">
+        <ul *ngFor="let it of boardUsers$ | async">
+            <li *ngIf="it._id === item">{{it.name}}</li>
+        </ul>
+    </div>
+
+
+    <div class="flex justify-evenly">
+      <button class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="getBoardId()" routerLink="/board">Go to Board</button>
+      <button *ngIf="newBoard.owner === this.auth.getCurrentUserId()" class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="removeBoard()">Remove</button>
+    </div>
+<div>
 

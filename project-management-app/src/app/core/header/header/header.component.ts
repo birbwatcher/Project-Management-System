@@ -1,31 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { KanbanService } from 'src/app/boards/kanban.service';
-import { IBoard } from 'src/app/boards/kanban.service';
-import { ModalServiceService } from '../../modal/modal-service.service';
-import { AuthService } from 'src/app/auth/auth.service';
+import { Component, DoCheck, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { KanbanService } from 'src/app/services/kanban.service';
+import { ModalServiceService } from '../../../services/modal-service.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
  i = 1;
 
- boards: IBoard[] = [];
+//  myBoards$: Observable<Board[]>;
+//  boards: Board[] = [];
 
- constructor (public someService:KanbanService,
+ constructor (public kanbanService:KanbanService,
               public modalService:ModalServiceService,
-              public authService: AuthService
+              public authService: AuthService,
+              // private store: Store<State>
   ) {};
 
-  addBoard() {
-    this.modalService.addBoardModal()
-    this.i++;
+  ngOnInit(): void {
+    // this.kanbanService.removeAllBoards();
+    this.updateBoards()
+    
   }
- 
-  getBoardId() {
-    // this.someService.getBoardId()
+
+  updateBoards() {
+    this.kanbanService.updateStore()
+  }
+
+  addBoard() {
+    if (this.authService.isLogged()) {
+      this.modalService.addBoardModal();
+    }
   }
 
   removeToken() {

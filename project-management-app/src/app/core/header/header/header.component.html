@@ -1,7 +1,12 @@
 <header class="bg-gray-200">
     <div class="flex justify-between pt-7 pb-7 container mx-auto">
-      <a routerLink="/"><h2 class="font-bold text-2xl  text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-600">RS Kanban APP</h2></a>
-      <nav>
+      <ng-template [ngIf]="!isLogged()">
+        <a routerLink="/"><h2 class="font-bold text-2xl  text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-600">RS Kanban APP</h2></a>
+      </ng-template>
+      <ng-template [ngIf]="isLogged()">
+        <a routerLink="/dashboard"><h2 class="font-bold text-2xl  text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-600">RS Kanban APP</h2></a>
+      </ng-template>
+      <nav class="sm:flex hidden">
         <ul class="flex space-x-2">
           <ng-template [ngIf]="!isLogged()">
             <li><a routerLink="/sign-in" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Login</a></li>
@@ -9,21 +14,33 @@
           </ng-template>
           <ng-template [ngIf]="isLogged()">
             <li><button class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="addBoard()" routerLink="/dashboard">+ Create New Board</button></li>
-            <li><a routerLink="/profile" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Edit Profile</a></li>
-            <li><a routerLink="/" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="removeToken()">Sign out</a></li>
+            <li><button routerLink="/profile" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Edit Profile</button></li>
+            <li><button routerLink="/" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="removeToken()">Sign out</button></li>
           </ng-template>
           <li>
             <app-language-switch></app-language-switch>
           </li>
         </ul>
       </nav>
+      <nav class="sm:hidden px-4 flex">
+        <ng-template [ngIf]="isLogged()">
+          <button class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="Add new board"><mat-icon aria-label="Example home icon" (click)="addBoard()" routerLink="/dashboard">add_box</mat-icon></button>
+          <button routerLink="/profile" class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="Profile"><mat-icon aria-label="Example home icon">account_circle</mat-icon></button>
+          <button class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="Logout"><mat-icon aria-label="Example home icon" (click)="removeToken()">logout</mat-icon></button>
+          <div class="w-10"><app-language-switch></app-language-switch></div>
+        </ng-template>
+        <ng-template [ngIf]="!isLogged()">
+          <ul class="flex space-x-2">
+            <li><a routerLink="/sign-in" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Login</a></li>
+            <li><a routerLink="/sign-up" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign up</a></li>
+          </ul>
+        </ng-template>
+        </nav>
     </div>
     <ng-template [ngIf]="isLogged()">
       <section class="bg-gray-100 py-3">
         <div class="container mx-auto">
-            <ul class="flex">
-              <app-boards-list *ngFor="let item of someService.boards" [newBoard]="item"></app-boards-list>
-            </ul>
+          <app-searchbar></app-searchbar>
         </div>
     </section>
     </ng-template>

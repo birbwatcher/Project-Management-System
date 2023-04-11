@@ -1,0 +1,162 @@
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { AuthService } from './auth.service';
+import { catchError, map, throwError } from 'rxjs';
+import { Board, Column, Task, User, UserResponse } from '../models/app.models';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class HttpService {
+  private baseUrl = 'http://127.0.0.1:3000';
+
+  getHeaders() {
+    let requestOptions
+    let headers = new HttpHeaders({
+      'accept' : 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('token')}`,
+    })
+    return requestOptions = { 'headers': headers };
+  }
+  constructor
+    (
+      private http:HttpClient,
+      private auth:AuthService
+    ){}
+
+
+  getBoardList() {
+    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, this.getHeaders())
+  }
+
+  addBoard(boardTitle: string, users: UserResponse[]) {
+    const headers = new HttpHeaders({
+      'accept' : 'application/json',
+      'Authorization': `Bearer ${this.auth.getToken()}`,
+      'Content-Type' : 'application/json'
+    })
+
+    let usersResult = users.map((item) => item._id)
+
+    const board = {
+      "title": boardTitle,
+      "owner": this.auth.userId as string,
+      "users": usersResult
+    }
+    return this.http.post<Array<Board>>(`${this.baseUrl}/boards`, board, this.getHeaders())
+  }
+
+  removeAllBoards() {
+    return this.http.get<Array<Board>>(`${this.baseUrl}/boards`, this.getHeaders()).subscribe(res => {
+      res.forEach(item => {
+        this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${item._id}`, this.getHeaders()).subscribe()
+      })
+    })
+  }
+
+  removeBoard(id: string) {
+    return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${id}`, this.getHeaders()).subscribe()
+  }
+
+  getBoardColumns(id: string) {
+    return this.http.get<Array<Column>>(`${this.baseUrl}/boards/${id}/columns`, this.getHeaders())
+  }
+
+  addColumn(title: string, boardId: string, order: number) {
+    const headers = new HttpHeaders({
+      'accept' : 'application/json',
+      'Authorization': `Bearer ${this.auth.getToken()}`,
+      'Content-Type' : 'application/json'
+    })
+
+    const column = {
+      "title": title,
+      "order": order,
+    }
+    return this.http.post<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns`, column, this.getHeaders())
+  }
+
+  updateColumnSet(columns: Column[]) {
+    const headers = new HttpHeaders({
+      'accept' : 'application/json',
+      'Authorization': `Bearer ${this.auth.getToken()}`,
+      'Content-Type' : 'application/json'
+    })
+    let newCol =  columns.map(({ _id, order }) => ({ _id, order }))
+    return this.http.patch<Array<{_id: string, order: number}[]>>(`${this.baseUrl}/columnsSet`, newCol, this.getHeaders())
+  }
+
+  removeColumn(colId: string, boardId: string) {
+    return this.http.delete<Array<Board>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}`, this.getHeaders())
+  }
+
+  addTask(title: string, description: string, boardId: string, colId: string, order: number, users: UserResponse[]) {
+    const headers = new HttpHeaders({
+      'accept' : 'application/json',
+      'Authorization': `Bearer ${this.auth.getToken()}`,
+      'Content-Type' : 'application/json'
+    })
+
+    let usersResult = users.map((item) => item._id)
+
+    const task = {
+      "title": title,
+      "order": order,
+      "description": description,
+      "userId": this.auth.userId as string,
+      "users": usersResult
+    }
+    return this.http.post<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${colId}/tasks`, task, this.getHeaders())
+  }
+
+  getTasksSet(boardId: string){
+    return this.http.get<Array<Task>>(`${this.baseUrl}/tasksSet/${boardId}`, this.getHeaders())
+  }
+
+  updateTasksSet(set: Task[]){
+    let updateTaskOrder =  set.map(({ _id, order, columnId }) => ({ _id, order, columnId }))
+    return this.http.patch<Array<Task>>(`${this.baseUrl}/tasksSet`, updateTaskOrder, this.getHeaders())
+  }
+
+  getColumnTasks(columnId: string, boardId: string) {
+    return this.http.get<Array<Task>>(`${this.baseUrl}/boards/${boardId}/columns/${columnId}/tasks`, this.getHeaders())
+  }
+  
+  updateTask(title: string, description: string, task: Task, users: UserResponse[]){
+    let usersResult = users.map((item) => item._id)
+
+    let result = {
+      "title": title,
+      "order": task.order,
+      "description": description,
+      "columnId": task.columnId,
+      "userId": task.userId,
+      "users": usersResult
+    }
+    return this.http.put<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, result , this.getHeaders())
+  }
+
+  removeTask(task: Task) {
+    return this.http.delete<Task>(`${this.baseUrl}/boards/${task.boardId}/columns/${task.columnId}/tasks/${task._id}`, this.getHeaders())
+  }
+
+  updateColumn(title: string, column: Column) {
+    let result = {
+      "title": title,
+      "order": column.order,
+    }
+    return this.http.put<Column>(`${this.baseUrl}/boards/${column.boardId}/columns/${column._id}`, result , this.getHeaders())
+  }
+
+  getAllUsers(){
+    return this.http.get<Array<UserResponse>>(`${this.baseUrl}/users`, this.getHeaders())
+  }
+
+  getUserName(id: string) {
+    return this.http.get<UserResponse>(`${this.baseUrl}/users/${id}`, this.getHeaders())
+  }
+
+  getSearchResults(request: string) {
+    return this.http.get<Task[]>(`${this.baseUrl}/tasksSet?search=${request}`, this.getHeaders())
+  }
+}

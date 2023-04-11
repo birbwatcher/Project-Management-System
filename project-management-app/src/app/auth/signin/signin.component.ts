@@ -38,22 +38,10 @@ export class SigninComponent {
       this.passwordNotValid = true;
       return false;
     }
-
-    this.authService.login(this.form.value.username as string, this.form.value.password as string).subscribe({
-      next: (value) => {
-        this.kanbanService.getAllUsers();
-        this.authService.getUserId()
-      },
-      error(err) {
-
-      }
-      
-    })
-    
-    
+    this.authService.login(this.form.value.username as string, this.form.value.password as string).subscribe(res => {this.kanbanService.getAllUsers()})
     this.passwordNotValid = false;
     this.userNameNotValid = false;
-    return
+    return false;
   }
 
 }

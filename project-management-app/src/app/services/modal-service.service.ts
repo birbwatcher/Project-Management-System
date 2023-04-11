@@ -8,16 +8,18 @@ import { AddBoardModalComponent } from '../core/modal/add-board-modal/add-board-
 import { AddColumnModalComponent } from '../core/modal/add-column-modal/add-column-modal.component';
 import { EditTaskModalComponent } from '../core/modal/edit-task-modal/edit-task-modal.component';
 import { Task } from 'src/app/models/app.models';
-import { InfoModalComponent } from '../core/modal/info-modal/info-modal.component';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { ErrorComponent } from '../core/modal/error/error.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalServiceService {
+  isModalOpen = false;
 
   constructor(private matDialog: MatDialog,
-              private kanbanService: KanbanService,
-              private store: Store
+              private kanbanService: KanbanService
     ) { }
 
 
@@ -115,8 +117,31 @@ export class ModalServiceService {
   }
 
   sessionExp() {
-    const dialogRef = this.matDialog.open(InfoModalComponent);
-
+    let dialogData = {
+      message: 'Your token is expired. Please sign-in'
+    }
+    const dialogRef = this.matDialog.open(ErrorComponent, {data: dialogData});
     dialogRef.afterClosed().subscribe()
   }
+
+  showError(error: HttpErrorResponse) {
+    if (!this.isModalOpen) {
+      let dialogData = {
+        message: error.error.message
+      }
+      this.isModalOpen = true;
+      if (error.status === 401) {
+        dialogData = {
+          message: 'Login and Password did not match'
+        }
+      }
+      const dialogRef = this.matDialog.open(ErrorComponent, {
+        width:'300px', 
+        height:'150px', 
+        data: dialogData});
+      
+      return dialogRef.afterClosed().subscribe(res => this.isModalOpen = false)
+    } else return;
+  }
+  
 }

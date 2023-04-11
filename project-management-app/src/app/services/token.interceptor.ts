@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { AuthService } from "./auth.service";
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Observable, catchError, throwError } from "rxjs";
+import { Observable, catchError, tap, throwError } from "rxjs";
 import { Router } from "@angular/router";
 import { ModalServiceService } from "./modal-service.service";
 
@@ -19,14 +19,15 @@ import { ModalServiceService } from "./modal-service.service";
                 this.router.navigate(['/sign-in']);
         }
         return next.handle(request)
-        // .pipe(
-        //     catchError((error: HttpErrorResponse) => {
-        //         if (error.status === 403) {
-        //           return throwError((err: Error) => err)
-        //         }
-        //         return throwError((err: Error) => err);
-        //       })
-        // )
+        .pipe(tap(() => {},
+        (err: any) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status !== 401) {
+           return;
+          }
+          this.modal.showError(err);
+        }
+      }));
     }
 
 

@@ -1,18 +1,23 @@
 import { ErrorHandler, Injectable, NgZone } from '@angular/core';
 import { ModalServiceService } from './modal-service.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorComponent } from '../core/modal/error/error.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GlobalErrorHandlerService implements ErrorHandler {
 
-  constructor(private modal: ModalServiceService,
-              private ngZone: NgZone) { 
+  constructor(private modal:ModalServiceService, private zone: NgZone) { 
     
   }
 
-  handleError(error: HttpErrorResponse): void {
-    console.log(error.message, 'global handler')    
+  handleError(error: any): void {
+    this.zone.run(() => {
+      if (error.status != 401) {
+        this.modal.showError(error)
+      }
+    })
   }
 }

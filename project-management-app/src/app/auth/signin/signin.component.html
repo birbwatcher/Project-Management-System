@@ -1,23 +1,23 @@
 <div class="border-2 border-gray-400 rounded my-4">
     <form class="py-4" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="flex flex-col items-center">
-            <h2 class="mb-4">Please login to your account</h2>
+            <h2 class="mb-4">{{"login-page-title" | translate}}</h2>
             <div class="mb-6">
                 <input type="text" 
                     class="w-full px-4 py-2 border border-gray-300 rounded focus:border-black focus:border-2 focus:outline-none transition ease-in-out duration-500"
-                    placeholder="Login"
+                    placeholder="{{'login-page-login' | translate}}"
                     formControlName="username">
             </div>
             <p class="text-red-600 font-medium mb-2" *ngIf="this.userNameNotValid">Plese enter your username</p>
             <div class="mb-6">
                 <input type="password" 
                 class="w-full px-4 py-2 border border-gray-300 rounded focus:border-black focus:border-2 focus:outline-none transition ease-in-out duration-500"
-                placeholder="Password"
+                placeholder="{{'password' | translate}}"
                 formControlName="password">
                 <p class="text-red-600 font-medium mb-2" *ngIf="this.passwordNotValid">Please enter a password</p>
             </div>
             <div>
-                <button type="submit" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign in</button>
+                <button type="submit" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">{{"login" | translate}}</button>
             </div>
         </div>
 

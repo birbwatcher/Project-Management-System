@@ -9,8 +9,8 @@
       <nav class="sm:flex hidden">
         <ul class="flex space-x-2">
           <ng-template [ngIf]="!isLogged()">
-            <button routerLink="/sign-in" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Login</button>
-            <button routerLink="/sign-up" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Sign up</button>
+            <button routerLink="/sign-in" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">{{"login" | translate}}</button>
+            <button routerLink="/sign-up" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">{{"signup" | translate}}</button>
           </ng-template>
           <ng-template [ngIf]="isLogged()">
             <li><button class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="addBoard()" routerLink="/dashboard">+ Create New Board</button></li>

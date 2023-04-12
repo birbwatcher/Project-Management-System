@@ -1,0 +1,21 @@
+{
+    "login": "Login",
+    "signup": "Sign Up",
+    "login-page-login": "Login",
+    "password": "Password",
+    "login-page-title": "Please login to your account",
+    "main-page-title-1": "Looking for a Great",
+    "main-page-title-2": "Task Management App?",
+    "main-page-description": "Welcome to our RS Kanban App, designed to help teams easily organize their workflow. Developed using Angular as part of our training at Rolling Scopes School, our app provides a user-friendly interface to manage tasks, track progress, and collaborate with team members. With RS Kanban App, you can streamline your workflow, increase productivity, and stay on top of your goals. Sign up now to start optimizing your team's workflow today!",
+    "main-page-technologies": "Used Technologies",
+    "main-page-team": "Meet The Team",
+    "team-name-1": "Mr.Octopus",
+    "team-name-2": "Alex",
+    "team-name-3": "Mr.Rubber Duck",
+    "team-title-1": "Emotional Support Animal",
+    "team-title-2": "Front-end Developer",
+    "team-title-3": "Critical Situation Manager",
+    "team-description-1": "Octopus helps our team to keep themselves in hand",
+    "team-description-2": "Alex is a Front-end developer. Have lot of expirience in SEO. P.S Currently Alex looking for a Job",
+    "team-description-3": "Mr Rubber Duck helps our team by answering for super difficult questions"
+}

@@ -22,7 +22,7 @@ import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dial
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddTaskModalComponent } from './core/modal/add-task-modal/add-task-modal.component';
 import { ProfileComponent } from './auth/profile/profile.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from  '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from  '@angular/common/http';
 import { StoreModule } from '@ngrx/store'
 import { updateBoardReducer } from './boards/state/boards.reducer';
 import { AddBoardModalComponent } from './core/modal/add-board-modal/add-board-modal.component';
@@ -41,6 +41,12 @@ import { SearchResultsComponent } from './core/search-results/search-results.com
 import { GlobalErrorHandlerService } from './services/global-error-handler.service';
 import { ErrorComponent } from './core/modal/error/error.component';
 import { LoaderComponent } from './core/loader/loader.component';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -84,7 +90,16 @@ import { LoaderComponent } from './core/loader/loader.component';
     MatAutocompleteModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTooltipModule
+    MatTooltipModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      defaultLanguage: 'en-US',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   providers: [
     { provide: ErrorHandler, useClass: GlobalErrorHandlerService},

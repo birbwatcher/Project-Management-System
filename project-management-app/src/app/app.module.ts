@@ -41,6 +41,7 @@ import { SearchResultsComponent } from './core/search-results/search-results.com
 import { GlobalErrorHandlerService } from './services/global-error-handler.service';
 import { ErrorComponent } from './core/modal/error/error.component';
 import { TetComponent } from './auth/tet/tet.component';
+import { LoaderComponent } from './core/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { TetComponent } from './auth/tet/tet.component';
     SearchResultsComponent,
     ErrorComponent,
     TetComponent,
+    LoaderComponent,
   ],
   imports: [
     MatDialogModule,

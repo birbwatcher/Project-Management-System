@@ -16,7 +16,6 @@ import { ModalServiceService } from "./modal-service.service";
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>  {
         if (!this.auth.isLogged()) {
                 this.auth.removeToken();
-                this.router.navigate(['/sign-in']);
         }
         return next.handle(request)
         .pipe(

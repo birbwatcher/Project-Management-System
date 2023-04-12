@@ -41,9 +41,7 @@ export class AddBoardModalComponent implements OnInit {
     return this.form.controls.title as FormControl
   }
 
-  submit() {
-    
-  }
+  submit() {}
 
   private _filter(name: string): UserResponse[] {
     const filterValue = name.toLowerCase();
@@ -54,7 +52,6 @@ export class AddBoardModalComponent implements OnInit {
     const user = event.option.value as UserResponse;
     if (!this.selectedUsers.includes(user)) {
       this.selectedUsers.push(user);
-      
     }
     this.formControl.setValue('');
   }

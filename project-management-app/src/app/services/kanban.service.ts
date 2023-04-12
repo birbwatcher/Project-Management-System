@@ -96,6 +96,9 @@ export class KanbanService {
     this.auth.getUserId()
     this.httpService.addTask(title, description, this.actualBoardId as string, colId, order, users).subscribe()
     this.getTasksSet()
+    this.httpService.getTasksSet(this.actualBoardId as string).subscribe(result => {
+      return this.store.dispatch(updateTasksAction({tasks: result.sort((a, b) => a.order > b.order ? 1 : -1)}))
+    })
   }
 
   editTask(title: string, description: string, task:Task, users: UserResponse[]) {
@@ -124,6 +127,9 @@ export class KanbanService {
   deleteTask(task: Task){
     this.httpService.removeTask(task).subscribe()
     this.getTasksSet()
+    this.httpService.getTasksSet(this.actualBoardId as string).subscribe(result => {
+      return this.store.dispatch(updateTasksAction({tasks: result.sort((a, b) => a.order > b.order ? 1 : -1)}))
+    })
   }
 
   getAllUsers() {

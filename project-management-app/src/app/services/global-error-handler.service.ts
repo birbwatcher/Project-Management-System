@@ -14,7 +14,6 @@ export class GlobalErrorHandlerService implements ErrorHandler {
   }
 
   handleError(error: any): void {
-    console.log(error, 'there is an error')
     this.zone.run(() => {
       if (error.status != 401) {
         this.modal.showError(error)

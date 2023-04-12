@@ -57,5 +57,6 @@
     "are-you-sure": "Are you sure?",
     "not-found": "Page Not Found - 404",
     "edit-task": "Edit Task",
-    "delete": "Delete"
+    "delete": "Delete",
+    "choose-board-users": "Choose board users"
 }

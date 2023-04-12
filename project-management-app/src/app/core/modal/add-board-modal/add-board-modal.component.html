@@ -2,7 +2,7 @@
     <input type="text" class="border w-full py-2 px-4 mb-2" placeholder="{{'board-name' | translate}}" formControlName="title" required>
 
     <mat-form-field class="example-chip-list">
-        <input type="text" placeholder="{{'choose-board-owner' | translate}}" matInput [matChipInputFor]="chipGrid" [formControl]="formControl" [matAutocomplete]="auto">
+        <input type="text" placeholder="{{'choose-board-users' | translate}}" matInput [matChipInputFor]="chipGrid" [formControl]="formControl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
             <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
             {{user.name}}

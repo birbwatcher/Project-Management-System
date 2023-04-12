@@ -1,8 +1,8 @@
 <form flex flex-col justify-between  [formGroup]="form" (ngSubmit)="submit()">
-    <input type="text" class="border w-full py-2 px-4 mb-2" placeholder="Board Name" formControlName="title" required>
+    <input type="text" class="border w-full py-2 px-4 mb-2" placeholder="{{'board-name' | translate}}" formControlName="title" required>
 
     <mat-form-field class="example-chip-list">
-        <input type="text" placeholder="Choose responsible users" matInput [matChipInputFor]="chipGrid" [formControl]="formControl" [matAutocomplete]="auto">
+        <input type="text" placeholder="{{'choose-board-owner' | translate}}" matInput [matChipInputFor]="chipGrid" [formControl]="formControl" [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
             <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
             {{user.name}}
@@ -16,9 +16,9 @@
         </mat-chip>
     </mat-chip-grid>
 
-    <button type="button" disabled [class.cursor-not-allowed]="title.errors?.minlength" [disabled]="title.errors?.minlength||title.errors?.required" [mat-dialog-close]="form.value" type="submit" class="py-2 px-4 bg-blue-600 text-white cursor-not-allowed disabled:bg-blue-300">Add Board</button>
-    <button [mat-dialog-close] class="py-2 px-4 bg-red-600 text-white">Close</button>
+    <button type="button" disabled [class.cursor-not-allowed]="title.errors?.minlength" [disabled]="title.errors?.minlength||title.errors?.required" [mat-dialog-close]="form.value" type="submit" class="py-2 px-4 bg-blue-600 text-white cursor-not-allowed disabled:bg-blue-300">{{"add-new-board" | translate}}</button>
+    <button [mat-dialog-close] class="py-2 px-4 bg-red-600 text-white">{{"close" | translate}}</button>
     <div *ngIf="title.errors?.required&&title.touched">
-        <p class="text-red-600 font-medium mb-2" >Task name can't be blank</p>
+        <p class="text-red-600 font-medium mb-2" >{{"board-name-cant-be-blank" | translate }}</p>
     </div>
 </form>

@@ -7,7 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./language-switch.component.scss']
 })
 
-export class LanguageSwitchComponent implements OnInit {
+export class LanguageSwitchComponent {
   constructor(private translateService: TranslateService) {}
 
    dropdowned = false;
@@ -15,10 +15,6 @@ export class LanguageSwitchComponent implements OnInit {
 
    langSwitch() {
     this.dropdowned = !this.dropdowned;
-  }
-
-  ngOnInit(): void {
-    this.translateService.use('en-US');
   }
 
   switchRu() {

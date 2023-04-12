@@ -13,9 +13,9 @@
             <button routerLink="/sign-up" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">{{"signup" | translate}}</button>
           </ng-template>
           <ng-template [ngIf]="isLogged()">
-            <li><button class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="addBoard()" routerLink="/dashboard">+ Create New Board</button></li>
-            <li><button routerLink="/profile" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">Edit Profile</button></li>
-            <li><button routerLink="/" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="removeToken()">Sign out</button></li>
+            <li><button class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="addBoard()" routerLink="/dashboard">{{"add-new-board" | translate}}</button></li>
+            <li><button routerLink="/profile" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">{{"edit-profile" | translate}}</button></li>
+            <li><button routerLink="/" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="removeToken()">{{"sign-out" | translate}}</button></li>
           </ng-template>
           <div class="flex items-center">
             <app-language-switch></app-language-switch>
@@ -24,9 +24,9 @@
       </nav>
       <nav class="sm:hidden px-4 flex">
         <ng-template [ngIf]="isLogged()">
-          <button class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="Add new board"><mat-icon aria-label="Example home icon" (click)="addBoard()" routerLink="/dashboard">add_box</mat-icon></button>
-          <button routerLink="/profile" class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="Profile"><mat-icon aria-label="Example home icon">account_circle</mat-icon></button>
-          <button routerLink="/" class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="Logout" (click)="removeToken()"><mat-icon aria-label="Example home icon">logout</mat-icon></button>
+          <button class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="{{'add-new-board' | translate}}"><mat-icon aria-label="Example home icon" (click)="addBoard()" routerLink="/dashboard">add_box</mat-icon></button>
+          <button routerLink="/profile" class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="{{'edit-profile' | translate}}"><mat-icon aria-label="Example home icon">account_circle</mat-icon></button>
+          <button routerLink="/" class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="{{'sign-out' | translate}}" (click)="removeToken()"><mat-icon aria-label="Example home icon">logout</mat-icon></button>
           <div class="w-10 flex items-center"><app-language-switch></app-language-switch></div>
         </ng-template>
         <ng-template [ngIf]="!isLogged()">

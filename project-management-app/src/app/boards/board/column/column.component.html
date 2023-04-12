@@ -1,4 +1,4 @@
-<div class="column flex flex-col basis p-2 m-3 w-60 bg-yellow-100 rounded-lg shadow-lg" cdkDrag>
+<div class="column flex flex-col basis p-2 m-3 w-60 bg-yellow-100 rounded-lg shadow-lg hover:bg-orange-100" cdkDrag>
     <div *ngIf="kanbanService.taskFilter(this.column._id) | async as tasks">
         <div cdkDropList  [cdkDropListData]="getColumnTasks(this.column._id)" (cdkDropListDropped)="taskDrop($event, tasks)">
             <div class="flex justify-between">
@@ -14,5 +14,5 @@
             <app-card *ngFor="let item of tasks" [task]="item"></app-card>
         </div>
     </div>
-    <div class="task flex rounded-lg shadow-lg m-1 p-1 border border-dashed border-gray-900 cursor-pointer hover:bg-white" (click)="addCard()">+ Add a card</div>
+    <div class="task flex rounded-lg shadow-lg m-1 p-1 border border-dashed border-gray-900 cursor-pointer hover:bg-white duration-150" (click)="addCard()">+ Add a card</div>
 </div>

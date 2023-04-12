@@ -40,7 +40,6 @@ import { SearchbarComponent } from './core/header/searchbar/searchbar.component'
 import { SearchResultsComponent } from './core/search-results/search-results.component';
 import { GlobalErrorHandlerService } from './services/global-error-handler.service';
 import { ErrorComponent } from './core/modal/error/error.component';
-import { TetComponent } from './auth/tet/tet.component';
 import { LoaderComponent } from './core/loader/loader.component';
 
 @NgModule({
@@ -67,7 +66,6 @@ import { LoaderComponent } from './core/loader/loader.component';
     SearchbarComponent,
     SearchResultsComponent,
     ErrorComponent,
-    TetComponent,
     LoaderComponent,
   ],
   imports: [

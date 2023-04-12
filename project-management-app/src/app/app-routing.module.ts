@@ -9,7 +9,6 @@ import { ProfileComponent } from './auth/profile/profile.component';
 import { AuthGuard } from './services/auth.guard';
 import { DashboardComponent } from './boards/dashboard/dashboard.component';
 import { SearchResultsComponent } from './core/search-results/search-results.component';
-import { TetComponent } from './auth/tet/tet.component';
 
 const routes: Routes = [
   {path: '', component: MainPageComponent},
@@ -34,10 +33,6 @@ const routes: Routes = [
     path: 'search', 
     component: SearchResultsComponent,
     canActivate: [AuthGuard]
-  },
-  {
-    path: 'tet',
-    component: TetComponent
   },
   {path: '**', pathMatch: 'full', component: PageNotFoundComponent}
 ];

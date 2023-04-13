@@ -63,6 +63,6 @@
     "no-assigned-boards": "You do not assigned to any boards yet",
     "not-allowed-board": "You are not allowed to delete boards of other users",
     "not-allowed-column": "You are not allowed to delete columns of other users",
-    "not-allowed-task": "You are not allowed to delete tasks of other users. If this task is completed, move it to completed column"
+    "not-allowed-task": "You are not allowed to delete tasks in the boards of other users. If this task is completed, move it to completed column"
 
 }

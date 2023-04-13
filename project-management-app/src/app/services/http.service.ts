@@ -1,14 +1,14 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { catchError, finalize, map, throwError } from 'rxjs';
-import { Board, Column, Task, User, UserResponse } from '../models/app.models';
+import { finalize } from 'rxjs';
+import { Board, Column, Task, UserResponse } from '../models/app.models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  private baseUrl = 'http://127.0.0.1:3000';
+  private baseUrl = 'https://pma-backend-production-b640.up.railway.app';
   isLoading = false;
 
   getHeaders() {

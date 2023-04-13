@@ -24,12 +24,10 @@ export class EditTaskModalComponent implements OnInit {
               private matDialog: MatDialog,
               public auth: AuthService) 
               {
-                // this.filteredUsers = of([]);
                 this.filteredUsers = of();
               }
 
   ngOnInit() {
-    // this.selectedUsers = this.kanbanService.allUsers.filter(item => this.data.users.includes(item._id))
     this.filteredUsers = this.formControl.valueChanges.pipe(
       startWith(''),
       map((value: string | UserResponse) => typeof value === 'string' ? value : value.name),
@@ -77,7 +75,6 @@ export class EditTaskModalComponent implements OnInit {
     const user = event.option.value as UserResponse;
     if (!this.selectedUsers.includes(user)) {
       this.selectedUsers.push(user);
-      
     }
     this.formControl.setValue('');
   }

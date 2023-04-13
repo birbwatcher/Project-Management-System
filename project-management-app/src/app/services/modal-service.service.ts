@@ -3,13 +3,11 @@ import { ConfirmWindowComponent } from '../core/modal/confirm-window/modal-windo
 import { MatDialog } from '@angular/material/dialog';
 import { KanbanService } from 'src/app/services/kanban.service';
 import { AddTaskModalComponent } from '../core/modal/add-task-modal/add-task-modal.component';
-import { Store } from '@ngrx/store'
 import { AddBoardModalComponent } from '../core/modal/add-board-modal/add-board-modal.component';
 import { AddColumnModalComponent } from '../core/modal/add-column-modal/add-column-modal.component';
 import { EditTaskModalComponent } from '../core/modal/edit-task-modal/edit-task-modal.component';
 import { Task } from 'src/app/models/app.models';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
 import { ErrorComponent } from '../core/modal/error/error.component';
 
 @Injectable({
@@ -26,8 +24,6 @@ export class ModalServiceService {
 
   addBoardModal() {
     const dialogRef = this.matDialog.open(AddBoardModalComponent, {
-      // width:'600px', 
-      // height:'350px', 
     });
 
     dialogRef.afterClosed().subscribe(formRes => {
@@ -43,8 +39,6 @@ export class ModalServiceService {
 
   addColModal(){
     const dialogRef = this.matDialog.open(AddColumnModalComponent, {
-      // width:'600px', 
-      // height:'350px', 
     });
 
     dialogRef.afterClosed().subscribe(formRes => {

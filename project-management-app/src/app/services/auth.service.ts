@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { User, UserResponse } from '../models/app.models';
-import { Route, Router } from '@angular/router';
-import { ModalServiceService } from './modal-service.service';
+import { Router } from '@angular/router';
+
 
 
 @Injectable({
@@ -11,7 +11,7 @@ import { ModalServiceService } from './modal-service.service';
 })
 export class AuthService{
 
-  private baseUrl = 'http://127.0.0.1:3000';
+  private baseUrl = 'https://pma-backend-production-b640.up.railway.app';
   private tokenKey: null | string = null;
   public username: null | string = null;
   public userId: null | string = null;

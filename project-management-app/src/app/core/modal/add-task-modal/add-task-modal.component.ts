@@ -50,10 +50,6 @@ export class AddTaskModalComponent implements OnInit {
     return this.form.controls.taskDescription as FormControl
   }
 
-  // get users() {
-  //   return this.form.controls.users as FormControl;
-  // }
-
   submit() {}
 
   private _filter(name: string): UserResponse[] {

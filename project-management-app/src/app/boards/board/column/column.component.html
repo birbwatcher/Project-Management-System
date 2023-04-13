@@ -15,7 +15,6 @@
             <app-card *ngFor="let item of tasks" [task]="item"></app-card>
         </div>
     </div>
-    <!-- <div class="task flex rounded-lg m-1 p-1 border border-dashed border-gray-900 cursor-pointer hover:bg-white duration-150 shadow-lg border-opacity-30" (click)="addCard()">+ Add a card</div> -->
     <button class="group relative overflow-hidden rounded-lg bg-white shadow" (click)="addCard()">
         <div class="absolute inset-0 w-3 bg-orange-300 transition-all duration-[250ms] ease-out group-hover:w-full"></div>
         <span class="relative text-black group-hover:text-white">{{"add-a-card" | translate}}</span>

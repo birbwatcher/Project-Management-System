@@ -16,9 +16,8 @@ import { ColumnComponent } from './boards/board/column/column.component';
 import { CardComponent } from './boards/board/card/card.component';
 import { DragDropModule} from '@angular/cdk/drag-drop';
 import { ConfirmWindowComponent } from './core/modal/confirm-window/modal-window.component';
-import { DEFAULT_DIALOG_CONFIG, Dialog, DialogRef } from '@angular/cdk/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddTaskModalComponent } from './core/modal/add-task-modal/add-task-modal.component';
 import { ProfileComponent } from './auth/profile/profile.component';
@@ -30,7 +29,7 @@ import { AddColumnModalComponent } from './core/modal/add-column-modal/add-colum
 import { EditTaskModalComponent } from './core/modal/edit-task-modal/edit-task-modal.component'
 import { TokenInterceptor } from './services/token.interceptor';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatChipGrid, MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';

@@ -6,6 +6,7 @@ import { Task, UserResponse } from 'src/app/models/app.models';
 import { ConfirmWindowComponent } from '../confirm-window/modal-window.component';
 import { Observable, map, of, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-edit-task-modal',
@@ -19,8 +20,9 @@ export class EditTaskModalComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<EditTaskModalComponent>, 
               @Inject(MAT_DIALOG_DATA) public data: Task,
-              private kanbanService: KanbanService,
-              private matDialog: MatDialog) 
+              public kanbanService: KanbanService,
+              private matDialog: MatDialog,
+              public auth: AuthService) 
               {
                 // this.filteredUsers = of([]);
                 this.filteredUsers = of();

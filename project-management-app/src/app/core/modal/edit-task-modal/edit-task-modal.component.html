@@ -27,8 +27,9 @@
             <button [mat-dialog-close] class="py-2 px-4 bg-red-600 text-white">{{"close" | translate}}</button>
         </div>
         <div>
-            <button (click)="deleteTask()" [mat-dialog-close] class="py-2 px-4 bg-red-600 text-white">{{"delete" | translate}}</button>
-        </div>
+            <button *ngIf="this.kanbanService.myActualBoardOwner === this.auth.getCurrentUserId() || this.auth.getCurrentUserId() === '641b1c0f87a6ecd1401b1b3f'" (click)="deleteTask()" [mat-dialog-close] class="py-2 px-4 bg-red-600 text-white">{{"delete" | translate}}</button>
+            <button *ngIf="this.kanbanService.myActualBoardOwner != this.auth.getCurrentUserId()" [mat-dialog-close] class="py-2 px-4 bg-red-600 text-white opacity-30" matTooltip="{{'not-allowed-task' | translate}}">{{"delete" | translate}}</button>
+          </div>
     </div>
     <div *ngIf="title.errors?.required&&title.touched">
         <p class="text-red-600 font-medium mb-2" >{{"task-name-cant-be-blank" | translate}}</p>

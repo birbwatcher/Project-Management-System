@@ -34,6 +34,14 @@ export class HttpService {
       }))
   }
 
+  getBoardOwner(id: string) {
+    this.isLoading = true;
+    return this.http.get<Board>(`${this.baseUrl}/boards/${id}`, this.getHeaders()).pipe(
+      finalize(() => {
+        this.isLoading = false;
+      }))
+  }
+
   addBoard(boardTitle: string, users: UserResponse[]) {
     this.isLoading = true;
     const headers = new HttpHeaders({

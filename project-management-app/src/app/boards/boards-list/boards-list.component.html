@@ -1,11 +1,10 @@
 <div class="p-2 m-3 w-60 bg-yellow-100 rounded-lg shadow-lg">
-    <h2 class="text-xl font-medium">{{newBoard.title}}</h2>
+    <h2 class="text-xl font-medium">{{board.title}}</h2>
     <div *ngIf="boardOwner$ | async as Owner">
         <p class="font-medium">{{"board-owner" | translate}} {{Owner.name}}</p>
     </div>
-    <!-- <p>Board id: {{newBoard._id}}</p> -->
     <p class="font-medium">{{"board-users" | translate}}</p>
-    <div *ngFor="let item of newBoard.users">
+    <div *ngFor="let item of board.users">
         <ul *ngFor="let it of boardUsers$ | async">
             <li *ngIf="it._id === item">{{it.name}}</li>
         </ul>
@@ -14,7 +13,8 @@
 
     <div class="flex justify-evenly">
       <button class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="getBoardId()" routerLink="/board">{{"go-to-board" | translate}}</button>
-      <button *ngIf="newBoard.owner === this.auth.getCurrentUserId()" class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="removeBoard()">{{"remove" | translate}}</button>
+      <button *ngIf="board.owner === this.auth.getCurrentUserId() || this.auth.getCurrentUserId() === '641b1c0f87a6ecd1401b1b3f'" class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 hover:text-white hover:bg-red-600 duration-300 hover:cursor-pointer" (click)="removeBoard()">{{"remove" | translate}}</button>
+      <button *ngIf="board.owner != this.auth.getCurrentUserId()" class="py-2 px-3 border-2 rounded-full bg-white border-gray-100 text-gray-200" matTooltip="{{'not-allowed-board' | translate}}">{{"remove" | translate}}</button>
     </div>
 <div>
 

@@ -3,7 +3,7 @@ import { KanbanService } from '../../../services/kanban.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ModalServiceService } from 'src/app/services/modal-service.service';
 import { Store } from '@ngrx/store';
-import { State } from 'src/app/models/app.models';
+import { Board, State } from 'src/app/models/app.models';
 import { updateTasksAction } from '../../state/boards.actions';
 import { HttpService } from '../../../services/http.service';
 import { Column, Task } from 'src/app/models/app.models';
@@ -33,7 +33,7 @@ export class ColumnComponent implements OnInit {
   private modalService:ModalServiceService,
   private store: Store<State>,
   private http: HttpService, 
-  private auth: AuthService
+  public auth: AuthService
   ) {}
  
  editingCheck() {

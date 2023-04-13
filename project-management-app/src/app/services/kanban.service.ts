@@ -26,6 +26,8 @@ export class KanbanService {
   currentUserAssignedBoards$: Observable<Board[]>
   searchResults$: Observable<Task[]>;
 
+  myActualBoardOwner: string;
+
   constructor
   (
     private store: Store<State>,
@@ -54,6 +56,10 @@ export class KanbanService {
     return this.httpService.addBoard(boardTitle, users)
   }
 
+  getBoardOwner(id: string) {
+    this.httpService.getBoardOwner(id).subscribe(res => this.myActualBoardOwner = res.owner)
+  }
+
   removeAllBoards() {
     return this.httpService.removeAllBoards()
   }
@@ -67,6 +73,7 @@ export class KanbanService {
   }
 
   getBoardColumns(id: string){
+    this.getBoardOwner(id);
     this.getAllUsers();
     this.httpService.getBoardColumns(id).subscribe(res => {
       return this.store.dispatch(updateColumnsAction({columns: res.sort((a, b) => a.order > b.order ? 1 : -1)}))

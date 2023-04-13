@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./boards-list.component.scss']
 })
 export class BoardsListComponent implements OnInit {
-  @Input() newBoard!: Board;
+  @Input() board!: Board;
   boardOwner$: Observable<UserResponse>
   boardUsers$: Observable<UserResponse[]>
 
@@ -22,20 +22,20 @@ export class BoardsListComponent implements OnInit {
               public auth:AuthService) {}
 
   ngOnInit(): void {
-    this.boardOwner$ = this.http.getUserName(this.newBoard.owner);
+    this.boardOwner$ = this.http.getUserName(this.board.owner);
     this.boardUsers$ = this.http.getAllUsers();
   }
 
   getBoardId() {
-    this.kanbanService.getBoardColumns(this.newBoard._id);
-    this.kanbanService.actualBoardId = this.newBoard._id;
+    this.kanbanService.getBoardColumns(this.board._id);
+    this.kanbanService.actualBoardId = this.board._id;
     this.kanbanService.myActualBoard$.subscribe().unsubscribe()
     this.kanbanService.getBoardLen()
     this.kanbanService.getTasksSet();
   }
 
   removeBoard(){
-    this.modalService.remBoardModal(this.newBoard._id)
+    this.modalService.remBoardModal(this.board._id)
   }
 
   getUserName(id: string): Observable<string> {

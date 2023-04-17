@@ -1,0 +1,9 @@
+<div class="flex justify-between px-2">
+    <button routerLink="/dashboard" class="sm:block hidden py-1 px-3 border-2 rounded-full border-white hover:text-white hover:bg-red-600 duration-300">{{"see-all-boards" | translate}}</button>
+    <button routerLink="/dashboard" class="sm:hidden flex flex-col justify-center items-center py-1 px-3 border-2 rounded-full border-white hover:text-white hover:bg-red-600 duration-300" mat-raised-button matTooltip="{{'see-all-boards' | translate}}"><mat-icon aria-label="Example home icon">list</mat-icon></button>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div>
+            <input formControlName="search" type="search" id="default-search" class="block w-full p-2 pl-10 text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:bg-gray-200 duration-300" placeholder="{{'search' | translate}}" required>
+        </div>
+    </form>
+</div>

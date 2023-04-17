@@ -1,0 +1,51 @@
+<header class="bg-gray-200">
+    <div class="flex justify-between pt-7 pb-5 px-2 container mx-auto">
+      <ng-template [ngIf]="!isLogged()">
+        <a routerLink="/"><h2 class="font-bold text-2xl  text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-600">RS Kanban APP</h2></a>
+      </ng-template>
+      <ng-template [ngIf]="isLogged()">
+        <a routerLink="/dashboard"><h2 class="font-bold text-2xl  text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-600">RS Kanban APP</h2></a>
+      </ng-template>
+      <nav class="sm:flex hidden">
+        <ul class="flex space-x-2">
+          <ng-template [ngIf]="!isLogged()">
+            <button routerLink="/sign-in" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">{{"login" | translate}}</button>
+            <button routerLink="/sign-up" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">{{"signup" | translate}}</button>
+          </ng-template>
+          <ng-template [ngIf]="isLogged()">
+            <li><button class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="addBoard()" routerLink="/dashboard">{{"add-new-board" | translate}}</button></li>
+            <li><button routerLink="/profile" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300">{{"edit-profile" | translate}}</button></li>
+            <li><button routerLink="/" class="py-1 px-3 border-2 rounded-full border-gray-100 hover:text-white hover:bg-red-600 duration-300" (click)="removeToken()">{{"sign-out" | translate}}</button></li>
+          </ng-template>
+          <div class="flex items-center">
+            <app-language-switch></app-language-switch>
+          </div>
+        </ul>
+      </nav>
+      <nav class="sm:hidden px-4 flex">
+        <ng-template [ngIf]="isLogged()">
+          <button class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="{{'add-new-board' | translate}}"><mat-icon aria-label="Example home icon" (click)="addBoard()" routerLink="/dashboard">add_box</mat-icon></button>
+          <button routerLink="/profile" class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="{{'edit-profile' | translate}}"><mat-icon aria-label="Example home icon">account_circle</mat-icon></button>
+          <button routerLink="/" class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="{{'sign-out' | translate}}" (click)="removeToken()"><mat-icon aria-label="Example home icon">logout</mat-icon></button>
+          <div class="w-10 flex items-center"><app-language-switch></app-language-switch></div>
+        </ng-template>
+        <ng-template [ngIf]="!isLogged()">
+          <div class="flex space-x-2">
+            <button routerLink="/sign-in" class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="Login"><mat-icon aria-label="Example home icon">login</mat-icon></button>
+            <button routerLink="/sign-up" class="flex items-center pr-3 hover:scale-110 duration-300" mat-raised-button matTooltip="Register"><mat-icon aria-label="Example home icon">key</mat-icon></button>
+          </div>
+          <div class="flex items-center">
+            <app-language-switch></app-language-switch>
+          </div>
+        </ng-template>
+        </nav>
+    </div>
+    <app-loader></app-loader>
+    <ng-template [ngIf]="isLogged()">
+      <section class="bg-gray-100 py-3">
+        <div class="container mx-auto">
+          <app-searchbar></app-searchbar>
+        </div>
+    </section>
+    </ng-template>
+  </header>

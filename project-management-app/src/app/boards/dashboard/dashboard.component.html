@@ -1,0 +1,21 @@
+<div class="flex flex-col">
+    <div class="container mx-auto">
+        <h2 class="text-center text-xl font-medium">{{"your-boards" | translate}}</h2>
+        <div class="flex flex-wrap justify-center">
+            <app-boards-list *ngFor="let item of this.kanbanService.currentUserBoards$ | async" [board]="item"></app-boards-list>
+        </div>
+        <div *ngIf="(this.kanbanService.currentUserBoards$ | async)?.length===0">
+            <h3 class="text-center">{{"no-your-boards" | translate}}</h3></div>
+        <h2 class="text-center text-xl font-medium">{{"assigned-boards" | translate}}</h2>
+        <div class="flex flex-wrap justify-center">
+            <app-boards-list *ngFor="let item of this.kanbanService.currentUserAssignedBoards$ | async" [board]="item"></app-boards-list>
+        </div>
+        <div *ngIf="(this.kanbanService.currentUserAssignedBoards$ | async)?.length===0">
+            <h3 class="text-center">{{"no-assigned-boards" | translate}}</h3></div>
+        <h2 class="text-center text-xl font-medium">{{"all-current-boards" | translate}}</h2>
+        <div class="flex flex-wrap justify-center">
+            <app-boards-list *ngFor="let item of this.kanbanService.myBoardsList$ | async" [board]="item"></app-boards-list>
+        </div>
+    </div>
+
+</div>

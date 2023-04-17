@@ -1,0 +1,10 @@
+<div class="board flex grow overflow-x-auto min-h-full"  >
+    <ng-template [ngIf]="isLogged()">
+        <div class="columns flex grow" *ngIf="kanbanService.myActualBoard$ | async as board">
+            <div class="board flex grow overflow-x-auto min-h-full" cdkDropListGroup cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="columnDrop($event, board)">
+                <app-column *ngFor="let item of board" [column]="item"></app-column>
+                <div class="column flex flex-col basis p-6 m-3 w-60 bg-gray-100 rounded-lg shadow-lg justify-center items-center text-gray-400 text-7xl cursor-pointer hover:bg-gray-50 duration-150" (click)="addColumn()">+</div>
+            </div>
+        </div>
+    </ng-template>
+</div>
